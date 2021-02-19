@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.net.Uri;
 import android.provider.ContactsContract;
 
 import androidx.annotation.Nullable;
@@ -49,14 +50,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private void createUserInformationTable() {
 
         String createTableStatement = "CREATE TABLE " + USER_TABLE +
-                " (ID INTEGER PRIMARY KEY AUTOINCREMENT, CUSTOMER_NAME TEXT)";
+                " (ID INTEGER PRIMARY KEY AUTOINCREMENT, CUSTOMER_NAME TEXT, IMAGE_URI TEXT)";
 
         db.execSQL(createTableStatement);
 
     }
 
     //Insert User
-    public boolean insertUser(String userName){
+    public boolean insertUser(String userName, Uri imageURI){
         try {
             if(userName.isEmpty())
                 throw new Exception("Error: Cannot accept empty name!");
@@ -65,6 +66,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 ContentValues cv = new ContentValues();
 
                 cv.put("CUSTOMER_NAME", userName);
+                cv.put("IMAGE_URI", String.valueOf(imageURI));
 
                 long insertResult = db.insert(USER_TABLE,null,cv);
 
