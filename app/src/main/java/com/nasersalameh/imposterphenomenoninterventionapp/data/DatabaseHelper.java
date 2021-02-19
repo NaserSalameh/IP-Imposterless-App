@@ -5,23 +5,28 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.ContactsContract;
 
 import androidx.annotation.Nullable;
 
+import com.nasersalameh.imposterphenomenoninterventionapp.R;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Response;
 
 import java.util.Map;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String DB_FULL_PATH = "";
 
     public static final String USER_TABLE = "USER_TABLE";
     private static final String CIPS_TABLE ="CIPS_TABLE" ;
-    SQLiteDatabase db;
+    private SQLiteDatabase db;
+    private static String DB_NAME = "IPInterventionDatabase.db";
+
+    private Context context;
 
     public DatabaseHelper(@Nullable Context context) {
-        super(context, "IPInterventionDB.db", null, 1);
+        super(context, DB_NAME, null, 1);
+        this.context = context;
     }
 
     //Will be called the first time the database is created. The method will Create all necessary tables.
@@ -33,7 +38,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         createUserInformationTable();
         createCIPsResponsesTable();
 
-
     }
 
     //whenever version number changes
@@ -41,19 +45,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
-
-    //This will check if the database exists
-    public boolean checkForDatabase() {
-        try {
-            db = SQLiteDatabase.openDatabase(DB_FULL_PATH, null,
-                    SQLiteDatabase.OPEN_READONLY);
-            db.close();
-        } catch (SQLiteException e) {
-            // database doesn't exist yet.
-        }
-        return db != null;
-    }
-
 
     private void createUserInformationTable() {
 
@@ -92,11 +83,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private void createCIPsResponsesTable() {
 
-//        String createTableStatement = "CREATE TABLE " + CIPS_TABLE +
-//                " (ID INTEGER PRIMARY KEY AUTOINCREMENT, CUSTOMER_NAME TEXT)";
-//        db.execSQL(createTableStatement);
+        //Date will be UNIX time
+        String createTableStatement = "CREATE TABLE " + CIPS_TABLE + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, DATE INTEGER, " +
+                "RESPONSE_1 INTEGER, RESPONSE_2 INTEGER, RESPONSE_3 INTEGER, " +
+                "RESPONSE_4 INTEGER, RESPONSE_5 INTEGER, RESPONSE_6 INTEGER, " +
+                "RESPONSE_7 INTEGER, RESPONSE_8 INTEGER, RESPONSE_9 INTEGER, " +
+                "RESPONSE_10 INTEGER, RESPONSE_11 INTEGER, RESPONSE_12 INTEGER, " +
+                "RESPONSE_13 INTEGER, RESPONSE_14 INTEGER, RESPONSE_15 INTEGER, " +
+                "RESPONSE_16 INTEGER, RESPONSE_17 INTEGER, RESPONSE_18 INTEGER, " +
+                "RESPONSE_19 INTEGER, RESPONSE_20 INTEGER, " +
+                "TOTAL_CIPS_SCORE INTEGER, " +
+                "ABILITY_SCORE INTEGER, ACHIEVEMENT_SCORE INTEGER, PERFECTIONISM_SCORE INTEGER)";
 
-
+        db.execSQL(createTableStatement);
     }
 
     public boolean insertCIPsResponse(CIPsResponse response){
@@ -109,7 +108,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 ContentValues cv = new ContentValues();
 
                 for(Map.Entry entry : response.getCIPsIDResponseMap().entrySet()){
-                    String question = response.getCIPsQuestionString((Integer) entry.getKey());
                     Integer questionID = (Integer) entry.getKey();
                     Integer questionResponse = (Integer) entry.getValue();
 

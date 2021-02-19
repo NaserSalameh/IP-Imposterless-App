@@ -1,5 +1,6 @@
 package com.nasersalameh.imposterphenomenoninterventionapp.data;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -8,14 +9,37 @@ import java.util.Objects;
 
 public class CIPsResponse {
 
-    private Date responseDate;
+    //Time in UNIX timestamp
+    private Long responseDate;
     private ArrayList<String> cipsQuestions;
     private HashMap<Integer,String> cipsIDQuestionMapping;
     private HashMap<Integer,Integer> cipsIDResponseMapping;
 
-    public CIPsResponse(Date date, HashMap<Integer,Integer> responses){
+    public CIPsResponse(Long date, HashMap<Integer,Integer> responses){
         this.responseDate = date;
 
+        //populate Questions Text
+        populateQuestions();
+
+        //map responses to IDs:
+        cipsIDResponseMapping = new HashMap<>();
+        for(int i=0;i<responses.size();i++)
+            cipsIDResponseMapping.put(i,responses.get(i));
+    }
+    public CIPsResponse(Long date){
+        this.responseDate = date;
+
+        cipsIDResponseMapping = new HashMap<>();
+
+        //populate Questions Text
+        populateQuestions();
+    }
+
+    public Long getResponseDate() {
+        return responseDate;
+    }
+
+    public void populateQuestions(){
         //Digitised CIPs Questions:
         cipsQuestions = new ArrayList<>();
         cipsQuestions.add("I have often succeeded on a test or task even though I was afraid that I would not do well before I undertook the task.");
@@ -44,14 +68,11 @@ public class CIPsResponse {
         for(int i=0;i<cipsQuestions.size();i++)
             cipsIDQuestionMapping.put(i,cipsQuestions.get(i));
 
-        //map responses to IDs:
-        cipsIDResponseMapping = new HashMap<>();
-        for(int i=0;i<responses.size();i++)
-            cipsIDResponseMapping.put(i,responses.get(i));
     }
 
-    public Date getResponseDate() {
-        return responseDate;
+    //will add response and overwrite if already existent
+    public void addResponse(int questionID, int response){
+        cipsIDResponseMapping.put(questionID,response);
     }
 
     public String getCIPsQuestionString(Integer questionID){
