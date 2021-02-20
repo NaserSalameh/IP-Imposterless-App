@@ -15,28 +15,51 @@ public class CIPsResponse {
     private HashMap<Integer,String> cipsIDQuestionMapping;
     private HashMap<Integer,Integer> cipsIDResponseMapping;
 
-    public CIPsResponse(Long date, HashMap<Integer,Integer> responses){
-        this.responseDate = date;
+    //This will allow for partial responses, and smaller quizzes to use to keep track of User's Growth
+    //Response collected could be:
+    //Full: entails a Full CIPs Response
+    //Ability: Collecting responses to only calculate an Ability Score
+    //Achievement: Collecting responses to only calculate an Achievement Score
+    //Perfectionism: Collecting responses to only calculate an Perfectionism Score
+    private String responsesCollected;
 
-        //populate Questions Text
-        populateQuestions();
+    //ArrayLists to hold on Question IDs of CIPs Subcats:
+    private ArrayList<Integer> abilityIDs;
+    private ArrayList<Integer> achievementIDs;
+    private ArrayList<Integer> perfectionismIDs;
+
+    //Calculated Values
+    private int cipsTotal;
+    private int abilityScore;
+    private int achievementScore;
+    private int perfectionismScore;
+
+
+    //Constructor if we already have collected the answers in one-go
+    public CIPsResponse(HashMap<Integer,Integer> responses, String responsesCollected){
+        this.responseDate = System.currentTimeMillis();
+
+        this.responsesCollected = responsesCollected;
 
         //map responses to IDs:
         cipsIDResponseMapping = new HashMap<>();
         for(int i=0;i<responses.size();i++)
             cipsIDResponseMapping.put(i,responses.get(i));
-    }
-    public CIPsResponse(Long date){
-        this.responseDate = date;
-
-        cipsIDResponseMapping = new HashMap<>();
 
         //populate Questions Text
         populateQuestions();
     }
 
-    public Long getResponseDate() {
-        return responseDate;
+    //Constructor to add the answers slowly
+    public CIPsResponse(String responsesCollected){
+        this.responseDate = System.currentTimeMillis();
+
+        cipsIDResponseMapping = new HashMap<>();
+
+        this.responsesCollected = responsesCollected;
+
+        //populate Questions Text
+        populateQuestions();
     }
 
     public void populateQuestions(){
@@ -68,6 +91,24 @@ public class CIPsResponse {
         for(int i=0;i<cipsQuestions.size();i++)
             cipsIDQuestionMapping.put(i,cipsQuestions.get(i));
 
+        //populate Ability Subcat ID:
+        abilityIDs = new ArrayList<>();
+        abilityIDs.add(0);
+        abilityIDs.add(16);
+        abilityIDs.add(17);
+
+        //populate Achievement Subcat ID:
+        achievementIDs = new ArrayList<>();
+        achievementIDs.add(9);
+        achievementIDs.add(11);
+        achievementIDs.add(15);
+
+        //populate Perfectionism Subcat ID:
+        perfectionismIDs = new ArrayList<>();
+        perfectionismIDs.add(6);
+        perfectionismIDs.add(7);
+        perfectionismIDs.add(19);
+
     }
 
     //will add response and overwrite if already existent
@@ -91,6 +132,10 @@ public class CIPsResponse {
         return cipsIDResponseMapping;
     }
 
+    public Long getResponseDate() {
+        return responseDate;
+    }
+
     //Special bi-directional get to get key using value
     private static <T, E> T getFromBiMap(Map<T, E> map, E value) {
         for (Map.Entry<T, E> entry : map.entrySet()) {
@@ -101,4 +146,75 @@ public class CIPsResponse {
         return null;
     }
 
+    public void calculateScoreValues(){
+        calculateCIPsTotal();
+        switch (responsesCollected){
+            case "FULL":
+                calculateAbilityScore();
+                calculateAchievementScore();
+                calculatePerfectionismScore();
+                break;
+            case "ABILITY":
+                calculateAbilityScore();
+                break;
+            case "ACHIEVEMENT":
+                calculateAchievementScore();
+                break;
+            case "PERFECTIONISM":
+                calculatePerfectionismScore();
+                break;
+        }
+    }
+
+    private int calculateCIPsTotal(){
+        int cipsTotal = 0;
+        for(Map.Entry entry: cipsIDResponseMapping.entrySet())
+            cipsTotal+= (int) entry.getValue();
+
+        this.cipsTotal = cipsTotal;
+        return cipsTotal;
+    }
+
+    public int getCipsTotal() {
+        return cipsTotal;
+    }
+
+    private int calculateAbilityScore(){
+        int abilityScore = 0;
+        for(Integer abilityID: abilityIDs)
+            abilityScore += cipsIDResponseMapping.get(abilityID);
+
+        this.abilityScore = abilityScore;
+        return abilityScore;
+    }
+
+    private int calculateAchievementScore(){
+        int achievementScore = 0;
+        for(Integer achievementID: achievementIDs)
+            achievementScore += cipsIDResponseMapping.get(achievementID);
+
+        this.achievementScore = achievementScore;
+        return achievementScore;
+    }
+
+    private int calculatePerfectionismScore(){
+        int perfectionismScore = 0;
+        for(Integer perfectionismID: perfectionismIDs)
+            perfectionismScore += cipsIDResponseMapping.get(perfectionismID);
+
+        this.perfectionismScore = perfectionismScore;
+        return perfectionismScore;
+    }
+
+    public int getAbilityScore() {
+        return abilityScore;
+    }
+
+    public int getAchievementScore() {
+        return achievementScore;
+    }
+
+    public int getPerfectionismScore() {
+        return perfectionismScore;
+    }
 }

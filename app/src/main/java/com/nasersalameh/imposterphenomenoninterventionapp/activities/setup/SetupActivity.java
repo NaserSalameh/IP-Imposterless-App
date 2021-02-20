@@ -21,6 +21,8 @@ import com.nasersalameh.imposterphenomenoninterventionapp.R;
 import com.nasersalameh.imposterphenomenoninterventionapp.data.CIPsResponse;
 import com.nasersalameh.imposterphenomenoninterventionapp.data.DatabaseHelper;
 
+import java.util.Map;
+
 public class SetupActivity extends AppCompatActivity {
 
     public static final int IMAGE_REQUEST_CODE = 1000;
@@ -61,7 +63,7 @@ public class SetupActivity extends AppCompatActivity {
     private ProgressBar progressBar;
 
     private int progress;
-    public static final int COMPLETE_PROGRESS = 100;
+    public static final int COMPLETE_PROGRESS = 84;
 
 
     @Override
@@ -70,7 +72,7 @@ public class SetupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_setup_personal);
 
         dbHelper = new DatabaseHelper(SetupActivity.this);
-        response = new CIPsResponse(System.currentTimeMillis()/1000L);
+        response = new CIPsResponse("FULL");
         //Progress Bar progress
         progress = 0;
 
@@ -139,6 +141,11 @@ public class SetupActivity extends AppCompatActivity {
         rangeSlider3 = findViewById(R.id.rangeSlider3);
         rangeSlider4 = findViewById(R.id.rangeSlider4);
 
+        rangeSlider1.setValues(3f);
+        rangeSlider2.setValues(3f);
+        rangeSlider3.setValues(3f);
+        rangeSlider4.setValues(3f);
+
         questionView1 = findViewById(R.id.questionText1);
         questionView2 = findViewById(R.id.questionText2);
         questionView3 = findViewById(R.id.questionText3);
@@ -155,6 +162,7 @@ public class SetupActivity extends AppCompatActivity {
         populateQuestions();
 
         cipsButton.setOnClickListener(v -> {
+            System.out.println(progress);
             if(progress == COMPLETE_PROGRESS) {
                 collectResponses();
                 wrapUpSetUp();
@@ -207,10 +215,10 @@ public class SetupActivity extends AppCompatActivity {
 
     private void moveAheadCIPsSetup() {
         //reset rangeSliders
-        rangeSlider1.setValues(1f);
-        rangeSlider2.setValues(1f);
-        rangeSlider3.setValues(1f);
-        rangeSlider4.setValues(1f);
+        rangeSlider1.setValues(3f);
+        rangeSlider2.setValues(3f);
+        rangeSlider3.setValues(3f);
+        rangeSlider4.setValues(3f);
 
         progressBar.setProgress(progress+=16);
 

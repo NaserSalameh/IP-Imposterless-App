@@ -33,7 +33,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //Will be called the first time the database is created. The method will Create all necessary tables.
     @Override
     public void onCreate(SQLiteDatabase db) {
-
+        this.db = db;
         //TO DO: Add methods for each new activity that requires its own table
         //Create Table for setup (User Information Table (Just Name) and CIPs responses table)
         createUserInformationTable();
@@ -70,6 +70,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
                 long insertResult = db.insert(USER_TABLE,null,cv);
 
+                System.out.println("WE WROTE IT");
                 if(insertResult == -1)
                     return false;
                 else
@@ -87,13 +88,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         //Date will be UNIX time
         String createTableStatement = "CREATE TABLE " + CIPS_TABLE + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, DATE INTEGER, " +
-                "RESPONSE_1 INTEGER, RESPONSE_2 INTEGER, RESPONSE_3 INTEGER, " +
-                "RESPONSE_4 INTEGER, RESPONSE_5 INTEGER, RESPONSE_6 INTEGER, " +
-                "RESPONSE_7 INTEGER, RESPONSE_8 INTEGER, RESPONSE_9 INTEGER, " +
-                "RESPONSE_10 INTEGER, RESPONSE_11 INTEGER, RESPONSE_12 INTEGER, " +
-                "RESPONSE_13 INTEGER, RESPONSE_14 INTEGER, RESPONSE_15 INTEGER, " +
-                "RESPONSE_16 INTEGER, RESPONSE_17 INTEGER, RESPONSE_18 INTEGER, " +
-                "RESPONSE_19 INTEGER, RESPONSE_20 INTEGER, " +
+                "RESPONSES_TYPE TEXT, "+
+                "RESPONSE_0 INTEGER, RESPONSE_1 INTEGER, RESPONSE_2 INTEGER, " +
+                "RESPONSE_3 INTEGER, RESPONSE_4 INTEGER, RESPONSE_5 INTEGER, " +
+                "RESPONSE_6 INTEGER, RESPONSE_7 INTEGER, RESPONSE_8 INTEGER, " +
+                "RESPONSE_9 INTEGER, RESPONSE_10 INTEGER, RESPONSE_11 INTEGER, " +
+                "RESPONSE_12 INTEGER, RESPONSE_13 INTEGER, RESPONSE_14 INTEGER, " +
+                "RESPONSE_15 INTEGER, RESPONSE_16 INTEGER, RESPONSE_17 INTEGER, " +
+                "RESPONSE_18 INTEGER, RESPONSE_19 INTEGER, " +
                 "TOTAL_CIPS_SCORE INTEGER, " +
                 "ABILITY_SCORE INTEGER, ACHIEVEMENT_SCORE INTEGER, PERFECTIONISM_SCORE INTEGER)";
 
@@ -109,12 +111,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 db = this.getWritableDatabase();
                 ContentValues cv = new ContentValues();
 
+                cv.put("DATE", response.getResponseDate());
+                cv.put("RESPONSES_TYPE" , "FULL");
+
                 for(Map.Entry entry : response.getCIPsIDResponseMap().entrySet()){
                     Integer questionID = (Integer) entry.getKey();
                     Integer questionResponse = (Integer) entry.getValue();
 
                     cv.put("RESPONSE_" + questionID, questionResponse);
                 }
+
+                //calculate various CIPs Scores
+                response.calculateScoreValues();
+                cv.put("TOTAL_CIPS_SCORE", response.getCipsTotal());
+                cv.put("ABILITY_SCORE", response.getAbilityScore());
+                cv.put("ACHIEVEMENT_SCORE", response.getAchievementScore());
+                cv.put("PERFECTIONISM_SCORE", response.getPerfectionismScore());
 
                 long insertResult = db.insert(CIPS_TABLE,null,cv);
 
