@@ -22,8 +22,6 @@ import com.nasersalameh.imposterphenomenoninterventionapp.R;
 import com.nasersalameh.imposterphenomenoninterventionapp.data.CIPsResponse;
 import com.nasersalameh.imposterphenomenoninterventionapp.data.DatabaseHelper;
 
-import java.util.Map;
-
 public class SetupActivity extends AppCompatActivity {
 
     public static final int IMAGE_REQUEST_CODE = 1000;
@@ -42,8 +40,12 @@ public class SetupActivity extends AppCompatActivity {
     private Button personalButton;
     //Information Page Button
     private Button informationButton;
-    //CIPs Button
+    //CIPs Questions page Button
     private Button cipsButton;
+    //results page button
+    private Button resultsButtons;
+    //tailored plan page button
+    private Button planButton;
 
     //nameTextBox
     private EditText nameTextBox;
@@ -57,14 +59,29 @@ public class SetupActivity extends AppCompatActivity {
     private RangeSlider rangeSlider3;
     private RangeSlider rangeSlider4;
 
+    //CIPs Questions Text View
     private TextView questionView1;
     private TextView questionView2;
     private TextView questionView3;
     private TextView questionView4;
 
+    //Results Text View
+    private TextView cipsScoreView;
+    private TextView cipsResultview;
 
-    //Progress Bar
+    private TextView abilityScoreView;
+    private TextView achievementScoreView;
+    private TextView perfectionismScoreView;
+
+    //Progress Bars
+    //CIPs Questions progressBar
     private ProgressBar progressBar;
+    //Ability Scale Bar
+    private ProgressBar abilityScaleBar;
+    //Achievement Scale Bar
+    private ProgressBar achievementScaleBar;
+    //Perfectionism Scale Bar
+    private ProgressBar perfectionismScaleBar;
 
     private int progress;
     public static final int COMPLETE_PROGRESS = 84;
@@ -140,7 +157,6 @@ public class SetupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_setup_cips);
 
         //Setup UI:
-
         scrollView = findViewById(R.id.scrollView);
 
         rangeSlider1 = findViewById(R.id.rangeSlider1);
@@ -163,16 +179,17 @@ public class SetupActivity extends AppCompatActivity {
 
         progressBar = findViewById(R.id.setupProgressBar);
 
-        cipsButton = findViewById(R.id.setupCipsButton);
-
         //Fill textViews with questions
         populateQuestions();
+
+        cipsButton = findViewById(R.id.setupCipsButton);
 
         cipsButton.setOnClickListener(v -> {
             System.out.println(progress);
             if(progress == COMPLETE_PROGRESS) {
                 collectResponses();
                 wrapUpSetUp();
+                transitionToSetupResults();
             }
             else{
                 collectResponses();
@@ -180,6 +197,7 @@ public class SetupActivity extends AppCompatActivity {
             }
         });
     }
+
 
     private void setLabelFormatters() {
         LabelFormatter labelFormatter = value -> {
@@ -221,7 +239,6 @@ public class SetupActivity extends AppCompatActivity {
     }
 
     private void moveAheadCIPsSetup() {
-
         //reset to top of scrollView
         scrollView.scrollTo(0,0);
 
@@ -237,10 +254,55 @@ public class SetupActivity extends AppCompatActivity {
     }
 
     private void wrapUpSetUp() {
+        //calculate various CIPs Scores
+        response.calculateScoreValues();
+
         //Insert Responses Into DB
         dbHelper.insertUser(userName,imageURI);
         dbHelper.insertCIPsResponse(response);
-        //Transition to Next Screen
     }
+
+    private void transitionToSetupResults() {
+        setContentView(R.layout.activity_setup_results);
+
+        //Setup UI:
+        //Results Text Views:
+        cipsScoreView = findViewById(R.id.cipsScoreTextView);
+        cipsResultview = findViewById(R.id.cipsResultTextView);
+
+        cipsScoreView.setText("Clance IP Score: " + response.getCipsScore()+"/100.");
+        cipsResultview.setText("Clance IP Result: " + response.getCipsResult());
+
+        //Scores Text Views:
+        abilityScoreView = findViewById(R.id.abilityScoreTextView);
+        achievementScoreView = findViewById(R.id.achievementScoreTextView);
+        perfectionismScoreView = findViewById(R.id.perfectionismScoreTextView);
+
+        abilityScoreView.setText(response.getAbilityScore()+"/15");
+        achievementScoreView.setText(response.getAchievementScore()+"/15");
+        perfectionismScoreView.setText(response.getPerfectionismScore()+"/15");
+
+        //Scale Bars:
+        abilityScaleBar = findViewById(R.id.abilityScaleBar);
+        achievementScaleBar = findViewById(R.id.achievementScaleBar);
+        perfectionismScaleBar = findViewById(R.id.perfectionismScaleBar);
+
+        abilityScaleBar.setMax(15);
+        abilityScaleBar.setProgress(response.getAbilityScore());
+        achievementScaleBar.setMax(15);
+        achievementScaleBar.setProgress(response.getAchievementScore());
+        perfectionismScaleBar.setMax(15);
+        perfectionismScaleBar.setProgress(response.getPerfectionismScore());
+
+        //Results Button:
+        resultsButtons = findViewById(R.id.setupResultsButton);
+
+        resultsButtons.setOnClickListener(v -> {
+           //End activity and start main page activity
+        });
+
+
+    }
+
 
 }

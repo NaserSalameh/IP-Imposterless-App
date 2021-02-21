@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ImposterPhenomenonInterventionApp</string>
+    <string name="app_name">IP Intervention App</string>
 
 <!--    CIPs Scale Values-->
     <string name="cips1">Not True At All</string>

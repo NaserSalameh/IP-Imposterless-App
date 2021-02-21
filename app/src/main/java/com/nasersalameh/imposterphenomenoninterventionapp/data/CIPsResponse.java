@@ -1,8 +1,6 @@
 package com.nasersalameh.imposterphenomenoninterventionapp.data;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -29,11 +27,19 @@ public class CIPsResponse {
     private ArrayList<Integer> perfectionismIDs;
 
     //Calculated Values
-    private int cipsTotal;
+    private int cipsScore;
     private int abilityScore;
     private int achievementScore;
     private int perfectionismScore;
 
+    //Possible results based on CIPsScores:
+    //4 Possible results, based on CIPsScore:
+    //0-40: Rarely Experiences IP Characteristics
+    //41-60: Moderately Experiences IP Characteristics
+    //61-80: Frequently Experiences IP Characteristics
+    //81-100: Often and Intensely Experiences IP Characteristics
+    private ArrayList<String> possibleCipsResults;
+    private String cipsResult;
 
     //Constructor if we already have collected the answers in one-go
     public CIPsResponse(HashMap<Integer,Integer> responses, String responsesCollected){
@@ -48,6 +54,7 @@ public class CIPsResponse {
 
         //populate Questions Text
         populateQuestions();
+        populateResults();
     }
 
     //Constructor to add the answers slowly
@@ -60,9 +67,10 @@ public class CIPsResponse {
 
         //populate Questions Text
         populateQuestions();
+        populateResults();
     }
 
-    public void populateQuestions(){
+    private void populateQuestions(){
         //Digitised CIPs Questions:
         cipsQuestions = new ArrayList<>();
         cipsQuestions.add("I have often succeeded on a test or task even though I was afraid that I would not do well before I undertook the task.");
@@ -111,6 +119,14 @@ public class CIPsResponse {
 
     }
 
+    private void populateResults(){
+        possibleCipsResults = new ArrayList<>();
+        possibleCipsResults.add("Rarely Experiences IP Characteristics");
+        possibleCipsResults.add("Moderately Experiences IP Characteristics");
+        possibleCipsResults.add("Frequently Experiences IP Characteristics");
+        possibleCipsResults.add("Often and Intensely Experiences IP Characteristics");
+    }
+
     //will add response and overwrite if already existent
     public void addResponse(int questionID, int response){
         cipsIDResponseMapping.put(questionID,response);
@@ -147,7 +163,7 @@ public class CIPsResponse {
     }
 
     public void calculateScoreValues(){
-        calculateCIPsTotal();
+        calculateCIPsScore();
         switch (responsesCollected){
             case "FULL":
                 calculateAbilityScore();
@@ -166,17 +182,37 @@ public class CIPsResponse {
         }
     }
 
-    private int calculateCIPsTotal(){
+    private int calculateCIPsScore(){
         int cipsTotal = 0;
         for(Map.Entry entry: cipsIDResponseMapping.entrySet())
             cipsTotal+= (int) entry.getValue();
 
-        this.cipsTotal = cipsTotal;
+        this.cipsScore = cipsTotal;
+        //set CipsResult
+        calculateCipsResult();
         return cipsTotal;
     }
 
-    public int getCipsTotal() {
-        return cipsTotal;
+    public int getCipsScore() {
+        return cipsScore;
+    }
+
+    public void calculateCipsResult(){
+        String cipsResult = "";
+        if(cipsScore > 0 && cipsScore <= 40)
+            cipsResult = possibleCipsResults.get(0);
+        else if(cipsScore > 40 && cipsScore <= 60)
+            cipsResult = possibleCipsResults.get(1);
+        else if((cipsScore > 60 && cipsScore <= 80))
+            cipsResult = possibleCipsResults.get(2);
+        else if (cipsScore > 80)
+            cipsResult = possibleCipsResults.get(3);
+
+        this.cipsResult = cipsResult;
+    }
+
+    public String getCipsResult() {
+        return cipsResult;
     }
 
     private int calculateAbilityScore(){
@@ -217,4 +253,5 @@ public class CIPsResponse {
     public int getPerfectionismScore() {
         return perfectionismScore;
     }
+
 }

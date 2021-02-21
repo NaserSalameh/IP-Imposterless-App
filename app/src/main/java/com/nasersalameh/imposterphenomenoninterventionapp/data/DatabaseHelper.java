@@ -3,15 +3,10 @@ package com.nasersalameh.imposterphenomenoninterventionapp.data;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
-import android.provider.ContactsContract;
 
 import androidx.annotation.Nullable;
-
-import com.nasersalameh.imposterphenomenoninterventionapp.R;
-import com.nasersalameh.imposterphenomenoninterventionapp.models.Response;
 
 import java.util.Map;
 
@@ -121,9 +116,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     cv.put("RESPONSE_" + questionID, questionResponse);
                 }
 
-                //calculate various CIPs Scores
-                response.calculateScoreValues();
-                cv.put("TOTAL_CIPS_SCORE", response.getCipsTotal());
+                cv.put("TOTAL_CIPS_SCORE", response.getCipsScore());
                 cv.put("ABILITY_SCORE", response.getAbilityScore());
                 cv.put("ACHIEVEMENT_SCORE", response.getAchievementScore());
                 cv.put("PERFECTIONISM_SCORE", response.getPerfectionismScore());
