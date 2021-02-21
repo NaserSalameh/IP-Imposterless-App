@@ -31,23 +31,42 @@
                     android:id="@+id/questionText1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
                     android:text="Q1"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.slider.RangeSlider
                     android:id="@+id/rangeSlider1"
-                    android:layout_width="259dp"
-                    android:layout_height="48dp"
+                    android:layout_width="240dp"
+                    android:layout_height="42dp"
 
-                    android:layout_marginStart="90dp"
-                    android:layout_marginTop="66dp"
+                    android:layout_marginStart="100dp"
+                    android:layout_marginTop="64dp"
                     android:stepSize="1"
                     android:valueFrom="1"
                     android:valueTo="5"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="35dp"
+                    android:text="@string/cips1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/questionText1" />
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="75dp"
+                    android:text="@string/cips5"
+                    app:layout_constraintStart_toEndOf="@+id/rangeSlider1"
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -67,23 +86,43 @@
                     android:id="@+id/questionText2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
                     android:text="Q2"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.slider.RangeSlider
                     android:id="@+id/rangeSlider2"
-                    android:layout_width="259dp"
-                    android:layout_height="48dp"
+                    android:layout_width="240dp"
+                    android:layout_height="42dp"
 
-                    android:layout_marginStart="90dp"
-                    android:layout_marginTop="66dp"
+                    android:layout_marginStart="100dp"
+                    android:layout_marginTop="64dp"
                     android:stepSize="1"
                     android:valueFrom="1"
                     android:valueTo="5"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="35dp"
+                    android:text="@string/cips1"
+                    app:layout_constraintEnd_toStartOf="@+id/rangeSlider2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/questionText2" />
+
+                <TextView
+                    android:id="@+id/textView16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="75dp"
+                    android:text="@string/cips5"
+                    app:layout_constraintStart_toEndOf="@+id/rangeSlider2"
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -103,23 +142,42 @@
                     android:id="@+id/questionText3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
                     android:text="Q3"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.slider.RangeSlider
                     android:id="@+id/rangeSlider3"
-                    android:layout_width="259dp"
-                    android:layout_height="48dp"
+                    android:layout_width="240dp"
+                    android:layout_height="42dp"
 
-                    android:layout_marginStart="90dp"
-                    android:layout_marginTop="66dp"
+                    android:layout_marginStart="100dp"
+                    android:layout_marginTop="64dp"
                     android:stepSize="1"
                     android:valueFrom="1"
                     android:valueTo="5"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="35dp"
+                    android:text="@string/cips1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/questionText3" />
+
+                <TextView
+                    android:id="@+id/textView17"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="75dp"
+                    android:text="@string/cips5"
+                    app:layout_constraintStart_toEndOf="@+id/rangeSlider3"
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -139,23 +197,42 @@
                     android:id="@+id/questionText4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
                     android:text="Q4"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.slider.RangeSlider
                     android:id="@+id/rangeSlider4"
-                    android:layout_width="259dp"
-                    android:layout_height="48dp"
+                    android:layout_width="240dp"
+                    android:layout_height="42dp"
 
-                    android:layout_marginStart="90dp"
-                    android:layout_marginTop="66dp"
+                    android:layout_marginStart="100dp"
+                    android:layout_marginTop="64dp"
                     android:stepSize="1"
                     android:valueFrom="1"
                     android:valueTo="5"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="35dp"
+                    android:text="@string/cips1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/questionText4" />
+
+                <TextView
+                    android:id="@+id/textView18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="75dp"
+                    android:text="@string/cips5"
+                    app:layout_constraintStart_toEndOf="@+id/rangeSlider4"
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -178,7 +255,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="144dp"
-                    android:text="Start CIPs"
+                    android:text="@string/setup_cips_button"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 

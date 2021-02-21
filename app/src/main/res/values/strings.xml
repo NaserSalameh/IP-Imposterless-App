@@ -8,4 +8,9 @@
     <string name="cips4">Often</string>
     <string name="cips5">Very True</string>
 
+<!--    Setup Buttons Values -->
+    <string name="setup_personal_button">Proceed to CIPs</string>
+    <string name="setup_information_button">Start CIPs</string>
+    <string name="setup_cips_button">Proceed</string>
+    <string name="setup_results_button">Show Tailored Plan</string>
 </resources>

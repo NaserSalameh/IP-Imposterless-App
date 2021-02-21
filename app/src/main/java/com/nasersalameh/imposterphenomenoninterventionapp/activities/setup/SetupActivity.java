@@ -118,8 +118,8 @@ public class SetupActivity extends AppCompatActivity {
         personalButton.setOnClickListener(v -> {
             //Save User Name
             userName = nameTextBox.getText().toString();
-            transitionToSetupInformation();
             progressBar.setProgress(progress+=10);
+            transitionToSetupInformation();
         });
 
     }
@@ -186,12 +186,17 @@ public class SetupActivity extends AppCompatActivity {
 
         cipsButton.setOnClickListener(v -> {
             System.out.println(progress);
+            //If all responses collected
             if(progress == COMPLETE_PROGRESS) {
                 collectResponses();
                 wrapUpSetUp();
                 transitionToSetupResults();
             }
             else{
+                //If last page
+                if(progress == COMPLETE_PROGRESS - 16){
+                    cipsButton.setText("Show Results");
+                }
                 collectResponses();
                 moveAheadCIPsSetup();
             }
@@ -258,8 +263,9 @@ public class SetupActivity extends AppCompatActivity {
         response.calculateScoreValues();
 
         //Insert Responses Into DB
-        dbHelper.insertUser(userName,imageURI);
-        dbHelper.insertCIPsResponse(response);
+        //Uncomment After Testing
+//        dbHelper.insertUser(userName,imageURI);
+//        dbHelper.insertCIPsResponse(response);
     }
 
     private void transitionToSetupResults() {
