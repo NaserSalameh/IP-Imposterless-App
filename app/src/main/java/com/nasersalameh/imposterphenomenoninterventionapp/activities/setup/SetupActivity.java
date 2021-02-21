@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.android.material.slider.LabelFormatter;
@@ -34,6 +35,9 @@ public class SetupActivity extends AppCompatActivity {
     private CIPsResponse response;
 
     //UI:
+    //ScrollView
+    private ScrollView scrollView;
+
     //Personal Page Button
     private Button personalButton;
     //Information Page Button
@@ -136,6 +140,9 @@ public class SetupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_setup_cips);
 
         //Setup UI:
+
+        scrollView = findViewById(R.id.scrollView);
+
         rangeSlider1 = findViewById(R.id.rangeSlider1);
         rangeSlider2 = findViewById(R.id.rangeSlider2);
         rangeSlider3 = findViewById(R.id.rangeSlider3);
@@ -214,6 +221,10 @@ public class SetupActivity extends AppCompatActivity {
     }
 
     private void moveAheadCIPsSetup() {
+
+        //reset to top of scrollView
+        scrollView.scrollTo(0,0);
+
         //reset rangeSliders
         rangeSlider1.setValues(3f);
         rangeSlider2.setValues(3f);
