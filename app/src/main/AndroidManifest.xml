@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ImposterPhenomenonInterventionApp">
-        <activity android:name=".activities.setup.SetupActivity"></activity>
+        <activity
+            android:name=".activities.main.MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/Theme.ImposterPhenomenonInterventionApp.NoActionBar"></activity>
+        <activity android:name=".activities.setup.SetupActivity" />
         <activity android:name=".activities.startup.StartupActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

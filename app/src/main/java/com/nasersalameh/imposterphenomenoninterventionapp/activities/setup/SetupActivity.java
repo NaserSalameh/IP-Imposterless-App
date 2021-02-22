@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.google.android.material.slider.LabelFormatter;
 import com.google.android.material.slider.RangeSlider;
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
+import com.nasersalameh.imposterphenomenoninterventionapp.activities.main.MainActivity;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.CIPsResponse;
 import com.nasersalameh.imposterphenomenoninterventionapp.data.DatabaseHelper;
 
@@ -334,6 +335,13 @@ public class SetupActivity extends AppCompatActivity {
 
         planButton.setOnClickListener(v -> {
             //End Activity and Start Main Page Activity
+            //Start the main activity
+            // Intent to start application
+            Intent startMainActivity = new Intent(this, MainActivity.class);
+            startActivity(startMainActivity);
+
+            //End Setup Activity
+            finish();
         });
 
 

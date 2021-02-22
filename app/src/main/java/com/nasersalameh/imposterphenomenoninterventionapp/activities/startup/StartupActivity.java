@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
+import com.nasersalameh.imposterphenomenoninterventionapp.activities.main.MainActivity;
 import com.nasersalameh.imposterphenomenoninterventionapp.activities.setup.SetupActivity;
 import com.nasersalameh.imposterphenomenoninterventionapp.data.DatabaseHelper;
 
@@ -67,12 +68,21 @@ public class StartupActivity extends AppCompatActivity {
                 //what ever you do here will be done after 3 seconds delay.
                 startActivity(switchToSetup);
 
+                //End startup Activity
+                finish();
             }
         };
         handler.postDelayed(r, 2000);
     }
 
+    //Start the main activity
     private void startApplication() {
+        //Intent to start application
+        Intent startMainActivity = new Intent(this, MainActivity.class);
+        startActivity(startMainActivity);
+
+        //End Startup Activity
+        finish();
     }
 
 
