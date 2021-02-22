@@ -8,6 +8,8 @@ import android.net.Uri;
 
 import androidx.annotation.Nullable;
 
+import com.nasersalameh.imposterphenomenoninterventionapp.models.CIPsResponse;
+
 import java.util.Map;
 
 public class DatabaseHelper extends SQLiteOpenHelper {

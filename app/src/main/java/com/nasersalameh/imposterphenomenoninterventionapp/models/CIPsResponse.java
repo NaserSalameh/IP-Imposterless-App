@@ -1,4 +1,8 @@
-package com.nasersalameh.imposterphenomenoninterventionapp.data;
+package com.nasersalameh.imposterphenomenoninterventionapp.models;
+
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,6 +44,10 @@ public class CIPsResponse {
     //81-100: Often and Intensely Experiences IP Characteristics
     private ArrayList<String> possibleCipsResults;
     private String cipsResult;
+    //Tailored plan is simply the scores sorted
+    //as to create an intervention plan tailored for the user
+    //by order of detected behaviours intensity
+    private ArrayList<String> tailoredPlan;
 
     //Constructor if we already have collected the answers in one-go
     public CIPsResponse(HashMap<Integer,Integer> responses, String responsesCollected){
@@ -162,6 +170,7 @@ public class CIPsResponse {
         return null;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void calculateScoreValues(){
         calculateCIPsScore();
         switch (responsesCollected){
@@ -169,6 +178,7 @@ public class CIPsResponse {
                 calculateAbilityScore();
                 calculateAchievementScore();
                 calculatePerfectionismScore();
+                calculateTailoredPlan();
                 break;
             case "ABILITY":
                 calculateAbilityScore();
@@ -254,4 +264,24 @@ public class CIPsResponse {
         return perfectionismScore;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void calculateTailoredPlan(){
+
+        tailoredPlan = new ArrayList<>();
+
+        //HashMap to Sort the scores
+        HashMap<String,Integer> tailoredPlanMap = new HashMap<>();
+        tailoredPlanMap.put("Underestimating Abilities", abilityScore);
+        tailoredPlanMap.put("Discounting Achievements", achievementScore);
+        tailoredPlanMap.put("Perfectionism", perfectionismScore);
+
+        //Sort the map and place them in order in the ArrayList
+        tailoredPlanMap.entrySet().stream().sorted((k1, k2) -> -k1.getValue().compareTo(k2.getValue()))
+                .forEach(k -> tailoredPlan.add(k.getKey()));
+
+    }
+
+    public ArrayList<String> getTailoredPlan() {
+        return tailoredPlan;
+    }
 }

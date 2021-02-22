@@ -13,4 +13,6 @@
     <string name="setup_information_button">Start CIPs</string>
     <string name="setup_cips_button">Proceed</string>
     <string name="setup_results_button">Show Tailored Plan</string>
+    <string name="setup_plan_button">Finish Setup</string>
+
 </resources>

@@ -1,11 +1,15 @@
 package com.nasersalameh.imposterphenomenoninterventionapp.activities.setup;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -19,7 +23,7 @@ import android.widget.TextView;
 import com.google.android.material.slider.LabelFormatter;
 import com.google.android.material.slider.RangeSlider;
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
-import com.nasersalameh.imposterphenomenoninterventionapp.data.CIPsResponse;
+import com.nasersalameh.imposterphenomenoninterventionapp.models.CIPsResponse;
 import com.nasersalameh.imposterphenomenoninterventionapp.data.DatabaseHelper;
 
 public class SetupActivity extends AppCompatActivity {
@@ -83,10 +87,14 @@ public class SetupActivity extends AppCompatActivity {
     //Perfectionism Scale Bar
     private ProgressBar perfectionismScaleBar;
 
+    //Recycler View
+    private RecyclerView planRecyclerView;
+
     private int progress;
     public static final int COMPLETE_PROGRESS = 84;
 
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -140,6 +148,7 @@ public class SetupActivity extends AppCompatActivity {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void transitionToSetupInformation() {
         setContentView(R.layout.activity_setup_information);
 
@@ -153,6 +162,7 @@ public class SetupActivity extends AppCompatActivity {
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void transitionToSetupCIPs() {
         setContentView(R.layout.activity_setup_cips);
 
@@ -185,7 +195,6 @@ public class SetupActivity extends AppCompatActivity {
         cipsButton = findViewById(R.id.setupCipsButton);
 
         cipsButton.setOnClickListener(v -> {
-            System.out.println(progress);
             //If all responses collected
             if(progress == COMPLETE_PROGRESS) {
                 collectResponses();
@@ -258,10 +267,10 @@ public class SetupActivity extends AppCompatActivity {
         populateQuestions();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void wrapUpSetUp() {
         //calculate various CIPs Scores
         response.calculateScoreValues();
-
         //Insert Responses Into DB
         //Uncomment After Testing
 //        dbHelper.insertUser(userName,imageURI);
@@ -304,7 +313,27 @@ public class SetupActivity extends AppCompatActivity {
         resultsButtons = findViewById(R.id.setupResultsButton);
 
         resultsButtons.setOnClickListener(v -> {
-           //End activity and start main page activity
+           //Display Tailored Plan
+            transitionToSetupPlan();
+        });
+
+
+    }
+
+    private void transitionToSetupPlan() {
+        setContentView(R.layout.activity_setup_plan);
+
+        //Setup UI:
+        //Recycler View:
+        planRecyclerView = findViewById(R.id.setupPlanRecyclerView);
+        planRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        TailoredPlanCardsAdapter adapter = new TailoredPlanCardsAdapter(this, response.getTailoredPlan());
+        planRecyclerView.setAdapter(adapter);
+
+        planButton = findViewById(R.id.setupPlanButton);
+
+        planButton.setOnClickListener(v -> {
+            //End Activity and Start Main Page Activity
         });
 
 
