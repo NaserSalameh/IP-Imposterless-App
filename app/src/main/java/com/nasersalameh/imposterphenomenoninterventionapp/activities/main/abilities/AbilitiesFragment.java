@@ -23,8 +23,8 @@ public class AbilitiesFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         abilitiesViewModel =
                 new ViewModelProvider(this).get(AbilitiesViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_achievements, container, false);
-        final TextView textView = root.findViewById(R.id.text_slideshow);
+        View root = inflater.inflate(R.layout.fragment_abilities, container, false);
+        final TextView textView = root.findViewById(R.id.text_ability);
         abilitiesViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {

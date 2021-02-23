@@ -284,4 +284,8 @@ public class CIPsResponse {
     public ArrayList<String> getTailoredPlan() {
         return tailoredPlan;
     }
+
+    public String getResponsesCollected() {
+        return responsesCollected;
+    }
 }

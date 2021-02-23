@@ -24,6 +24,8 @@ import com.google.android.material.slider.LabelFormatter;
 import com.google.android.material.slider.RangeSlider;
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
 import com.nasersalameh.imposterphenomenoninterventionapp.activities.main.MainActivity;
+import com.nasersalameh.imposterphenomenoninterventionapp.data.CIPsResponseData;
+import com.nasersalameh.imposterphenomenoninterventionapp.data.UserData;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.CIPsResponse;
 import com.nasersalameh.imposterphenomenoninterventionapp.data.DatabaseHelper;
 
@@ -199,7 +201,7 @@ public class SetupActivity extends AppCompatActivity {
             //If all responses collected
             if(progress == COMPLETE_PROGRESS) {
                 collectResponses();
-                wrapUpSetUp();
+                saveSetupResults();
                 transitionToSetupResults();
             }
             else{
@@ -269,13 +271,14 @@ public class SetupActivity extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private void wrapUpSetUp() {
+    private void saveSetupResults() {
         //calculate various CIPs Scores
         response.calculateScoreValues();
         //Insert Responses Into DB
-        //Uncomment After Testing
-//        dbHelper.insertUser(userName,imageURI);
-//        dbHelper.insertCIPsResponse(response);
+        UserData userData = new UserData(dbHelper, dbHelper.getDatabase());
+        CIPsResponseData cipsResponseData = new CIPsResponseData(dbHelper, dbHelper.getDatabase());
+        userData.insertNewUser(userName,imageURI,response);
+        cipsResponseData.insertSetupCIPsResponse(response);
     }
 
     private void transitionToSetupResults() {

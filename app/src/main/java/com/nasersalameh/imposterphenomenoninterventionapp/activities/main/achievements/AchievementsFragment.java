@@ -23,7 +23,7 @@ public class AchievementsFragment extends Fragment {
         achievementsViewModel =
                 new ViewModelProvider(this).get(AchievementsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_achievements, container, false);
-        final TextView textView = root.findViewById(R.id.text_slideshow);
+        final TextView textView = root.findViewById(R.id.text_achievement);
         achievementsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
