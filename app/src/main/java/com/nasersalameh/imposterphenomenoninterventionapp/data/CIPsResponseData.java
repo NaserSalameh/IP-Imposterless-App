@@ -1,10 +1,14 @@
 package com.nasersalameh.imposterphenomenoninterventionapp.data;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.nasersalameh.imposterphenomenoninterventionapp.models.CIPsResponse;
+import com.nasersalameh.imposterphenomenoninterventionapp.models.User;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class CIPsResponseData {
@@ -36,7 +40,6 @@ public class CIPsResponseData {
     }
 
     public boolean insertSetupCIPsResponse(CIPsResponse response){
-
         try {
             if(response == null)
                 throw new Exception("Error: Null Response!");
@@ -72,6 +75,44 @@ public class CIPsResponseData {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public CIPsResponse getSetupResponse(){
+        db  = dbHelper.getReadableDatabase();
+
+        String selectQuery = "SELECT * FROM " + CIPS_TABLE;
+
+        Cursor cursor = db.rawQuery(selectQuery,null);
+
+        try {
+            //Setup response is first entry
+            if (cursor.moveToFirst()) {
+                //Statement works
+                String responseType = cursor.getString(2);
+
+                HashMap<Integer,Integer> responsesMapping = new HashMap<>();
+
+                //ID, Column offset is 3
+                for(int i =0;i<20;i++)
+                    responsesMapping.put(i,cursor.getInt(i+3));
+
+                //Close cursor and DB
+                cursor.close();
+                db.close();
+
+                CIPsResponse returnResponse = new CIPsResponse(responsesMapping,responseType);
+                //return new User
+                return returnResponse;
+            } else {
+                //Select Statement Failed
+                throw new Exception("Select CIPsResponse Statement Failed");
+            }
+        }
+        catch (Exception e){
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
     }
 
 }

@@ -65,7 +65,7 @@ public class CIPsResponse {
         populateResults();
     }
 
-    //Constructor to add the answers slowly
+    //Constructor to add the answers iteratively
     public CIPsResponse(String responsesCollected){
         this.responseDate = System.currentTimeMillis();
 

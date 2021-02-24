@@ -88,7 +88,7 @@ public class UserData {
     public User getUser(){
         db  = dbHelper.getReadableDatabase();
 
-        String selectQuery = "SELECT * FROM USER_TABLE";
+        String selectQuery = "SELECT * FROM " + USER_TABLE;
 
         Cursor cursor = db.rawQuery(selectQuery,null);
 
