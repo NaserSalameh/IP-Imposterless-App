@@ -41,16 +41,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cipsResponseData = new CIPsResponseData(this,db);
         userData.createUserInformationTable();
         cipsResponseData.createCIPsResponsesTable();
-
     }
 
     //whenever version number changes
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        this.db = db;
     }
 
     public SQLiteDatabase getDatabase() {
         return db;
+    }
+
+    public void closeDB(){
+        db.close();
     }
 }

@@ -9,9 +9,8 @@ import java.util.Map;
 
 public class CIPsResponseData {
 
-    private DatabaseHelper dbHelper;
     private SQLiteDatabase db;
-
+    private DatabaseHelper dbHelper;
     private static final String CIPS_TABLE ="CIPS_TABLE" ;
 
     public CIPsResponseData(DatabaseHelper dbHelper, SQLiteDatabase db){
@@ -33,7 +32,6 @@ public class CIPsResponseData {
                 "RESPONSE_18 INTEGER, RESPONSE_19 INTEGER, " +
                 "TOTAL_CIPS_SCORE INTEGER, " +
                 "ABILITY_SCORE INTEGER, ACHIEVEMENT_SCORE INTEGER, PERFECTIONISM_SCORE INTEGER)";
-
         db.execSQL(createTableStatement);
     }
 

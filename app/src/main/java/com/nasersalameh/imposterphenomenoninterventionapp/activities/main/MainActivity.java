@@ -1,17 +1,20 @@
 package com.nasersalameh.imposterphenomenoninterventionapp.activities.main;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
 import android.view.Menu;
-import android.widget.Toast;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
+import com.nasersalameh.imposterphenomenoninterventionapp.data.DatabaseHelper;
+import com.nasersalameh.imposterphenomenoninterventionapp.data.UserData;
+import com.nasersalameh.imposterphenomenoninterventionapp.models.User;
 
-import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -20,7 +23,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
+public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
 
@@ -28,9 +35,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Setup Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //Setup Drawer Navigation
+        setUpNavigation();
+
+        //Load up DB
+        populateApp();
+    }
+
+    private void setUpNavigation(){
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -43,6 +60,42 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+    }
+
+    //Load DB and Populate various tabs:
+    private void populateApp(){
+        DatabaseHelper dbHelper = new DatabaseHelper(MainActivity.this);
+
+        //Populate Nav Header:
+        User user = loadUserData(dbHelper);
+        populateNavHeader(user);
+        unlockAppropriateTabs(user);
+
+        //Populate Profile:
+
+    }
+
+
+    private User loadUserData(DatabaseHelper dbHelper){
+        UserData userData = new UserData(dbHelper,dbHelper.getDatabase());
+        return userData.getUser();
+    }
+
+    private void populateNavHeader(User user){
+        //Set Image
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+        ImageView navImage = headerView.findViewById(R.id.navHeaderImageView);
+
+        //Get image Path
+        navImage.setImageURI(Uri.fromFile(new File(user.getImagePath()+"/profile.jpg")));
+
+        //Set Name
+        TextView navText = headerView.findViewById(R.id.navHeaderNameTextView);
+        navText.setText(user.getUserName());
+    }
+
+    private void unlockAppropriateTabs(User user) {
     }
 
     @Override
@@ -59,14 +112,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 || super.onSupportNavigateUp();
     }
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        Toast.makeText(this, menuItem.getTitle(), Toast.LENGTH_SHORT).show();
-        return true;
-    }
-
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-
-    }
 }

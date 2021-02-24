@@ -7,7 +7,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -29,6 +32,10 @@ import com.nasersalameh.imposterphenomenoninterventionapp.data.UserData;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.CIPsResponse;
 import com.nasersalameh.imposterphenomenoninterventionapp.data.DatabaseHelper;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 public class SetupActivity extends AppCompatActivity {
 
     public static final int IMAGE_REQUEST_CODE = 1000;
@@ -36,7 +43,7 @@ public class SetupActivity extends AppCompatActivity {
 
     //To hold data to be inserted into DB
     private String userName;
-    private Uri imageURI;
+    private String imagePath;
     private CIPsResponse response;
 
     //UI:
@@ -144,11 +151,42 @@ public class SetupActivity extends AppCompatActivity {
             //Verify image was correctly chosen
             if(resultCode == Activity.RESULT_OK){
                 //Save Image URI
-                imageURI = data.getData();
+                Uri imageURI = data.getData();
+                //Save Image to App Data directory
+                imagePath = "";
+                try {
+                    imagePath = saveImage(MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageURI));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 //Set user Image
                 profileImage.setImageURI(imageURI);
             }
         }
+    }
+
+    private String saveImage(Bitmap image){
+        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+        // path to /data/data/yourapp/app_data/imageDir
+        File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+        // Create imageDir
+        File mypath=new File(directory,"profile.jpg");
+
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(mypath);
+            // Use the compress method on the BitMap object to write image to the OutputStream
+            image.compress(Bitmap.CompressFormat.PNG, 100, fos);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return directory.getAbsolutePath();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -276,9 +314,11 @@ public class SetupActivity extends AppCompatActivity {
         response.calculateScoreValues();
         //Insert Responses Into DB
         UserData userData = new UserData(dbHelper, dbHelper.getDatabase());
-        CIPsResponseData cipsResponseData = new CIPsResponseData(dbHelper, dbHelper.getDatabase());
-        userData.insertNewUser(userName,imageURI,response);
+        CIPsResponseData cipsResponseData = new CIPsResponseData(dbHelper,dbHelper.getDatabase());
+        userData.insertNewUser(userName, imagePath.toString(),response);
         cipsResponseData.insertSetupCIPsResponse(response);
+        dbHelper.closeDB();
+        dbHelper.close();
     }
 
     private void transitionToSetupResults() {
