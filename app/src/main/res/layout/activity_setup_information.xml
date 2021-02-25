@@ -49,6 +49,7 @@
                     android:layout_height="0dp"
                     android:layout_marginTop="56dp"
                     android:text="@string/setup_information_button"
+                    android:textColor="@android:color/white"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -59,6 +60,7 @@
                     android:layout_width="0dp"
                     android:layout_height="69dp"
                     android:max="100"
+                    android:scaleY="5"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/setupInformationButton" />
