@@ -1,10 +1,12 @@
 package com.nasersalameh.imposterphenomenoninterventionapp.activities.startup;
 
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -13,18 +15,30 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
 import com.nasersalameh.imposterphenomenoninterventionapp.activities.main.MainActivity;
 import com.nasersalameh.imposterphenomenoninterventionapp.activities.setup.SetupActivity;
-import com.nasersalameh.imposterphenomenoninterventionapp.data.DatabaseHelper;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelper;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 public class StartupActivity extends AppCompatActivity {
 
     private DatabaseHelper dbHelper;
     private SQLiteDatabase db;
+    private static String INSTALL_DB_NAME = "InstallDatabase.db";
     private static String DB_NAME = "IPInterventionDatabase.db";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_startup);
+
+        String pathToDatabases = "/data/data/" + getPackageName() + "/databases/";  // Your application path
+
+        //Copy Database From Assets
+        copyAsset(getAssets(),INSTALL_DB_NAME,pathToDatabases + INSTALL_DB_NAME);
 
         boolean databaseExists = checkForDatabase(DB_NAME);
 
@@ -35,6 +49,38 @@ public class StartupActivity extends AppCompatActivity {
 
     }
 
+    private static boolean copyAsset(AssetManager assetManager,
+                                     String databaseName, String newDatabasePathAndName) {
+        InputStream in = null;
+        OutputStream out = null;
+        try {
+            in = assetManager.open(databaseName);
+            new File(newDatabasePathAndName).createNewFile();
+            out = new FileOutputStream(newDatabasePathAndName);
+            copyFile(in, out);
+            in.close();
+            in = null;
+            out.flush();
+            out.close();
+            out = null;
+            return true;
+        } catch(Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private static void copyFile(InputStream in, OutputStream out) throws IOException {
+        byte[] buffer = new byte[1024];
+        int read;
+        while((read = in.read(buffer)) != -1){
+            out.write(buffer, 0, read);
+        }
+    }
+
+    private void copyFile(String filename) {
+
+    }
     //This will check if the database exists
     public boolean checkForDatabase(String dbName) {
         try {

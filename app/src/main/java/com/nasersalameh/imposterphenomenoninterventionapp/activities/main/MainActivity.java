@@ -1,7 +1,5 @@
 package com.nasersalameh.imposterphenomenoninterventionapp.activities.main;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,8 +9,8 @@ import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
-import com.nasersalameh.imposterphenomenoninterventionapp.data.DatabaseHelper;
-import com.nasersalameh.imposterphenomenoninterventionapp.data.UserData;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelper;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.UserData;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.User;
 
 import androidx.navigation.NavController;
@@ -24,8 +22,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 
 public class MainActivity extends AppCompatActivity {
 

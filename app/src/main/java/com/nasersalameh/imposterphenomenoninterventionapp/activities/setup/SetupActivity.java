@@ -27,10 +27,11 @@ import com.google.android.material.slider.LabelFormatter;
 import com.google.android.material.slider.RangeSlider;
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
 import com.nasersalameh.imposterphenomenoninterventionapp.activities.main.MainActivity;
-import com.nasersalameh.imposterphenomenoninterventionapp.data.CIPsResponseData;
-import com.nasersalameh.imposterphenomenoninterventionapp.data.UserData;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.CIPsResponseData;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.InstallDatabaseHelper;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.UserData;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.CIPsResponse;
-import com.nasersalameh.imposterphenomenoninterventionapp.data.DatabaseHelper;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelper;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -39,6 +40,8 @@ import java.io.IOException;
 public class SetupActivity extends AppCompatActivity {
 
     public static final int IMAGE_REQUEST_CODE = 1000;
+
+    private InstallDatabaseHelper installDatabaseHelper;
     private DatabaseHelper dbHelper;
 
     //To hold data to be inserted into DB
@@ -123,6 +126,10 @@ public class SetupActivity extends AppCompatActivity {
         profileImage = findViewById(R.id.profileImage);
 
         progressBar=findViewById(R.id.setupProgressBar);
+
+        //Prep InstallDatabaseHelper
+        installDatabaseHelper = new InstallDatabaseHelper(this);
+        installDatabaseHelper.createCIPsQuestions();
 
         profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -275,10 +282,12 @@ public class SetupActivity extends AppCompatActivity {
     private void populateQuestions(){
         //range of questionID to start from
         int questionIDStart = ((progress-20)/16)*4;
-        questionView1.setText(response.getCIPsQuestionString(questionIDStart));
-        questionView2.setText(response.getCIPsQuestionString(questionIDStart+1));
-        questionView3.setText(response.getCIPsQuestionString(questionIDStart+2));
-        questionView4.setText(response.getCIPsQuestionString(questionIDStart+3));
+
+        System.out.println(installDatabaseHelper.getCipsIDQuestionsMapping().size());
+        questionView1.setText(installDatabaseHelper.getCipsIDQuestionsMapping().get(questionIDStart));
+        questionView2.setText(installDatabaseHelper.getCipsIDQuestionsMapping().get(questionIDStart+1));
+        questionView3.setText(installDatabaseHelper.getCipsIDQuestionsMapping().get(questionIDStart+2));
+        questionView4.setText(installDatabaseHelper.getCipsIDQuestionsMapping().get(questionIDStart+3));
     }
 
     private void collectResponses(){

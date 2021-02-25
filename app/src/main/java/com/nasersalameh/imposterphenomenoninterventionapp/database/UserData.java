@@ -1,9 +1,8 @@
-package com.nasersalameh.imposterphenomenoninterventionapp.data;
+package com.nasersalameh.imposterphenomenoninterventionapp.database;
 
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
 
 import com.nasersalameh.imposterphenomenoninterventionapp.models.CIPsResponse;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.User;

@@ -1,16 +1,10 @@
-package com.nasersalameh.imposterphenomenoninterventionapp.data;
+package com.nasersalameh.imposterphenomenoninterventionapp.database;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.net.Uri;
 
 import androidx.annotation.Nullable;
-
-import com.nasersalameh.imposterphenomenoninterventionapp.models.CIPsResponse;
-
-import java.util.Map;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 

@@ -11,20 +11,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
-import com.nasersalameh.imposterphenomenoninterventionapp.activities.main.MainActivity;
 import com.nasersalameh.imposterphenomenoninterventionapp.activities.setup.TailoredPlanCardsAdapter;
-import com.nasersalameh.imposterphenomenoninterventionapp.data.CIPsResponseData;
-import com.nasersalameh.imposterphenomenoninterventionapp.data.DatabaseHelper;
-import com.nasersalameh.imposterphenomenoninterventionapp.data.UserData;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.CIPsResponseData;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelper;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.UserData;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.CIPsResponse;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.User;
 
