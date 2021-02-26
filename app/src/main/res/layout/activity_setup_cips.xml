@@ -12,6 +12,7 @@
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/dark_blue_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,6 +36,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:text="Q1"
+                    android:textColor="@android:color/white"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -59,6 +61,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="35dp"
                     android:text="@string/cips1"
+                    android:textColor="@android:color/white"
                     app:layout_constraintEnd_toStartOf="@+id/rangeSlider1"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/questionText1" />
@@ -70,6 +73,7 @@
                     android:layout_marginTop="35dp"
                     android:layout_marginEnd="4dp"
                     android:text="@string/cips5"
+                    android:textColor="@android:color/white"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/rangeSlider1"
                     app:layout_constraintTop_toBottomOf="@+id/questionText1" />
@@ -95,6 +99,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:text="Q2"
+                    android:textColor="@android:color/white"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -119,6 +124,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="35dp"
                     android:text="@string/cips1"
+                    android:textColor="@android:color/white"
                     app:layout_constraintEnd_toStartOf="@+id/rangeSlider2"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/questionText2" />
@@ -130,6 +136,7 @@
                     android:layout_marginTop="35dp"
                     android:layout_marginEnd="4dp"
                     android:text="@string/cips5"
+                    android:textColor="@android:color/white"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/rangeSlider2"
                     app:layout_constraintTop_toBottomOf="@+id/questionText2" />
@@ -155,6 +162,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:text="Q3"
+                    android:textColor="@android:color/white"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -179,6 +187,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="35dp"
                     android:text="@string/cips1"
+                    android:textColor="@android:color/white"
                     app:layout_constraintEnd_toStartOf="@+id/rangeSlider3"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/questionText3" />
@@ -190,6 +199,7 @@
                     android:layout_marginTop="35dp"
                     android:layout_marginEnd="4dp"
                     android:text="@string/cips5"
+                    android:textColor="@android:color/white"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/rangeSlider3"
                     app:layout_constraintTop_toBottomOf="@+id/questionText3" />
@@ -215,6 +225,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:text="Q4"
+                    android:textColor="@android:color/white"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -239,6 +250,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="35dp"
                     android:text="@string/cips1"
+                    android:textColor="@android:color/white"
                     app:layout_constraintEnd_toStartOf="@+id/rangeSlider4"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/questionText4" />
@@ -250,6 +262,7 @@
                     android:layout_marginTop="35dp"
                     android:layout_marginEnd="4dp"
                     android:text="@string/cips5"
+                    android:textColor="@android:color/white"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/rangeSlider4"
                     app:layout_constraintTop_toBottomOf="@+id/questionText4" />

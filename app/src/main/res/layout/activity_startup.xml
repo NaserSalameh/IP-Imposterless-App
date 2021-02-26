@@ -9,6 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@color/dark_blue_background"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,7 +22,8 @@
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyle"
             android:layout_width="match_parent"
-            android:layout_height="171dp" />
+            android:layout_height="171dp"
+            android:layout_marginTop="100dp" />
 
         <TextView
             android:id="@+id/setupTextView"
@@ -33,6 +35,7 @@
             android:text="Checking For Database..."
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@android:color/white"
             android:textIsSelectable="false"
             android:textStyle="bold"
             tools:text="Checking For Database..." />

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/dark_blue_background"
     tools:context=".activities.main.profile.ProfileFragment">
 
     <LinearLayout
@@ -15,6 +16,7 @@
             android:id="@+id/profileImageView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="4dp"
             tools:src="@tools:sample/avatars" />
 
         <TextView
@@ -23,6 +25,7 @@
             android:layout_height="wrap_content"
             android:text="TextView"
             android:textAlignment="center"
+            android:textColor="@android:color/white"
             android:textSize="24sp"
             android:textStyle="bold" />
 
