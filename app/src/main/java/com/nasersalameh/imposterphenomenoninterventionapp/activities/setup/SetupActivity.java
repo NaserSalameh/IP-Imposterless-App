@@ -129,7 +129,7 @@ public class SetupActivity extends AppCompatActivity {
 
         //Prep InstallDatabaseHelper
         installDatabaseHelper = new InstallDatabaseHelper(this);
-        installDatabaseHelper.createCIPsQuestions();
+        installDatabaseHelper.createCIPsIDQuestionsMapping();
 
         profileImage.setOnClickListener(new View.OnClickListener() {
             @Override

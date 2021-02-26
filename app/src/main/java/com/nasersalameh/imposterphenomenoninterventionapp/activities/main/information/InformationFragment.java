@@ -16,9 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
 import com.nasersalameh.imposterphenomenoninterventionapp.activities.setup.TailoredPlanCardsAdapter;
-import com.nasersalameh.imposterphenomenoninterventionapp.database.CIPsResponseData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelper;
-import com.nasersalameh.imposterphenomenoninterventionapp.models.CIPsResponse;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.InstallDatabaseHelper;
+import com.nasersalameh.imposterphenomenoninterventionapp.models.Information;
+
+import java.util.ArrayList;
 
 public class InformationFragment extends Fragment {
 
@@ -33,24 +35,25 @@ public class InformationFragment extends Fragment {
 
         setUpRecyclerView(root);
 
+//        setUpClickListenerOnCards();
+
         return root;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void setUpRecyclerView(View root){
         Activity currentActivity = getActivity();
-        DatabaseHelper dbHelper = new DatabaseHelper(currentActivity);
 
         //get Response from Database
-        CIPsResponseData cipsResponseData = new CIPsResponseData(dbHelper, dbHelper.getDatabase());
-        CIPsResponse response = cipsResponseData.getSetupResponse();
-        response.calculateTailoredPlan();
+        InstallDatabaseHelper installDatabaseHelper = new InstallDatabaseHelper(currentActivity);
+        installDatabaseHelper.createInformationList();
+        ArrayList<Information> informationList = installDatabaseHelper.getInformationList();
 
         //Recycler View:
-        RecyclerView planRecyclerView = root.findViewById(R.id.profileRecycleView);
-        planRecyclerView.setLayoutManager(new LinearLayoutManager(currentActivity));
-        TailoredPlanCardsAdapter adapter = new TailoredPlanCardsAdapter(currentActivity, response.getTailoredPlan());
-        planRecyclerView.setAdapter(adapter);
+        RecyclerView informationRecyclerView = root.findViewById(R.id.informationRecyclerView);
+        informationRecyclerView.setLayoutManager(new LinearLayoutManager(currentActivity));
+        InformationCardsAdapter adapter = new InformationCardsAdapter(currentActivity, informationList);
+        informationRecyclerView.setAdapter(adapter);
     }
 
 }

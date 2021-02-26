@@ -5,13 +5,16 @@ public class Information {
     private String informationName;
     private String informationDetails;
 
+    //Corpus is the full content of the informational card
+    private String informationCorpus;
+
     private Integer progress;
 
-    public Information(String informationName, String informationDetails, Integer progress){
+    public Information(String informationName, String informationDetails, String informationCorpus){
         this.informationName = informationName;
         this.informationDetails = informationDetails;
-
-        this.progress = progress;
+        this.informationCorpus = informationCorpus;
+        this.progress = 0;
     }
 
     public String getInformationName() {
@@ -24,5 +27,13 @@ public class Information {
 
     public Integer getProgress() {
         return progress;
+    }
+
+    public String getInformationCorpus() {
+        return informationCorpus;
+    }
+
+    public void setProgress(Integer progress) {
+        this.progress = progress;
     }
 }
