@@ -23,6 +23,7 @@ import com.nasersalameh.imposterphenomenoninterventionapp.database.CIPsResponseD
 import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelper;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.UserData;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.CIPsResponse;
+import com.nasersalameh.imposterphenomenoninterventionapp.models.Information;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.User;
 
 import java.io.File;
@@ -50,7 +51,7 @@ public class ProfileFragment extends Fragment {
         DatabaseHelper dbHelper = new DatabaseHelper(currentActivity);
 
         //Get User from Database
-        UserData userData = new UserData(dbHelper, dbHelper.getDatabase());
+        UserData userData = new UserData(dbHelper);
         User user = userData.getUser();
 
         //Set User name:
@@ -69,7 +70,7 @@ public class ProfileFragment extends Fragment {
         DatabaseHelper dbHelper = new DatabaseHelper(currentActivity);
 
         //get Response from Database
-        CIPsResponseData cipsResponseData = new CIPsResponseData(dbHelper, dbHelper.getDatabase());
+        CIPsResponseData cipsResponseData = new CIPsResponseData(dbHelper);
         CIPsResponse response = cipsResponseData.getSetupResponse();
         response.calculateTailoredPlan();
 
@@ -79,5 +80,4 @@ public class ProfileFragment extends Fragment {
         TailoredPlanCardsAdapter adapter = new TailoredPlanCardsAdapter(currentActivity, response.getTailoredPlan());
         planRecyclerView.setAdapter(adapter);
     }
-
 }

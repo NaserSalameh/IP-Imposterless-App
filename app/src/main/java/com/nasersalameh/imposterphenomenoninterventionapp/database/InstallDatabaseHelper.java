@@ -86,6 +86,8 @@ public class InstallDatabaseHelper extends SQLiteOpenHelper {
     }
 
     public HashMap<Integer, String> getCipsIDQuestionsMapping() {
+        if(cipsIDQuestionsMapping == null)
+            createCIPsIDQuestionsMapping();
         return cipsIDQuestionsMapping;
     }
 
@@ -114,7 +116,10 @@ public class InstallDatabaseHelper extends SQLiteOpenHelper {
         this.informationList = informationList;
     }
 
+
     public ArrayList<Information> getInformationList() {
+        if(informationList == null)
+            createInformationList();
         return informationList;
     }
 

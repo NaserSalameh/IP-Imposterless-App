@@ -28,6 +28,7 @@
         tools:layout_editor_absoluteX="418dp" />
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/informationCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"

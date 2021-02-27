@@ -1,10 +1,13 @@
 package com.nasersalameh.imposterphenomenoninterventionapp.activities.main;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
@@ -13,6 +16,7 @@ import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelpe
 import com.nasersalameh.imposterphenomenoninterventionapp.database.UserData;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.User;
 
+import androidx.annotation.Nullable;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -25,6 +29,7 @@ import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final int INFORMATION_ACTIVITY_RESULT = 101;
     private AppBarConfiguration mAppBarConfiguration;
 
     @Override
@@ -67,13 +72,13 @@ public class MainActivity extends AppCompatActivity {
         populateNavHeader(user);
         unlockAppropriateTabs(user);
 
-        //Populate Profile:
+        //SetUpActivityResults
 
     }
 
 
     private User loadUserData(DatabaseHelper dbHelper){
-        UserData userData = new UserData(dbHelper,dbHelper.getDatabase());
+        UserData userData = new UserData(dbHelper);
         return userData.getUser();
     }
 
@@ -84,8 +89,13 @@ public class MainActivity extends AppCompatActivity {
         ImageView navImage = headerView.findViewById(R.id.navHeaderImageView);
 
         //Get image Path
-        navImage.setImageURI(Uri.fromFile(new File(user.getImagePath()+"/profile.jpg")));
-
+        try {
+            navImage.setImageURI(Uri.fromFile(new File(user.getImagePath() + "/profile.jpg")));
+        }
+        catch (Exception e){
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+        }
         //Set Name
         TextView navText = headerView.findViewById(R.id.navHeaderNameTextView);
         navText.setText(user.getUserName());
@@ -108,4 +118,17 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //Information Tab Activity
+        if(requestCode == INFORMATION_ACTIVITY_RESULT)
+            if(requestCode== Activity.RESULT_OK || requestCode == Activity.RESULT_CANCELED){
+                //Get Card Progress Bar
+//                System.out.println("IM HERE NOW");
+//                ProgressBar cardProgressBar = findViewById(R.id.cardProgressBar);
+//                cardProgressBar.setProgress(data.getIntExtra("Progress",-1));
+            }
+
+    }
 }

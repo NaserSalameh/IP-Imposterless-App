@@ -17,8 +17,7 @@ public class UserData {
 
     public static final String USER_TABLE = "USER_TABLE";
 
-    public UserData(DatabaseHelper dbHelper, SQLiteDatabase db){
-        this.db = db;
+    public UserData(DatabaseHelper dbHelper){
         this.dbHelper = dbHelper;
     }
 
@@ -140,4 +139,7 @@ public class UserData {
         }
     }
 
+    public void setDB(SQLiteDatabase db) {
+        this.db = db;
+    }
 }

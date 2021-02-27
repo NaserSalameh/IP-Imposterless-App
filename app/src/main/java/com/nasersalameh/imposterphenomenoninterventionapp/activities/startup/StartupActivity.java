@@ -28,7 +28,7 @@ public class StartupActivity extends AppCompatActivity {
     private DatabaseHelper dbHelper;
     private SQLiteDatabase db;
     private static String INSTALL_DB_NAME = "InstallDatabase.db";
-    private static String DB_NAME = "IPInterventionDatabase.db";
+    private static String DB_NAME = "UsageDatabase.db";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -99,8 +99,12 @@ public class StartupActivity extends AppCompatActivity {
         TextView loadingText = findViewById(R.id.setupTextView);
         loadingText.setText("Welcome!\nCreating Database!");
 
-        //create Database which will create the database and tables
+
+        //Create Usage table
         dbHelper = new DatabaseHelper(StartupActivity.this);
+
+        //Migrate Data from install to usage
+        dbHelper.migrateDataFromInstallToUsage();
 
         //intent to start setup activity
         Intent switchToSetup = new Intent(this, SetupActivity.class);
@@ -123,6 +127,7 @@ public class StartupActivity extends AppCompatActivity {
 
     //Start the main activity
     private void startApplication() {
+
         //Intent to start application
         Intent startMainActivity = new Intent(this, MainActivity.class);
         startActivity(startMainActivity);

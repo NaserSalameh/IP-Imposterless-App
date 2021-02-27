@@ -15,8 +15,7 @@ public class CIPsResponseData {
     private DatabaseHelper dbHelper;
     private static final String CIPS_TABLE ="CIPS_TABLE" ;
 
-    public CIPsResponseData(DatabaseHelper dbHelper, SQLiteDatabase db){
-        this.db = db;
+    public CIPsResponseData(DatabaseHelper dbHelper){
         this.dbHelper = dbHelper;
     }
 
@@ -113,4 +112,7 @@ public class CIPsResponseData {
         }
     }
 
+    public void setDB(SQLiteDatabase db) {
+        this.db = db;
+    }
 }

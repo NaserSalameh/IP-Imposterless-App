@@ -1,6 +1,9 @@
 package com.nasersalameh.imposterphenomenoninterventionapp.models;
 
-public class Information {
+import java.io.Serializable;
+
+//Imports Serializable to send across Intents
+public class Information implements Serializable {
 
     private String informationName;
     private String informationDetails;
@@ -10,12 +13,21 @@ public class Information {
 
     private Integer progress;
 
+    public Information(String informationName, String informationDetails, String informationCorpus, int progress){
+        this.informationName = informationName;
+        this.informationDetails = informationDetails;
+        this.informationCorpus = informationCorpus;
+        this.progress = progress;
+    }
+
+    //Constructor for install database overlooking progress
     public Information(String informationName, String informationDetails, String informationCorpus){
         this.informationName = informationName;
         this.informationDetails = informationDetails;
         this.informationCorpus = informationCorpus;
         this.progress = 0;
     }
+
 
     public String getInformationName() {
         return informationName;

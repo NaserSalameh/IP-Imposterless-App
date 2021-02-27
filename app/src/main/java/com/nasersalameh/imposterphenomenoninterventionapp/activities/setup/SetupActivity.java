@@ -27,6 +27,7 @@ import com.google.android.material.slider.LabelFormatter;
 import com.google.android.material.slider.RangeSlider;
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
 import com.nasersalameh.imposterphenomenoninterventionapp.activities.main.MainActivity;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.CIPsQuestionData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.CIPsResponseData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.InstallDatabaseHelper;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.UserData;
@@ -41,8 +42,9 @@ public class SetupActivity extends AppCompatActivity {
 
     public static final int IMAGE_REQUEST_CODE = 1000;
 
-    private InstallDatabaseHelper installDatabaseHelper;
     private DatabaseHelper dbHelper;
+
+    private CIPsQuestionData cipsQuestionData;
 
     //To hold data to be inserted into DB
     private String userName;
@@ -127,9 +129,8 @@ public class SetupActivity extends AppCompatActivity {
 
         progressBar=findViewById(R.id.setupProgressBar);
 
-        //Prep InstallDatabaseHelper
-        installDatabaseHelper = new InstallDatabaseHelper(this);
-        installDatabaseHelper.createCIPsIDQuestionsMapping();
+        //Prep CIPsQuestionsData to get Questions Mapping
+        cipsQuestionData = new CIPsQuestionData(dbHelper);
 
         profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,7 +161,7 @@ public class SetupActivity extends AppCompatActivity {
                 //Save Image URI
                 Uri imageURI = data.getData();
                 //Save Image to App Data directory
-                imagePath = "";
+                imagePath = "NA";
                 try {
                     imagePath = saveImage(MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageURI));
                 } catch (IOException e) {
@@ -283,11 +284,10 @@ public class SetupActivity extends AppCompatActivity {
         //range of questionID to start from
         int questionIDStart = ((progress-20)/16)*4;
 
-        System.out.println(installDatabaseHelper.getCipsIDQuestionsMapping().size());
-        questionView1.setText(installDatabaseHelper.getCipsIDQuestionsMapping().get(questionIDStart));
-        questionView2.setText(installDatabaseHelper.getCipsIDQuestionsMapping().get(questionIDStart+1));
-        questionView3.setText(installDatabaseHelper.getCipsIDQuestionsMapping().get(questionIDStart+2));
-        questionView4.setText(installDatabaseHelper.getCipsIDQuestionsMapping().get(questionIDStart+3));
+        questionView1.setText(cipsQuestionData.getCipsIDQuestionsMapping().get(questionIDStart));
+        questionView2.setText(cipsQuestionData.getCipsIDQuestionsMapping().get(questionIDStart+1));
+        questionView3.setText(cipsQuestionData.getCipsIDQuestionsMapping().get(questionIDStart+2));
+        questionView4.setText(cipsQuestionData.getCipsIDQuestionsMapping().get(questionIDStart+3));
     }
 
     private void collectResponses(){
@@ -322,12 +322,11 @@ public class SetupActivity extends AppCompatActivity {
         //calculate various CIPs Scores
         response.calculateScoreValues();
         //Insert Responses Into DB
-        UserData userData = new UserData(dbHelper, dbHelper.getDatabase());
-        CIPsResponseData cipsResponseData = new CIPsResponseData(dbHelper,dbHelper.getDatabase());
+        UserData userData = new UserData(dbHelper);
+        CIPsResponseData cipsResponseData = new CIPsResponseData(dbHelper);
         userData.insertNewUser(userName, imagePath.toString(),response);
         cipsResponseData.insertSetupCIPsResponse(response);
-        dbHelper.closeDB();
-        dbHelper.close();
+
     }
 
     private void transitionToSetupResults() {
