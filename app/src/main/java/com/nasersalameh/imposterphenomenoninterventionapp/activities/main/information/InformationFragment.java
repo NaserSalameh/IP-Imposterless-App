@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.icu.text.IDNA;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,7 +76,20 @@ public class InformationFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onResume() {
-        setUpRecyclerView(root);
+
+        //Handler to thread sleep and slow down process
+        Handler handler=new Handler();
+        Runnable r=new Runnable() {
+            public void run() {
+                //what ever you do here will be done after 3 seconds delay.
+                setUpRecyclerView(root);
+            }
+        };
+        handler.postDelayed(r, 500);
+
         super.onResume();
     }
+
+
+
 }

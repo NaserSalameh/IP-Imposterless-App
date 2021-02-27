@@ -1,11 +1,10 @@
 package com.nasersalameh.imposterphenomenoninterventionapp.activities.main.information;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
+import android.util.DisplayMetrics;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -24,6 +23,7 @@ public class InformationCardActivity extends FragmentActivity {
     //UI:
     ScrollView informationScrollView;
 
+    TextView informationNameTextView;
     TextView informationCorpusTextView;
 
     Button informationActivityButton;
@@ -48,6 +48,8 @@ public class InformationCardActivity extends FragmentActivity {
 
         informationCorpusTextView = findViewById(R.id.informationCorpusTextView);
 
+        informationNameTextView = findViewById(R.id.informationActivityNameTextView);
+
         informationActivityButton = findViewById(R.id.informationActivityButton);
 
         informationActivityProgressBar = findViewById(R.id.informationProgressBar);
@@ -61,10 +63,16 @@ public class InformationCardActivity extends FragmentActivity {
         //Get information from intent
         this.information = (Information) getIntent().getSerializableExtra("Information");
 
+        //Set Name
+        informationNameTextView.setText(information.getInformationName());
+
         //Set corpus
         informationCorpusTextView.setText(information.getInformationCorpus());
 
-        //Set ProgressBar Scale
+        //Get screen height
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        double height = displayMetrics.heightPixels;
 
         //Set progress tracking on scroll view
         informationScrollView.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
@@ -98,6 +106,7 @@ public class InformationCardActivity extends FragmentActivity {
     //In case of destruction, send back progress
     @Override
     protected void onDestroy() {
+        super.onDestroy();
         //set The information's final progress
         information.setProgress(progress);
 
@@ -105,7 +114,5 @@ public class InformationCardActivity extends FragmentActivity {
         updateInformationProgress(information);
 
         finish();
-
-        super.onDestroy();
     }
 }

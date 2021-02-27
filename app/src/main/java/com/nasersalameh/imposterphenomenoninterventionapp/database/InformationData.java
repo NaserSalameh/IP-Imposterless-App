@@ -75,7 +75,6 @@ public class InformationData {
 
                 long insertResult = db.update(INFORMATION_TABLE,cv, "INFORMATION_NAME = ?", new String[]{informationName});
 
-
                 if(insertResult == -1)
                     return false;
                 else
@@ -87,7 +86,6 @@ public class InformationData {
             e.printStackTrace();
         }
 
-        db.close();
         return false;
     }
 

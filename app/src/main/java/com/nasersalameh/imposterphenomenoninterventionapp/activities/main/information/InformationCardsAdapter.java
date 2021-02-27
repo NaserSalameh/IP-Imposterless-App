@@ -58,10 +58,8 @@ public class InformationCardsAdapter extends RecyclerView.Adapter<InformationCar
 
         //get progress and  Information progress max
         int progress = informationList.get(index).getProgress();
-        int maxProgress = viewHolder.informationProgress.getMax();
-        int setProgress = (int) (((double) progress / 100.0) * maxProgress);
-        viewHolder.informationProgress.setProgress(setProgress);
 
+        viewHolder.informationProgress.setProgress(progress);
 
         //Set on Click Listener to View Card
         viewHolder.cardView.setOnClickListener(v -> {
@@ -107,8 +105,8 @@ public class InformationCardsAdapter extends RecyclerView.Adapter<InformationCar
             informationProgress = itemView.findViewById(R.id.cardProgressBar);
 
         }
-
-
-
     }
+
+
+
 }
