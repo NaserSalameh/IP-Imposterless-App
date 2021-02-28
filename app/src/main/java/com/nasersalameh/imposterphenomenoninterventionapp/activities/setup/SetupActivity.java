@@ -14,6 +14,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
@@ -124,8 +125,10 @@ public class SetupActivity extends AppCompatActivity {
         personalButton = findViewById(R.id.setupPersonalButton);
 
         nameTextBox = findViewById(R.id.nameTextBox);
+        nameTextBox.setText("Name");
 
         profileImage = findViewById(R.id.profileImage);
+        imagePath = "NA";
 
         progressBar=findViewById(R.id.setupProgressBar);
 
@@ -158,17 +161,21 @@ public class SetupActivity extends AppCompatActivity {
         if(requestCode == IMAGE_REQUEST_CODE){
             //Verify image was correctly chosen
             if(resultCode == Activity.RESULT_OK){
-                //Save Image URI
-                Uri imageURI = data.getData();
-                //Save Image to App Data directory
-                imagePath = "NA";
                 try {
-                    imagePath = saveImage(MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageURI));
+                    //Save Image URI
+                    Uri imageURI = data.getData();
+                    //create Bitmap of image
+
+                    Bitmap image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageURI);
+                    Bitmap resized = Bitmap.createScaledBitmap(image,200,300,true);
+                    //Save image Path
+                    imagePath = saveImage(image);
+
+                    //Set user Image
+                    profileImage.setImageURI(imageURI);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                //Set user Image
-                profileImage.setImageURI(imageURI);
             }
         }
     }
@@ -248,7 +255,15 @@ public class SetupActivity extends AppCompatActivity {
             if(progress == COMPLETE_PROGRESS) {
                 collectResponses();
                 saveSetupResults();
-                transitionToSetupResults();
+                //Handler to thread sleep and slow down process
+                Handler handler=new Handler();
+                Runnable r=new Runnable() {
+                    public void run() {
+                        //what ever you do here will be done after 3 seconds delay.
+                        transitionToSetupResults();
+                    }
+                };
+                handler.postDelayed(r, 1000);
             }
             else{
                 //If last page
@@ -326,7 +341,7 @@ public class SetupActivity extends AppCompatActivity {
         CIPsResponseData cipsResponseData = new CIPsResponseData(dbHelper);
         userData.insertNewUser(userName, imagePath.toString(),response);
         cipsResponseData.insertSetupCIPsResponse(response);
-
+        dbHelper.closeDB();
     }
 
     private void transitionToSetupResults() {
@@ -394,9 +409,5 @@ public class SetupActivity extends AppCompatActivity {
             //End Setup Activity
             finish();
         });
-
-
     }
-
-
 }

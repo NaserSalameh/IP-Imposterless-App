@@ -1,16 +1,21 @@
 package com.nasersalameh.imposterphenomenoninterventionapp.activities.startup;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
 import com.nasersalameh.imposterphenomenoninterventionapp.activities.main.MainActivity;
@@ -40,13 +45,32 @@ public class StartupActivity extends AppCompatActivity {
         //Copy Database From Assets
         copyAsset(getAssets(),INSTALL_DB_NAME,pathToDatabases + INSTALL_DB_NAME);
 
-        boolean databaseExists = checkForDatabase(DB_NAME);
+        boolean databaseExists = checkForTable(DB_NAME,"USER_TABLE");
 
         if(databaseExists)
             startApplication();
-        else
-            startSetup();
+        else {
+            //Check permission and startup if possible
+            requestPermission();
+        }
+    }
 
+
+    public void requestPermission() {
+        ActivityCompat.requestPermissions(this, new String[]{
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,}, 1);
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+            startSetup();
+        } else {
+            Toast.makeText(this, "Permission denied to read your External storage", Toast.LENGTH_SHORT).show();
+            requestPermission();
+        }
     }
 
     private static boolean copyAsset(AssetManager assetManager,
@@ -78,18 +102,27 @@ public class StartupActivity extends AppCompatActivity {
         }
     }
 
-    private void copyFile(String filename) {
-
-    }
     //This will check if the database exists
-    public boolean checkForDatabase(String dbName) {
+    public boolean checkForTable(String dbName, String tableName) {
         try {
             db = SQLiteDatabase.openDatabase(String.valueOf(this.getDatabasePath(dbName)), null,
                     SQLiteDatabase.OPEN_READONLY);
+
+            boolean check = true;
+            String query = "select DISTINCT tbl_name from sqlite_master where tbl_name = '"+tableName+"'";
+            try (Cursor cursor = db.rawQuery(query, null)) {
+                if(cursor!=null) {
+                    if(cursor.getCount()>0) {
+                        check = true;
+                    }
+                }
+                check = false;
+            }
             db.close();
+            return check;
         } catch (SQLiteException e) {
             // database doesn't exist yet.
-            System.err.println("Database Does Not Exist Yet!");
+            System.err.println("Table Does Not Exist Yet!");
         }
         return db != null;
     }
@@ -98,7 +131,6 @@ public class StartupActivity extends AppCompatActivity {
 
         TextView loadingText = findViewById(R.id.setupTextView);
         loadingText.setText("Welcome!\nCreating Database!");
-
 
         //Create Usage table
         dbHelper = new DatabaseHelper(StartupActivity.this);

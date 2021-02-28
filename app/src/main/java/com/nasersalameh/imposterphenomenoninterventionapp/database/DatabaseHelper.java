@@ -1,6 +1,7 @@
 package com.nasersalameh.imposterphenomenoninterventionapp.database;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -8,6 +9,7 @@ import androidx.annotation.Nullable;
 
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Information;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -52,7 +54,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cipsResponseData.createCIPsResponsesTable();
         informationData.createInformationTable();
         cipsQuestionData.createCIPSQuestionsTable();
-
     }
 
     public void migrateDataFromInstallToUsage(){
@@ -80,6 +81,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             cipsQuestionData.insertNewQuestion((String) cipsQuestion.getValue());
     }
 
+
+
     //whenever version number changes
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -91,6 +94,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void closeDB(){
-        db.close();
+        getReadableDatabase().close();
+        getWritableDatabase().close();
+        this.close();
+    }
+
+    public boolean deleteUsageDB(Context context) {
+        String pathToDatabases = "/data/data/" + context.getPackageName() + "/databases/";
+        File file = new File(pathToDatabases+DB_NAME);
+        boolean deleted = file.delete();
+        return deleted;
     }
 }

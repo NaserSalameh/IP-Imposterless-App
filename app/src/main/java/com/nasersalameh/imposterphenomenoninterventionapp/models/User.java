@@ -17,7 +17,11 @@ public class User {
 
 
     public User(String userName, String imagePath, ArrayList<String> severities, HashMap<String, Boolean> tabs, HashMap<String, Boolean> trainings) {
-        this.userName = userName;
+        if(userName == null)
+            this.userName = "Name";
+        else
+            this.userName = userName;
+
         this.imagePath = imagePath;
 
         this.severities = severities;

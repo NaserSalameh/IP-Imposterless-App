@@ -85,7 +85,7 @@ public class InformationFragment extends Fragment {
                 setUpRecyclerView(root);
             }
         };
-        handler.postDelayed(r, 500);
+        handler.postDelayed(r, 1000);
 
         super.onResume();
     }
