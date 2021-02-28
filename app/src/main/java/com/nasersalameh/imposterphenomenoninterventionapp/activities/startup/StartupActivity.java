@@ -112,11 +112,11 @@ public class StartupActivity extends AppCompatActivity {
             String query = "select DISTINCT tbl_name from sqlite_master where tbl_name = '"+tableName+"'";
             try (Cursor cursor = db.rawQuery(query, null)) {
                 if(cursor!=null) {
-                    if(cursor.getCount()>0) {
+                    if(cursor.getCount()>0)
                         check = true;
-                    }
+                    else
+                        check = false;
                 }
-                check = false;
             }
             db.close();
             return check;

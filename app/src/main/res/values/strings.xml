@@ -31,6 +31,8 @@
     <string name="menu_information">Information</string>
     <string name="menu_profile">Profile</string>
     <string name="menu_goals">Goals</string>
+    <string name="action_deleteDB">Delete DB</string>
+    <string name="menu_settings">Settings</string>
 
 
 </resources>

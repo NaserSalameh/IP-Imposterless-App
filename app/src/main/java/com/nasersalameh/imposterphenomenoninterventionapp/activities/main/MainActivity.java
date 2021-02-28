@@ -1,5 +1,6 @@
 package com.nasersalameh.imposterphenomenoninterventionapp.activities.main;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -55,7 +56,10 @@ public class MainActivity extends AppCompatActivity {
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_profile,
-                R.id.nav_abilities, R.id.nav_achievements, R.id.nav_information)
+                R.id.nav_abilities,
+                R.id.nav_achievements,
+                R.id.nav_information,
+                R.id.nav_settings)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
