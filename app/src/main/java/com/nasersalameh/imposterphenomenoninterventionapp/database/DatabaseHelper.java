@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import com.nasersalameh.imposterphenomenoninterventionapp.models.Achievement;
+import com.nasersalameh.imposterphenomenoninterventionapp.models.AchievementType;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Information;
 
 import java.io.File;
@@ -27,6 +29,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private CIPsResponseData cipsResponseData;
     private InformationData informationData;
     private CIPsQuestionData cipsQuestionData;
+    private AchievementsTypeData achievementsTypeData;
+
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, DB_NAME, null, 1);
@@ -36,6 +40,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cipsResponseData = new CIPsResponseData(this);
         informationData = new InformationData(this);
         cipsQuestionData = new CIPsQuestionData(this);
+        achievementsTypeData = new AchievementsTypeData(this);
     }
 
     //Will be called the first time the database is created. The method will Create all necessary tables.
@@ -48,12 +53,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cipsResponseData.setDB(db);
         informationData.setDB(db);
         cipsQuestionData.setDB(db);
+        achievementsTypeData.setDB(db);
 
         //Create Tables
         userData.createUserInformationTable();
         cipsResponseData.createCIPsResponsesTable();
         informationData.createInformationTable();
         cipsQuestionData.createCIPSQuestionsTable();
+        achievementsTypeData.createAchievementsTypeTable();
     }
 
     public void migrateDataFromInstallToUsage(){
@@ -61,22 +68,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         InstallDatabaseHelper installDatabaseHelper = new InstallDatabaseHelper(context);
         copyInformationFromInstallDatabase(installDatabaseHelper);
         copyCIPsQuestionsFromInstallDatabase(installDatabaseHelper);
+        copyAchievementsTypeFromInstallDatabase(installDatabaseHelper);
 
         //Close database after setup
         this.closeDB();
         this.close();
     }
 
+    private void copyAchievementsTypeFromInstallDatabase(InstallDatabaseHelper installDatabaseHelper) {
+        AchievementsTypeData installAchievementTypeData = new AchievementsTypeData(installDatabaseHelper);
+        ArrayList<AchievementType> achievementTypes = installAchievementTypeData.getAchievementsTypeList();
+        for(AchievementType achievementType : achievementTypes)
+            achievementsTypeData.insertNewAchievementType(achievementType.getAchievementType());
+    }
+
     //Copies all information entries from install database to usage database
     private void copyInformationFromInstallDatabase(InstallDatabaseHelper installDatabaseHelper) {
-        ArrayList<Information> informationList = installDatabaseHelper.getInformationList();
+        InformationData installInformationData = new InformationData(installDatabaseHelper);
+        ArrayList<Information> informationList = installInformationData.getInformationList();
         for(Information information : informationList)
             informationData.insertNewInformation(information);
     }
 
     //Copies all CIPs Questions entries from install database to usage database
     private void copyCIPsQuestionsFromInstallDatabase(InstallDatabaseHelper installDatabaseHelper) {
-        HashMap<Integer, String> cipsIDQuestionsMapping = installDatabaseHelper.getCipsIDQuestionsMapping();
+        CIPsQuestionData installCipsQuestions = new CIPsQuestionData(installDatabaseHelper);
+        HashMap<Integer, String> cipsIDQuestionsMapping = installCipsQuestions.getCipsIDQuestionsMapping();
         for(Map.Entry cipsQuestion : cipsIDQuestionsMapping.entrySet())
             cipsQuestionData.insertNewQuestion((String) cipsQuestion.getValue());
     }

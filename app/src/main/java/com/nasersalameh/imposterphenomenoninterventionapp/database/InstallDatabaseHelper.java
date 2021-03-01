@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import com.nasersalameh.imposterphenomenoninterventionapp.models.Achievement;
+import com.nasersalameh.imposterphenomenoninterventionapp.models.AchievementType;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Information;
 
 import java.util.ArrayList;
@@ -22,12 +24,7 @@ public class InstallDatabaseHelper extends SQLiteOpenHelper {
     //Constant Tables
     public static final String CIPS_QUESTIONS_TABLE = "CIPS_QUESTIONS_TABLE";
     public static final String INFORMATION_TABLE = "INFORMATION_TABLE";
-
-    //ID-Questions Mappings
-    HashMap<Integer, String> cipsIDQuestionsMapping;
-
-    //Information Mapping
-    ArrayList<Information> informationList;
+    public static final String ACHIEVEMENT_TABLE = "ACHIEVEMENT_TABLE";
 
     //App Context
     private Context context;
@@ -60,69 +57,6 @@ public class InstallDatabaseHelper extends SQLiteOpenHelper {
         }
         return null;
     }
-
-    public void createCIPsIDQuestionsMapping(){
-        db  = this.getReadableDatabase();
-
-        String selectQuery = "SELECT * FROM " + CIPS_QUESTIONS_TABLE;
-
-        Cursor cursor = db.rawQuery(selectQuery,null);
-
-        //Read All Questions
-        HashMap<Integer, String> cipsIDQuestionsMapping = new HashMap<>();
-        int questionID = 0;
-        try {
-            if(cursor.moveToFirst())
-                do{
-                cipsIDQuestionsMapping.put(questionID++,cursor.getString(1));
-            }while (cursor.moveToNext());
-
-        }
-        catch (Exception e){
-            System.err.println(e.getMessage());
-            e.printStackTrace();
-        }
-        this.cipsIDQuestionsMapping = cipsIDQuestionsMapping;
-    }
-
-    public HashMap<Integer, String> getCipsIDQuestionsMapping() {
-        if(cipsIDQuestionsMapping == null)
-            createCIPsIDQuestionsMapping();
-        return cipsIDQuestionsMapping;
-    }
-
-    //Information Table
-    public void createInformationList(){
-        db  = this.getReadableDatabase();
-
-        String selectQuery = "SELECT * FROM " + INFORMATION_TABLE;
-
-        Cursor cursor = db.rawQuery(selectQuery,null);
-
-        //Read All Questions
-        ArrayList<Information> informationList = new ArrayList<Information>();
-        try {
-            if(cursor.moveToFirst())
-                do{
-                    Information information = new Information(cursor.getString(1),cursor.getString(2),cursor.getString(3));
-                    informationList.add(information);
-                }while (cursor.moveToNext());
-
-        }
-        catch (Exception e){
-            System.err.println(e.getMessage());
-            e.printStackTrace();
-        }
-        this.informationList = informationList;
-    }
-
-
-    public ArrayList<Information> getInformationList() {
-        if(informationList == null)
-            createInformationList();
-        return informationList;
-    }
-
     //Content Table
 
 

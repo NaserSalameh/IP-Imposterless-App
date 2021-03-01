@@ -3,6 +3,7 @@ package com.nasersalameh.imposterphenomenoninterventionapp.database;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Information;
 
@@ -11,13 +12,13 @@ import java.util.HashMap;
 
 public class InformationData {
     private SQLiteDatabase db;
-    private DatabaseHelper dbHelper;
+    private SQLiteOpenHelper dbHelper;
 
     public static final String INFORMATION_TABLE = "INFORMATION_TABLE";
 
     private ArrayList<Information> informationList;
 
-    public InformationData(DatabaseHelper dbHelper){
+    public InformationData(SQLiteOpenHelper dbHelper){
         this.dbHelper = dbHelper;
     }
 
@@ -28,7 +29,7 @@ public class InformationData {
                 " INFORMATION_NAME TEXT," +
                 " INFORMATION_DETAIL TEXT," +
                 " INFORMATION_CORPUS TEXT," +
-                " PROGRESS INTEGER)";
+                " INFORMATION_PROGRESS INTEGER)";
 
         db.execSQL(createTableStatement);
     }
@@ -43,7 +44,7 @@ public class InformationData {
                 cv.put("INFORMATION_NAME", information.getInformationName());
                 cv.put("INFORMATION_DETAIL", information.getInformationDetails());
                 cv.put("INFORMATION_CORPUS", information.getInformationCorpus());
-                cv.put("PROGRESS", information.getProgress());
+                cv.put("INFORMATION_PROGRESS", information.getProgress());
 
                 long insertResult = db.insert(INFORMATION_TABLE,null,cv);
 
@@ -71,7 +72,7 @@ public class InformationData {
 
                 //Add Information Name and progress
                 cv.put("INFORMATION_NAME", informationName);
-                cv.put("PROGRESS", progress);
+                cv.put("INFORMATION_PROGRESS", progress);
 
                 long insertResult = db.update(INFORMATION_TABLE,cv, "INFORMATION_NAME = ?", new String[]{informationName});
 

@@ -3,22 +3,18 @@ package com.nasersalameh.imposterphenomenoninterventionapp.database;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 
-import com.nasersalameh.imposterphenomenoninterventionapp.models.CIPsResponse;
-import com.nasersalameh.imposterphenomenoninterventionapp.models.Information;
-import com.nasersalameh.imposterphenomenoninterventionapp.models.User;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class CIPsQuestionData {
     private SQLiteDatabase db;
-    private DatabaseHelper dbHelper;
+    private SQLiteOpenHelper dbHelper;
 
     public static final String CIPS_QUESTIONS_TABLE = "CIPS_QUESTIONS_TABLE";
     private HashMap<Integer, String> cipsIDQuestionsMapping;
 
-    public CIPsQuestionData(DatabaseHelper dbHelper){
+    public CIPsQuestionData(SQLiteOpenHelper dbHelper){
         this.dbHelper = dbHelper;
     }
 
