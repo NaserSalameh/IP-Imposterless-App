@@ -27,6 +27,7 @@ public class AchievementData {
         String createTableStatement = "CREATE TABLE " + ACHIEVEMENT_TABLE +
                 " (ID INTEGER PRIMARY KEY AUTOINCREMENT," +
                 " ACHIEVEMENT_NAME TEXT," +
+                " ACHIEVEMENT_DETAILS TEXT," +
                 " ACHIEVEMENT_TYPE TEXT," +
                 " ACHIEVEMENT_DATE LONG)";
 
@@ -41,6 +42,7 @@ public class AchievementData {
 
             //Add Achievement Name, Type, and date
             cv.put("ACHIEVEMENT_NAME", achievement.getAchievementName());
+            cv.put("ACHIEVEMENT_DETAILS", achievement.getAchievementDetails());
             cv.put("ACHIEVEMENT_TYPE", achievement.getAchievementType().getAchievementType());
             cv.put("ACHIEVEMENT_DATE", achievement.getAchievementDate());
 
@@ -72,8 +74,8 @@ public class AchievementData {
         try {
             if(cursor.moveToFirst())
                 do{
-                    AchievementType achievementType = new AchievementType(cursor.getString(2));
-                    Achievement achievement = new Achievement(cursor.getString(1), achievementType,cursor.getLong(3));
+                    AchievementType achievementType = new AchievementType(cursor.getString(3));
+                    Achievement achievement = new Achievement(cursor.getString(1),cursor.getString(2), achievementType,cursor.getLong(4));
                     achievementList.add(achievement);
 
                 }while (cursor.moveToNext());

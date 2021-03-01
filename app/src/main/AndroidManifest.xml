@@ -5,6 +5,7 @@
 <!--    Permissions for read and write to storage-->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,7 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ImposterPhenomenonInterventionApp">
 
+        <!-- Setup Activity        -->
         <activity android:name=".activities.setup.SetupActivity" />
+
+        <!-- Startup Activity        -->
         <activity android:name=".activities.startup.StartupActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,16 +26,17 @@
             </intent-filter>
         </activity>
 
+        <!-- Main Activity        -->
         <activity
             android:name=".activities.main.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/Theme.ImposterPhenomenonInterventionApp.NoActionBar"></activity>
 
+        <!-- View Information Activity        -->
         <activity android:name=".activities.main.information.InformationCardActivity"
             android:theme="@style/Theme.ImposterPhenomenonInterventionApp.NoActionBar">
 
         </activity>
-
     </application>
 
 </manifest>

@@ -167,7 +167,7 @@ public class SetupActivity extends AppCompatActivity {
                     //create Bitmap of image
 
                     Bitmap image = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageURI);
-                    Bitmap resized = Bitmap.createScaledBitmap(image,300,450,true);
+                    Bitmap resized = Bitmap.createScaledBitmap(image,300,375,true);
                     //Save image Path
                     imagePath = saveImage(resized);
 

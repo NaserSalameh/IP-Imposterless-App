@@ -1,10 +1,8 @@
 package com.nasersalameh.imposterphenomenoninterventionapp.models;
 
-import android.graphics.drawable.Drawable;
+import java.io.Serializable;
 
-import androidx.core.content.ContextCompat;
-
-public class AchievementType {
+public class AchievementType implements Serializable {
 
     private String achievementType;
 

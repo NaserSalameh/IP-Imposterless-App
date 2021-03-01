@@ -55,7 +55,7 @@ public class AchievementsFragment extends Fragment {
         ArrayList<Achievement> testArray = new ArrayList<>();
         for(int i=0;i<5;i++) {
             AchievementType testType = new AchievementType("type"+i);
-            testArray.add(new Achievement("TEST"+i, testType, System.currentTimeMillis()));
+            testArray.add(new Achievement("TEST"+i,"JUST TESTING", testType, System.currentTimeMillis()));
 
         }
         return testArray;
@@ -72,7 +72,7 @@ public class AchievementsFragment extends Fragment {
         achievementRecyclerView.setLayoutManager(new GridLayoutManager(mainActivity, 3));
 
         //Set up recycler adapter with information from usage database
-        AchievementCardsAdapter adapter = new AchievementCardsAdapter(mainActivity, achievementList,mainActivity);
+        AchievementCardsAdapter adapter = new AchievementCardsAdapter(mainActivity, achievementList,mainActivity,achievementRecyclerView);
         achievementRecyclerView.setAdapter(adapter);
     }
 

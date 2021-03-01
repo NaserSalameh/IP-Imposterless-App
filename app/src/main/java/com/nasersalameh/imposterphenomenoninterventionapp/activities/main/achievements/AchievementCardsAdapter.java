@@ -2,44 +2,45 @@ package com.nasersalameh.imposterphenomenoninterventionapp.activities.main.achie
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.os.Parcelable;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Achievement;
-import com.nasersalameh.imposterphenomenoninterventionapp.models.Information;
 
 import java.util.ArrayList;
 
 public class AchievementCardsAdapter extends RecyclerView.Adapter<AchievementCardsAdapter.ViewHolder> {
 
     public static final int INFORMATION_ACTIVITY_RESULT = 101;
+    private final Activity mainActivity;
     private ViewHolder cardView;
 
     private LayoutInflater layoutInflater;
     private ArrayList<Achievement> achievementList;
-    private int achievementIndex;
 
-    private Activity mainActivity;
+    private Context context;
 
-    public AchievementCardsAdapter(Context context, ArrayList<Achievement> achievementList, Activity mainActivity){
+    private RecyclerView recyclerView;
+
+    public AchievementCardsAdapter(Context context, ArrayList<Achievement> achievementList, Activity mainActivity, RecyclerView recyclerView){
         this.layoutInflater = LayoutInflater.from(context);
         this.achievementList = achievementList;
 
+        this.context = context;
         this.mainActivity = mainActivity;
+        this.recyclerView =recyclerView;
     }
 
     @NonNull
@@ -49,14 +50,12 @@ public class AchievementCardsAdapter extends RecyclerView.Adapter<AchievementCar
         return new ViewHolder(view);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int index) {
 
         //Bind card view
         cardView = viewHolder;
-
-        //bind Card with Behaviour
-        this.achievementIndex = index;
 
         //get and set achievement icon
         int iconID = 0;
@@ -86,24 +85,26 @@ public class AchievementCardsAdapter extends RecyclerView.Adapter<AchievementCar
                 iconID = R.drawable.ic_achievement_growth;
                 break;
         }
-        Drawable drawable = ContextCompat.getDrawable(mainActivity.getApplicationContext(),iconID);
+        Drawable drawable = ContextCompat.getDrawable(context.getApplicationContext(),iconID);
         viewHolder.achievementImageView.setImageDrawable(drawable);
 
         viewHolder.achievementTextView.setText(achievementList.get(index).getAchievementName());
 
 //        //Set on Click Listener to View Card
-//        viewHolder.cardView.setOnClickListener(v -> {
-//
-//            //Start Information Activity
-//            Intent startInformationCardActivity = new Intent(mainActivity, InformationCardActivity.class);
+        viewHolder.cardView.setOnClickListener(v -> {
+
+//            //Start Achievement Activity
+//            Intent startAchievementActivity = new Intent(mainActivity, AchievementCardActivity.class);
 //
 //            //Add current information to intent
-//            startInformationCardActivity.putExtra("Information", informationList.get(index));
-//
-//            mainActivity.startActivity(startInformationCardActivity);
-//        });
+//            startAchievementActivity.putExtra("Achievement", achievementList.get(index));
+//            mainActivity.startActivity(startAchievementActivity);
+            AchievementCardPopup achievementCardPopup = new AchievementCardPopup(context, mainActivity, recyclerView, achievementList.get(index));
+            achievementCardPopup.createPopUpWindow(viewHolder);
+        });
 
     }
+
 
     @Override
     public long getItemId(int position) {
