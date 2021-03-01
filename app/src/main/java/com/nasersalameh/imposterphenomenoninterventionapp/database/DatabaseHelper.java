@@ -30,6 +30,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private InformationData informationData;
     private CIPsQuestionData cipsQuestionData;
     private AchievementsTypeData achievementsTypeData;
+    private AchievementData achievementData;
 
 
     public DatabaseHelper(@Nullable Context context) {
@@ -41,6 +42,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         informationData = new InformationData(this);
         cipsQuestionData = new CIPsQuestionData(this);
         achievementsTypeData = new AchievementsTypeData(this);
+        achievementData = new AchievementData(this);
     }
 
     //Will be called the first time the database is created. The method will Create all necessary tables.
@@ -54,6 +56,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         informationData.setDB(db);
         cipsQuestionData.setDB(db);
         achievementsTypeData.setDB(db);
+        achievementData.setDB(db);
 
         //Create Tables
         userData.createUserInformationTable();
@@ -61,6 +64,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         informationData.createInformationTable();
         cipsQuestionData.createCIPSQuestionsTable();
         achievementsTypeData.createAchievementsTypeTable();
+        achievementData.createAchievementTable();
     }
 
     public void migrateDataFromInstallToUsage(){
@@ -97,8 +101,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         for(Map.Entry cipsQuestion : cipsIDQuestionsMapping.entrySet())
             cipsQuestionData.insertNewQuestion((String) cipsQuestion.getValue());
     }
-
-
 
     //whenever version number changes
     @Override
