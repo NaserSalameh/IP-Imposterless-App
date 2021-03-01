@@ -3,6 +3,7 @@ package com.nasersalameh.imposterphenomenoninterventionapp.activities.main.achie
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
@@ -55,7 +57,38 @@ public class AchievementCardsAdapter extends RecyclerView.Adapter<AchievementCar
 
         //bind Card with Behaviour
         this.achievementIndex = index;
-//        viewHolder.achievementImageView.setText(achievementList.get(index).getInformationName());
+
+        //get and set achievement icon
+        int iconID = 0;
+        switch(achievementList.get(index).getAchievementType().getAchievementType()){
+            case "type0":
+                iconID = R.drawable.ic_achievement_small_goal;
+                break;
+            case "type1":
+                iconID = R.drawable.ic_achievement_medium_goal;
+                break;
+            case "type2":
+                iconID = R.drawable.ic_achievement_large_goal;
+                break;
+            case "type3":
+                iconID = R.drawable.ic_achievement_cips_completion;
+                break;
+            case "type4":
+                iconID = R.drawable.ic_achievement_information_completion;
+                break;
+            case "type5":
+                iconID = R.drawable.ic_achievement_streak;
+                break;
+            case "type6":
+                iconID = R.drawable.ic_achievement_time;
+                break;
+            case "type7":
+                iconID = R.drawable.ic_achievement_growth;
+                break;
+        }
+        Drawable drawable = ContextCompat.getDrawable(mainActivity.getApplicationContext(),iconID);
+        viewHolder.achievementImageView.setImageDrawable(drawable);
+
         viewHolder.achievementTextView.setText(achievementList.get(index).getAchievementName());
 
 //        //Set on Click Listener to View Card

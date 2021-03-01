@@ -53,8 +53,8 @@ public class AchievementsFragment extends Fragment {
         AchievementData achievementData = new AchievementData(databaseHelper);
 
         ArrayList<Achievement> testArray = new ArrayList<>();
-        AchievementType testType = new AchievementType("testType");
         for(int i=0;i<5;i++) {
+            AchievementType testType = new AchievementType("type"+i);
             testArray.add(new Achievement("TEST"+i, testType, System.currentTimeMillis()));
 
         }
