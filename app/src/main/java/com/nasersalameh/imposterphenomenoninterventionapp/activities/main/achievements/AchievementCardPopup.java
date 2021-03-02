@@ -19,7 +19,10 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
+import com.nasersalameh.imposterphenomenoninterventionapp.helpers.DateConverter;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Achievement;
+
+import java.util.Date;
 
 public class AchievementCardPopup {
 
@@ -48,13 +51,6 @@ public class AchievementCardPopup {
         @SuppressLint("WrongViewCast")
         View view = recyclerView.getLayoutManager().findViewByPosition(0);
 
-//        DisplayMetrics displayMetrics = new DisplayMetrics();
-//        mainActivity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-//        int height = (int) ((int) displayMetrics.heightPixels * .25);
-//        int width =  (int) ((int) displayMetrics.widthPixels * .3);
-//
-//        System.out.println(height);
-//        System.out.println(width);
         final PopupWindow popupWindow = new PopupWindow(container, 1000, 1000, true);
         //what ever you do here will be done after 3 seconds delay.
 
@@ -68,12 +64,7 @@ public class AchievementCardPopup {
         handler.postDelayed(r, 500);
 
         //Handler to thread sleep and slow down process
-        r = new Runnable() {
-            @RequiresApi(api = Build.VERSION_CODES.M)
-            public void run() {
-                setUpAchievementActivity(container);
-            }
-        };
+        r = () -> setUpAchievementActivity(container);
         handler.postDelayed(r, 500);
 
         this.popupWindow = popupWindow;
@@ -105,7 +96,8 @@ public class AchievementCardPopup {
                                         "\nScore: " + achievement.getAchievementType().getAchievementScore());
 
         //Set date -> Convert To Readable Date
-//        achievementDateTextView.setText(achievement.getAchievementDate());
+        String date = DateConverter.getDateFromUnixTime(achievement.getAchievementDate());
+        achievementDateTextView.setText(date);
 
         //set Details
         achievementDetailsTextView.setText(achievement.getAchievementDetails());

@@ -101,39 +101,6 @@ public class AchievementData {
         return achievementList;
     }
 
-    public int getAchievementTotalScores(){
-        int returnScore = 0;
-        db  = dbHelper.getReadableDatabase();
-
-        String selectQuery = "SELECT ACHIEVEMENT_TYPE FROM " + ACHIEVEMENT_TABLE;
-
-        Cursor cursor = db.rawQuery(selectQuery,null);
-
-        //Read All Achievement
-        try {
-            if(cursor.moveToFirst())
-                do{
-                    //get Achievement Type
-                    AchievementType achievementType = achievementTypes.get(0);
-                    for(int i=0;i<achievementTypes.size();i++)
-                        if(cursor.getString(0).equals(achievementTypes.get(i).getAchievementType()))
-                            achievementType = achievementTypes.get(i);
-
-                    //add achievement score to total
-                    System.out.println("SS:" + cursor.getString(0));
-
-                    System.out.println("ADDED SCORE" + achievementType.getAchievementScore());
-                    returnScore += achievementType.getAchievementScore();
-                }
-                while (cursor.moveToNext());
-        }
-        catch (Exception e){
-            System.err.println(e.getMessage());
-            e.printStackTrace();
-        }
-        return returnScore;
-    }
-
     public void setDB(SQLiteDatabase db) {
         this.db = db;
     }

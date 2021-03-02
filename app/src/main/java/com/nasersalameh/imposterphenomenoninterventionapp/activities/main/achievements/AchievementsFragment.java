@@ -77,18 +77,18 @@ public class AchievementsFragment extends Fragment {
         //get Achievement from Usage Database
         DatabaseHelper databaseHelper = new DatabaseHelper(mainActivity);
         AchievementsTypeData achievementsTypeData = new AchievementsTypeData(databaseHelper);
+
         ArrayList<AchievementType> achievementTypes = achievementsTypeData.getAchievementsTypeList();
+
         AchievementData achievementData = new AchievementData(databaseHelper,achievementTypes);
 
-        System.out.println(achievementTypes.size());
+        //Add Test Data
+//        for(int i=0;i<7;i++) {
+//            AchievementType testType = achievementTypes.get(i);
+//            achievementData.insertNewAchievement(new Achievement("TEST"+i,"JUST TESTING", testType, System.currentTimeMillis()));
+//        }
 
-        ArrayList<Achievement> testArray = new ArrayList<>();
-        for(int i=0;i<7;i++) {
-            AchievementType testType = achievementTypes.get(i);
-            testArray.add(new Achievement("TEST"+i,"JUST TESTING", testType, System.currentTimeMillis()));
-        }
-        return testArray;
-//        return achievementData.getAchievementList();
+        return achievementData.getAchievementList();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)

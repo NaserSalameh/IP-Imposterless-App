@@ -1,9 +1,13 @@
 package com.nasersalameh.imposterphenomenoninterventionapp.activities.main.achievements;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +16,8 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,10 +27,12 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentActivity;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.AchievementData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.AchievementsTypeData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelper;
+import com.nasersalameh.imposterphenomenoninterventionapp.helpers.DateConverter;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Achievement;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.AchievementType;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Information;
@@ -51,36 +59,101 @@ public class AchievementAddActivity extends FragmentActivity implements DatePick
 
     Button saveAchievementButton;
 
+    //Helper Floating buttons
+    FloatingActionButton achievementTypeFloatingButton;
+    FloatingActionButton achievementNameFloatingButton;
+    FloatingActionButton achievementDetailsFloatingButton;
+    FloatingActionButton achievementDateFloatingButton;
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_achievements_add_activity);
 
         //Inject UI:
-       achievementTypeSpinner = findViewById(R.id.achievementTypeSpinner);
+        achievementTypeSpinner = findViewById(R.id.achievementTypeSpinner);
 
-       setUpSpinner();
+        setUpSpinner();
 
-       achievementNameEditText = findViewById(R.id.achievementNameEditText);
+        achievementNameEditText = findViewById(R.id.achievementNameEditText);
 
-       achievementDetailsEditText = findViewById(R.id.achievementDetailsMultilineText);
+        achievementDetailsEditText = findViewById(R.id.achievementDetailsMultilineText);
 
-       selectDateButton = findViewById(R.id.selectDateButton);
-       selectDateButton.setOnClickListener(v -> {
+        selectDateButton = findViewById(R.id.selectDateButton);
+        selectDateButton.setOnClickListener(v -> {
             showDatePickerDialog();
-       });
+        });
 
-       selectedDateTextView = findViewById(R.id.selectedDateTextView);
+        selectedDateTextView = findViewById(R.id.selectedDateTextView);
+        Long currentUnix = System.currentTimeMillis();
+        String currentDate = DateConverter.getDateFromUnixTime(currentUnix);
+        selectedDateTextView.setText("Selected Date: " + currentDate);
 
-       saveAchievementButton = findViewById(R.id.saveAchievementButton);
+        //Set up Floating Buttons
+        setUpFloatingButtons();
 
-       saveAchievementButton.setOnClickListener(v -> {
-           saveAchievement();
+        saveAchievementButton = findViewById(R.id.saveAchievementButton);
+
+        saveAchievementButton.setOnClickListener(v -> {
+            saveAchievement();
 
            //End Activity
-           finish();
-       });
+//            finish();
+        });
+    }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void setUpFloatingButtons() {
+        achievementTypeFloatingButton = findViewById(R.id.achievementTypeFloatingButton);
+        achievementNameFloatingButton = findViewById(R.id.achievementNameFloatingButton);
+        achievementDetailsFloatingButton = findViewById(R.id.achievementDetailsFloatingButton);
+        achievementDateFloatingButton = findViewById(R.id.achievementDateFloatingButton);
+
+        achievementTypeFloatingButton.setOnClickListener(v -> {
+            String popupTitle = "TITLE";
+            String popupText = "TESTSTSTESTST";
+            createPopup(popupTitle,popupText);
+        });
+
+        achievementNameFloatingButton.setOnClickListener(v -> {
+            String popupTitle = "TITLE";
+            String popupText = "TESTSTSTESTST";
+            createPopup(popupTitle,popupText);
+        });
+
+        achievementDetailsFloatingButton.setOnClickListener(v -> {
+            String popupTitle = "TITLE";
+            String popupText = "TESTSTSTESTST";
+            createPopup(popupTitle,popupText);
+        });
+
+        achievementDateFloatingButton.setOnClickListener(v -> {
+            String popupTitle = "TITLE";
+            String popupText = "TESTSTSTESTST";
+            createPopup(popupTitle,popupText);
+        });
+    }
+
+    private void createPopup(String popupTitle, String popupText){
+        //Create and inflate layout
+        ViewGroup container = (ViewGroup) LayoutInflater.from(AchievementAddActivity.this).inflate(R.layout.fragment_achievements_add_activity_popup,null);
+
+        // which view you pass in doesn't matter, it is only used for the window tolken
+        @SuppressLint("WrongViewCast")
+        View constraintLayout = findViewById(R.id.addAchievementConstraintLayout);
+        final PopupWindow popupWindow = new PopupWindow(container, 1000, 1000, true);
+
+        //Handler to thread sleep and slow down process
+        Handler handler=new Handler();
+        Runnable r= () -> popupWindow.showAtLocation(constraintLayout, Gravity.CENTER, 100, 100);
+        handler.postDelayed(r, 1000);
+
+        TextView popupTitleTextView = container.findViewById(R.id.addAchievementHelpTitlePopupTextView);
+        popupTitleTextView.setText(popupTitle);
+
+        TextView popupTextView = container.findViewById(R.id.addAchievementHelpPopupTextView);
+        popupTextView.setText(popupText);
     }
 
     private void setUpSpinner() {
@@ -129,7 +202,7 @@ public class AchievementAddActivity extends FragmentActivity implements DatePick
 
         //only get the date
         String date = selectedDateTextView.getText().toString().split(" ")[2];
-        Long achievementDate = getUnixTimeFromData(date);
+        Long achievementDate = DateConverter.getUnixTimeFromData(date);
 
         //Create and write new achievement
         Achievement newAchievement = new Achievement(achievementName,achievementDetails,achievementType,achievementDate);
@@ -137,18 +210,6 @@ public class AchievementAddActivity extends FragmentActivity implements DatePick
 
     }
 
-    private Long getUnixTimeFromData(String Date){
-         try {
-             DateFormat dateFormat = new SimpleDateFormat("dd/M/yyyy");
-             java.util.Date date = dateFormat.parse(Date);
-             long unixTime = (long) date.getTime()/1000;
-             System.out.println(unixTime );
-             return unixTime;
-         }
-         catch (ParseException e) {
-            e.printStackTrace();
-        }
-         return 0l;
-    }
+
 
 }
