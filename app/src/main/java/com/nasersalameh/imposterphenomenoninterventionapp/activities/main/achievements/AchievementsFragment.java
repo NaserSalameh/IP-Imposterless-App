@@ -1,6 +1,7 @@
 package com.nasersalameh.imposterphenomenoninterventionapp.activities.main.achievements;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,7 +19,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
+import com.nasersalameh.imposterphenomenoninterventionapp.activities.main.MainActivity;
 import com.nasersalameh.imposterphenomenoninterventionapp.activities.main.information.InformationCardsAdapter;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.AchievementData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelper;
@@ -35,6 +38,8 @@ public class AchievementsFragment extends Fragment {
 
     private Activity mainActivity;
 
+    private FloatingActionButton addAchievementButton;
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -43,9 +48,14 @@ public class AchievementsFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_achievements, container, false);
 
         mainActivity = getActivity();
+
         setUpRecyclerView(root);
+
+        setUpAddAchievementButtonOnClickListener(root);
+
         return root;
     }
+
 
     private ArrayList<Achievement> loadAchievementFromDatabase() {
         //get Achievement from Usage Database
@@ -74,6 +84,19 @@ public class AchievementsFragment extends Fragment {
         //Set up recycler adapter with information from usage database
         AchievementCardsAdapter adapter = new AchievementCardsAdapter(mainActivity, achievementList,mainActivity,achievementRecyclerView);
         achievementRecyclerView.setAdapter(adapter);
+    }
+
+
+    private void setUpAddAchievementButtonOnClickListener(View root) {
+        //Inject UI
+        addAchievementButton = root.findViewById(R.id.addAchievementButton);
+
+        addAchievementButton.setOnClickListener(v -> {
+            Intent startAddAchievementActivity = new Intent(mainActivity, AchievementAddActivity.class);
+
+            mainActivity.startActivity(startAddAchievementActivity);
+        });
+
     }
 
 }

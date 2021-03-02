@@ -37,6 +37,14 @@
             android:theme="@style/Theme.ImposterPhenomenonInterventionApp.NoActionBar">
 
         </activity>
+
+        <!-- Add Achievement Activity        -->
+        <activity android:name=".activities.main.achievements.AchievementAddActivity"
+            android:theme="@style/Theme.ImposterPhenomenonInterventionApp.NoActionBar">
+
+        </activity>
+
+
     </application>
 
 </manifest>

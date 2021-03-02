@@ -5,23 +5,17 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.os.Bundle;
 import android.os.Handler;
-import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
@@ -47,7 +41,7 @@ public class AchievementCardPopup {
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void createPopUpWindow(AchievementCardsAdapter.ViewHolder viewHolder) {
         //Create and inflate layout
-        ViewGroup container = (ViewGroup) LayoutInflater.from(context).inflate(R.layout.fragment_achievements_activity,null);
+        ViewGroup container = (ViewGroup) LayoutInflater.from(context).inflate(R.layout.fragment_achievements_popup_activity,null);
 
         // which view you pass in doesn't matter, it is only used for the window tolken
         @SuppressLint("WrongViewCast")
