@@ -10,25 +10,19 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
-import com.nasersalameh.imposterphenomenoninterventionapp.activities.main.MainActivity;
-import com.nasersalameh.imposterphenomenoninterventionapp.activities.main.information.InformationCardsAdapter;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.AchievementData;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.AchievementsTypeData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelper;
-import com.nasersalameh.imposterphenomenoninterventionapp.database.InformationData;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Achievement;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.AchievementType;
-import com.nasersalameh.imposterphenomenoninterventionapp.models.Information;
 
 import java.util.ArrayList;
 
@@ -37,6 +31,12 @@ public class AchievementsFragment extends Fragment {
     private AchievementsViewModel achievementsViewModel;
 
     private Activity mainActivity;
+
+    private View root;
+
+    private ArrayList<Achievement> achievementList;
+
+    private TextView achievementScoresTextView;
 
     private FloatingActionButton addAchievementButton;
 
@@ -49,33 +49,52 @@ public class AchievementsFragment extends Fragment {
 
         mainActivity = getActivity();
 
-        setUpRecyclerView(root);
+        this.root = root;
 
-        setUpAddAchievementButtonOnClickListener(root);
+        setAchievementsScore();
+
+        setUpRecyclerView();
+
+        setUpAddAchievementButtonOnClickListener();
 
         return root;
+    }
+
+    private void setAchievementsScore() {
+        int achievementScores = 0;
+        //Get (updated) information List
+        achievementList = loadAchievementFromDatabase();
+
+        for(Achievement achievement: achievementList)
+            achievementScores+=achievement.getAchievementType().getAchievementScore();
+
+        achievementScoresTextView = root.findViewById(R.id.achievementScoreTextView);
+        achievementScoresTextView.setText("Achievement Scores: "+ achievementScores);
     }
 
 
     private ArrayList<Achievement> loadAchievementFromDatabase() {
         //get Achievement from Usage Database
         DatabaseHelper databaseHelper = new DatabaseHelper(mainActivity);
-        AchievementData achievementData = new AchievementData(databaseHelper);
+        AchievementsTypeData achievementsTypeData = new AchievementsTypeData(databaseHelper);
+        ArrayList<AchievementType> achievementTypes = achievementsTypeData.getAchievementsTypeList();
+        AchievementData achievementData = new AchievementData(databaseHelper,achievementTypes);
+
+        System.out.println(achievementTypes.size());
 
         ArrayList<Achievement> testArray = new ArrayList<>();
-        for(int i=0;i<5;i++) {
-            AchievementType testType = new AchievementType("type"+i);
+        for(int i=0;i<7;i++) {
+            AchievementType testType = achievementTypes.get(i);
             testArray.add(new Achievement("TEST"+i,"JUST TESTING", testType, System.currentTimeMillis()));
-
         }
         return testArray;
 //        return achievementData.getAchievementList();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private void setUpRecyclerView(View root){
+    private void setUpRecyclerView(){
         //Get (updated) information List
-        ArrayList<Achievement> achievementList = loadAchievementFromDatabase();
+        achievementList = loadAchievementFromDatabase();
 
         //get Recycler View:
         RecyclerView achievementRecyclerView = root.findViewById(R.id.achievementsRecyclerView);
@@ -87,7 +106,7 @@ public class AchievementsFragment extends Fragment {
     }
 
 
-    private void setUpAddAchievementButtonOnClickListener(View root) {
+    private void setUpAddAchievementButtonOnClickListener() {
         //Inject UI
         addAchievementButton = root.findViewById(R.id.addAchievementButton);
 
@@ -96,7 +115,14 @@ public class AchievementsFragment extends Fragment {
 
             mainActivity.startActivity(startAddAchievementActivity);
         });
-
     }
 
+    //call when this view resumes (after adding new achievements)
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
+    public void onResume() {
+        setAchievementsScore();
+        setUpRecyclerView();
+        super.onResume();
+    }
 }

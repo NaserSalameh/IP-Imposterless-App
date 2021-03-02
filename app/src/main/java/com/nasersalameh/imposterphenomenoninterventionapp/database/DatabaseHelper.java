@@ -42,7 +42,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         informationData = new InformationData(this);
         cipsQuestionData = new CIPsQuestionData(this);
         achievementsTypeData = new AchievementsTypeData(this);
-        achievementData = new AchievementData(this);
     }
 
     //Will be called the first time the database is created. The method will Create all necessary tables.
@@ -56,7 +55,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         informationData.setDB(db);
         cipsQuestionData.setDB(db);
         achievementsTypeData.setDB(db);
-        achievementData.setDB(db);
 
         //Create Tables
         userData.createUserInformationTable();
@@ -64,7 +62,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         informationData.createInformationTable();
         cipsQuestionData.createCIPSQuestionsTable();
         achievementsTypeData.createAchievementsTypeTable();
-        achievementData.createAchievementTable();
     }
 
     public void migrateDataFromInstallToUsage(){
@@ -83,7 +80,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         AchievementsTypeData installAchievementTypeData = new AchievementsTypeData(installDatabaseHelper);
         ArrayList<AchievementType> achievementTypes = installAchievementTypeData.getAchievementsTypeList();
         for(AchievementType achievementType : achievementTypes)
-            achievementsTypeData.insertNewAchievementType(achievementType.getAchievementType());
+            achievementsTypeData.insertNewAchievementType(achievementType);
+
+        //After migrating achievement types, initialise achievementData
+        achievementData = new AchievementData(this,achievementTypes);
+        achievementData.setDB(db);
+        achievementData.createAchievementTable();
+
     }
 
     //Copies all information entries from install database to usage database

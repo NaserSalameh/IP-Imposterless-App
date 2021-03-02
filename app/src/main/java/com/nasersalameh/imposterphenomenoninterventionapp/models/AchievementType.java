@@ -6,13 +6,18 @@ public class AchievementType implements Serializable {
 
     private String achievementType;
 
-    //Constructor for Migrating from install DB;
-    public AchievementType(String achievementType){
+    private int achievementScore;
+
+    public AchievementType(String achievementType, int achievementScore){
         this.achievementType = achievementType;
+        this.achievementScore = achievementScore;
     }
 
     public String getAchievementType() {
         return achievementType;
     }
 
+    public int getAchievementScore() {
+        return achievementScore;
+    }
 }

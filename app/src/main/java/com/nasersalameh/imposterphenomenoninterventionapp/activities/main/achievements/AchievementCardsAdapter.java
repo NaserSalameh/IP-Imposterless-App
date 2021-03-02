@@ -23,7 +23,6 @@ import java.util.ArrayList;
 
 public class AchievementCardsAdapter extends RecyclerView.Adapter<AchievementCardsAdapter.ViewHolder> {
 
-    public static final int INFORMATION_ACTIVITY_RESULT = 101;
     private final Activity mainActivity;
     private ViewHolder cardView;
 

@@ -21,11 +21,6 @@ public class InstallDatabaseHelper extends SQLiteOpenHelper {
     private SQLiteDatabase db;
     private static String DB_NAME = "InstallDatabase.db";
 
-    //Constant Tables
-    public static final String CIPS_QUESTIONS_TABLE = "CIPS_QUESTIONS_TABLE";
-    public static final String INFORMATION_TABLE = "INFORMATION_TABLE";
-    public static final String ACHIEVEMENT_TABLE = "ACHIEVEMENT_TABLE";
-
     //App Context
     private Context context;
 

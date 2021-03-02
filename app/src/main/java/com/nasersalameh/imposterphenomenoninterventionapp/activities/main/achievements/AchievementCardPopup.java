@@ -27,6 +27,7 @@ public class AchievementCardPopup {
     private final Activity mainActivity;
     private final Achievement achievement;
     private RecyclerView recyclerView;
+
     private PopupWindow popupWindow;
 
     AchievementCardPopup(Context context, Activity mainActivity, RecyclerView recyclerView, Achievement achievement){
@@ -81,21 +82,27 @@ public class AchievementCardPopup {
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void setUpAchievementActivity(ViewGroup container){
         //Inject UI:
-        ImageView achievementImageView = container.findViewById(R.id.achievementActivityImageView);
+        ImageView achievementImageView = container.findViewById(R.id.achievementPopupImageView);
 
-        TextView achievementNameTextView = container.findViewById(R.id.achievementActivityNameTextView);
+        TextView achievementNameTextView = container.findViewById(R.id.achievementPopupNameTextView);
 
-        TextView achievementDateTextView = container.findViewById(R.id.achievementActivityDateTextView);
+        TextView achievementTypeTextView = container.findViewById(R.id.achievementPopupTypeTextView);
 
-        TextView achievementDetailsTextView = container.findViewById(R.id.achievementActivityDetailsTextView);
+        TextView achievementDateTextView = container.findViewById(R.id.achievementPopupDateTextView);
 
-        TextView achievementActivityButton = container.findViewById(R.id.achievementActivityButton);
+        TextView achievementDetailsTextView = container.findViewById(R.id.achievementPopupDetailsTextView);
+
+        TextView achievementActivityButton = container.findViewById(R.id.achievementPopupButton);
 
         //Set Image
         achievementImageView.setImageDrawable(getAchievementDrawable(achievement.getAchievementType().getAchievementType()));
 
         //Set Name
         achievementNameTextView.setText(achievement.getAchievementName());
+
+        //Set Type and Score
+        achievementTypeTextView.setText("Type: " + achievement.getAchievementType().getAchievementType() +
+                                        "\nScore: " + achievement.getAchievementType().getAchievementScore());
 
         //Set date -> Convert To Readable Date
 //        achievementDateTextView.setText(achievement.getAchievementDate());
