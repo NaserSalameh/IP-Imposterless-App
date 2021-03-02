@@ -86,6 +86,16 @@ public class AchievementsTypeData {
         return achievementTypes;
     }
 
+    public AchievementType getAchievementTypeGivenName(String achievementName){
+        if(achievementTypes == null)
+            createAchievementsTypeList();
+        for(AchievementType type: achievementTypes)
+            if(type.getAchievementType().equals(achievementName))
+                return type;
+
+            return null;
+    }
+
     public void setDB(SQLiteDatabase db) {
         this.db = db;
     }
