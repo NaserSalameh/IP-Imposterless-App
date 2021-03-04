@@ -3,14 +3,20 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.transition.AutoTransition;
+import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStructure;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,6 +26,8 @@ import com.nasersalameh.imposterphenomenoninterventionapp.models.Ability;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Achievement;
 
 import java.util.ArrayList;
+
+import kotlin.reflect.KVisibility;
 
 public class AbilitiesCardsAdapter extends RecyclerView.Adapter<AbilitiesCardsAdapter.ViewHolder> {
 
@@ -56,6 +64,30 @@ public class AbilitiesCardsAdapter extends RecyclerView.Adapter<AbilitiesCardsAd
         //Bind card view
         cardView = viewHolder;
 
+        Ability currentAbility = abilitiesList.get(index);
+
+        viewHolder.abilitiesCardProgressBar.setProgress(currentAbility.getProgress());
+
+        viewHolder.abilitiesCardNameTextView.setText(currentAbility.getName());
+
+        viewHolder.abilitiesCardButton.setOnClickListener(v -> {
+            if(viewHolder.expandableView.getVisibility() == View.GONE){
+                TransitionManager.beginDelayedTransition(viewHolder.cardView, new AutoTransition());
+                viewHolder.expandableView.setVisibility(View.VISIBLE);
+                viewHolder.abilitiesCardButton.setBackgroundResource(R.drawable.ic_keyboard_arrow_up);
+            }
+            else{
+                TransitionManager.beginDelayedTransition(viewHolder.cardView, new AutoTransition());
+                viewHolder.expandableView.setVisibility(View.GONE);
+                viewHolder.abilitiesCardButton.setBackgroundResource(R.drawable.ic_keyboard_arrow_down);
+            }
+        });
+
+        int level = currentAbility.getLevel();
+        viewHolder.abilitiesCardNameLevelView.setText("Level: "+ level);
+        viewHolder.abilitiesCardNameExpView.setText("Exp: " + currentAbility.getExperience()+"/"+currentAbility.getLevelExp(level+1));
+
+        viewHolder.abilitiesCardNameDetailsView.setText(currentAbility.getDetails());
     }
 
 
@@ -74,12 +106,36 @@ public class AbilitiesCardsAdapter extends RecyclerView.Adapter<AbilitiesCardsAd
 
         MaterialCardView cardView;
 
-        ImageView achievementImageView;
+        ConstraintLayout expandableView;
+        ProgressBar abilitiesCardProgressBar;
 
-        TextView achievementTextView;
+        TextView abilitiesCardNameTextView;
+
+        Button abilitiesCardButton;
+
+        TextView abilitiesCardNameLevelView;
+        TextView abilitiesCardNameExpView;
+
+        TextView abilitiesCardNameDetailsView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            cardView = itemView.findViewById(R.id.abilitiesCardView);
+
+            expandableView = itemView.findViewById(R.id.abilitiesCardExpandableView);
+
+            abilitiesCardProgressBar= itemView.findViewById(R.id.abilitiesCardProgressBar);
+
+            abilitiesCardNameTextView= itemView.findViewById(R.id.abilitiesCardNameTextView);
+
+            abilitiesCardButton = itemView.findViewById(R.id.abilitiesCardArrowButton);
+
+            abilitiesCardNameLevelView= itemView.findViewById(R.id.abilitiesCardLevelTextView);
+            abilitiesCardNameExpView= itemView.findViewById(R.id.abilitiesCardExpTextView);
+
+            abilitiesCardNameDetailsView= itemView.findViewById(R.id.abilitiesCardDetailTextView);
+
         }
     }
 

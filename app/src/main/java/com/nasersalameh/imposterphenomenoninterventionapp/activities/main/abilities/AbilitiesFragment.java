@@ -50,7 +50,7 @@ public class AbilitiesFragment extends Fragment {
 
         mainActivity = getActivity();
 
-//        setUpRecyclerView();
+        setUpRecyclerView();
 
         return root;
     }
@@ -58,19 +58,18 @@ public class AbilitiesFragment extends Fragment {
 
     private ArrayList<Ability> loadAbilitiesFromDatabase() {
         //get Abilities from Usage Database
-        DatabaseHelper databaseHelper = new DatabaseHelper(mainActivity);
+//        DatabaseHelper databaseHelper = new DatabaseHelper(mainActivity);
 //        AchievementsTypeData achievementsTypeData = new AchievementsTypeData(databaseHelper);
-
 //        ArrayList<AchievementType> achievementTypes = achievementsTypeData.getAchievementsTypeList();
-
 //        AchievementData achievementData = new AchievementData(databaseHelper,achievementTypes);
 
         //Add Test Data
-//        for(int i=0;i<7;i++) {
-//            achievementData.insertNewAchievement(new Achievement("TEST"+i,"JUST TESTING", testType, System.currentTimeMillis()));
-//        }
+        ArrayList<Ability> abilities = new ArrayList<>();
+        for(int i=0;i<7;i++) {
+            abilities.add(new Ability("test"+i,"JUST TEST", i*1000));
+        }
 
-        return null;
+        return abilities;
 //        return achievementData.getAchievementList();
     }
 
