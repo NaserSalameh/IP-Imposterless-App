@@ -89,9 +89,10 @@ public class AchievementsTypeData {
     public AchievementType getAchievementTypeGivenName(String achievementName){
         if(achievementTypes == null)
             createAchievementsTypeList();
-        for(AchievementType type: achievementTypes)
+        for(AchievementType type: achievementTypes){
             if(type.getAchievementType().equals(achievementName))
                 return type;
+        }
 
             return null;
     }

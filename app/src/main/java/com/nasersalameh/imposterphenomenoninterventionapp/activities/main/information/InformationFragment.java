@@ -79,11 +79,9 @@ public class InformationFragment extends Fragment {
 
         //Handler to thread sleep and slow down process
         Handler handler=new Handler();
-        Runnable r=new Runnable() {
-            public void run() {
-                //what ever you do here will be done after 3 seconds delay.
-                setUpRecyclerView(root);
-            }
+        Runnable r= () -> {
+            //what ever you do here will be done after 3 seconds delay.
+            setUpRecyclerView(root);
         };
         handler.postDelayed(r, 1000);
 
