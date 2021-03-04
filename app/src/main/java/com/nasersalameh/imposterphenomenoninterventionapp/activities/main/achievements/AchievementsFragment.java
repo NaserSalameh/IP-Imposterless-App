@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -121,8 +122,17 @@ public class AchievementsFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onResume() {
-        setAchievementsScore();
-        setUpRecyclerView();
+
+        //Handler to thread sleep and slow down process
+        Handler handler=new Handler();
+        Runnable r= () -> {
+            //what ever you do here will be done after 3 seconds delay.
+            setAchievementsScore();
+            setUpRecyclerView();
+        };
+        handler.postDelayed(r, 1000);
+
+
         super.onResume();
     }
 }

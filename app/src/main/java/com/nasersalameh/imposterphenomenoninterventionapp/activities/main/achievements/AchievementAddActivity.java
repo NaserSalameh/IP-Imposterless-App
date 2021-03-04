@@ -99,7 +99,7 @@ public class AchievementAddActivity extends FragmentActivity implements DatePick
             saveAchievement();
 
            //End Activity
-//            finish();
+            finish();
         });
     }
 
@@ -158,11 +158,17 @@ public class AchievementAddActivity extends FragmentActivity implements DatePick
 
     private void setUpSpinner() {
 
-        ArrayList<String> testTypes = new ArrayList<>();
-        for(int i=0;i<5;i++)
-            testTypes.add("type"+i);
+        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+        AchievementsTypeData achievementsTypeData = new AchievementsTypeData(databaseHelper);
+        ArrayList<AchievementType> achievementTypes = achievementsTypeData.getAchievementsTypeList();
 
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, testTypes);
+        ArrayList<String> achievementTypesString = new ArrayList<>();
+
+        for(AchievementType a: achievementTypes)
+            achievementTypesString.add(a.getAchievementType());
+
+
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,achievementTypesString );
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         achievementTypeSpinner.setAdapter(spinnerAdapter);
