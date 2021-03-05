@@ -113,9 +113,9 @@ public class AbilitiesCardsAdapter extends RecyclerView.Adapter<AbilitiesCardsAd
         //remove previous chips
         chipGroup.removeAllViews();
 
+
         //add all improvements
         for(String improvement: currentAbility.getImprovements()){
-
             Chip chip = (Chip) layoutInflater.inflate(R.layout.fragment_abilities_card_improve_chip,chipGroup, false);
             chip.setText(improvement);
             chipGroup.addView(chip);
