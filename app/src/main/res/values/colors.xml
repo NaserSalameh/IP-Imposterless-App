@@ -7,4 +7,28 @@
     <color name="light_purple_foreground">#3F51B5</color>
     <color name="black">#FF000000</color>
     <color name="dark_blue_background">#093287</color>
+
+
+    <!-- Levels Colors    -->
+    <color name="level_1">#fabed4</color>
+    <color name="level_2">#e6194B</color>
+    <color name="level_3">#800000</color>
+    <color name="level_4">#ffd8b1</color>
+    <color name="level_5">#9A6324</color>
+    <color name="level_6">#f58231</color>
+    <color name="level_7">#fffac8</color>
+    <color name="level_8">#808000</color>
+    <color name="level_9">#ffe119</color>
+    <color name="level_10">#aaffc3</color>
+    <color name="level_11">#bfef45</color>
+    <color name="level_12">#3cb44b</color>
+    <color name="level_13">#42d4f4</color>
+    <color name="level_14">#4363d8</color>
+    <color name="level_15">#000075</color>
+    <color name="level_16">#dcbeff</color>
+    <color name="level_17">#f032e6</color>
+    <color name="level_18">#911eb4</color>
+    <color name="level_19">#a9a9a9</color>
+    <color name="level_20">#000000</color>
+
 </resources>

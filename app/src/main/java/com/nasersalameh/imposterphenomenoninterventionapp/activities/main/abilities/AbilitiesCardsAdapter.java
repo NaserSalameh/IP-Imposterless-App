@@ -1,7 +1,16 @@
 package com.nasersalameh.imposterphenomenoninterventionapp.activities.main.abilities;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.LayerDrawable;
+import android.graphics.drawable.RotateDrawable;
 import android.os.Build;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
@@ -71,6 +80,12 @@ public class AbilitiesCardsAdapter extends RecyclerView.Adapter<AbilitiesCardsAd
 
         viewHolder.abilitiesCardProgressBar.setProgress(currentAbility.getProgress());
 
+        //get new drawable instance and change color
+//        Drawable progressDrawable = context.getDrawable(R.drawable.abilities_progress_circle).getConstantState().newDrawable();
+//        progressDrawable.setColorFilter(currentAbility.getLevelColor(), PorterDuff.Mode.SRC_IN);
+//        viewHolder.abilitiesCardProgressBar.setProgressDrawable(progressDrawable);
+//        viewHolder.abilitiesCardProgressBar.setProgressTintList(ColorStateList.valueOf(currentAbility.getLevelColor()));
+
         viewHolder.abilitiesCardNameTextView.setText(currentAbility.getName());
 
         //Drop down button
@@ -95,9 +110,12 @@ public class AbilitiesCardsAdapter extends RecyclerView.Adapter<AbilitiesCardsAd
 
         //ChipGroup
         ChipGroup chipGroup = viewHolder.abilitiesCardImproveChipGroup;
+        //remove previous chips
+        chipGroup.removeAllViews();
 
         //add all improvements
         for(String improvement: currentAbility.getImprovements()){
+
             Chip chip = (Chip) layoutInflater.inflate(R.layout.fragment_abilities_card_improve_chip,chipGroup, false);
             chip.setText(improvement);
             chipGroup.addView(chip);

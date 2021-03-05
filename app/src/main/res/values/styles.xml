@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CircularDeterminateProgressBar">
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:progressDrawable">@drawable/abilities_progress_circle</item>
+    </style>
+
+    <style name="newColor">
+        <item name="colorAccent">@color/level_1</item>
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:progressDrawable">@drawable/abilities_progress_circle</item>
+    </style>
+
+
+</resources>

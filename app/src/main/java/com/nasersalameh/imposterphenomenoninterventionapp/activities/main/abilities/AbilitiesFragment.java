@@ -65,14 +65,14 @@ public class AbilitiesFragment extends Fragment {
 
         //Add Test Data
         ArrayList<Ability> abilities = new ArrayList<>();
-        for(int i=0;i<7;i++) {
+        for(int i=1;i<7;i++) {
             ArrayList<String> improvements = new ArrayList<>();
             improvements.add("Improvement" + i);
             improvements.add("Improvement" + i+2);
             improvements.add("Improvement" + i+3);
             improvements.add("Improvement" + i+4);
 
-            Ability newAbility = new Ability("test"+i,"JUST TEST", i*1000);
+            Ability newAbility = new Ability("test"+i,"JUST TEST", i*40);
             newAbility.setImprovements(improvements);
             abilities.add(newAbility);
         }

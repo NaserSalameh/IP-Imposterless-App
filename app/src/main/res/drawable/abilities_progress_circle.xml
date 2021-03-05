@@ -10,7 +10,7 @@
 
         </shape>
     </item>
-    <item>
+    <item  android:id="@+id/progressColor">
         <rotate
             android:fromDegrees="270"
             android:toDegrees="270">
@@ -19,7 +19,11 @@
             android:thicknessRatio="16"
             android:useLevel="true"
             >
-            <solid android:color="@color/dark_blue_background"></solid>
+<!--            <solid android:color="@color/dark_blue_background"></solid>-->
+            <gradient
+                android:startColor="@color/dark_blue_background"
+                android:endColor="@android:color/darker_gray"
+                ></gradient>
         </shape>
         </rotate>
     </item>
