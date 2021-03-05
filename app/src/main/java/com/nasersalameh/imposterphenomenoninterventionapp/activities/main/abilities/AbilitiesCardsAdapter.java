@@ -21,6 +21,8 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Ability;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Achievement;
@@ -64,12 +66,14 @@ public class AbilitiesCardsAdapter extends RecyclerView.Adapter<AbilitiesCardsAd
         //Bind card view
         cardView = viewHolder;
 
+        //Get ability
         Ability currentAbility = abilitiesList.get(index);
 
         viewHolder.abilitiesCardProgressBar.setProgress(currentAbility.getProgress());
 
         viewHolder.abilitiesCardNameTextView.setText(currentAbility.getName());
 
+        //Drop down button
         viewHolder.abilitiesCardButton.setOnClickListener(v -> {
             if(viewHolder.expandableView.getVisibility() == View.GONE){
                 TransitionManager.beginDelayedTransition(viewHolder.cardView, new AutoTransition());
@@ -88,6 +92,17 @@ public class AbilitiesCardsAdapter extends RecyclerView.Adapter<AbilitiesCardsAd
         viewHolder.abilitiesCardNameExpView.setText("Exp: " + currentAbility.getExperience()+"/"+currentAbility.getLevelExp(level+1));
 
         viewHolder.abilitiesCardNameDetailsView.setText(currentAbility.getDetails());
+
+        //ChipGroup
+        ChipGroup chipGroup = viewHolder.abilitiesCardImproveChipGroup;
+
+        //add all improvements
+        for(String improvement: currentAbility.getImprovements()){
+            Chip chip = (Chip) layoutInflater.inflate(R.layout.fragment_abilities_card_improve_chip,chipGroup, false);
+            chip.setText(improvement);
+            chipGroup.addView(chip);
+        }
+
     }
 
 
@@ -118,6 +133,8 @@ public class AbilitiesCardsAdapter extends RecyclerView.Adapter<AbilitiesCardsAd
 
         TextView abilitiesCardNameDetailsView;
 
+        ChipGroup abilitiesCardImproveChipGroup;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -135,6 +152,8 @@ public class AbilitiesCardsAdapter extends RecyclerView.Adapter<AbilitiesCardsAd
             abilitiesCardNameExpView= itemView.findViewById(R.id.abilitiesCardExpTextView);
 
             abilitiesCardNameDetailsView= itemView.findViewById(R.id.abilitiesCardDetailTextView);
+
+            abilitiesCardImproveChipGroup = itemView.findViewById(R.id.abilitiesCardImproveChipGroup);
 
         }
     }

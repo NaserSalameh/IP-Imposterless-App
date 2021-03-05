@@ -66,7 +66,15 @@ public class AbilitiesFragment extends Fragment {
         //Add Test Data
         ArrayList<Ability> abilities = new ArrayList<>();
         for(int i=0;i<7;i++) {
-            abilities.add(new Ability("test"+i,"JUST TEST", i*1000));
+            ArrayList<String> improvements = new ArrayList<>();
+            improvements.add("Improvement" + i);
+            improvements.add("Improvement" + i+2);
+            improvements.add("Improvement" + i+3);
+            improvements.add("Improvement" + i+4);
+
+            Ability newAbility = new Ability("test"+i,"JUST TEST", i*1000);
+            newAbility.setImprovements(improvements);
+            abilities.add(newAbility);
         }
 
         return abilities;
