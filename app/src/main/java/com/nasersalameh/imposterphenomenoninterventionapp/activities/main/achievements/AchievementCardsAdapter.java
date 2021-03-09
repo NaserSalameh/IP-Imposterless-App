@@ -24,8 +24,6 @@ import java.util.ArrayList;
 public class AchievementCardsAdapter extends RecyclerView.Adapter<AchievementCardsAdapter.ViewHolder> {
 
     private final Activity mainActivity;
-    private ViewHolder cardView;
-
     private LayoutInflater layoutInflater;
     private ArrayList<Achievement> achievementList;
 
@@ -52,9 +50,6 @@ public class AchievementCardsAdapter extends RecyclerView.Adapter<AchievementCar
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int index) {
-
-        //Bind card view
-        cardView = viewHolder;
 
         //get and set achievement icon
         int iconID = 0;

@@ -43,7 +43,6 @@ import kotlin.reflect.KVisibility;
 public class AbilitiesCardsAdapter extends RecyclerView.Adapter<AbilitiesCardsAdapter.ViewHolder> {
 
     private final Activity mainActivity;
-    private ViewHolder cardView;
 
     private LayoutInflater layoutInflater;
     private ArrayList<Ability> abilitiesList;
@@ -71,10 +70,6 @@ public class AbilitiesCardsAdapter extends RecyclerView.Adapter<AbilitiesCardsAd
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int index) {
-
-        //Bind card view
-        cardView = viewHolder;
-
         //Get ability
         Ability currentAbility = abilitiesList.get(index);
 

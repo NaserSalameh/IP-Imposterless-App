@@ -127,7 +127,9 @@ public class SetupActivity extends AppCompatActivity {
         nameTextBox = findViewById(R.id.nameTextBox);
         nameTextBox.setText("Name");
 
+        //Set up image view
         profileImage = findViewById(R.id.profileImage);
+        profileImage.setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher_foreground));
         imagePath = "NA";
 
         progressBar=findViewById(R.id.setupProgressBar);

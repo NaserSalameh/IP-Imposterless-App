@@ -23,7 +23,6 @@ import java.util.ArrayList;
 public class InformationCardsAdapter extends RecyclerView.Adapter<InformationCardsAdapter.ViewHolder> {
 
     public static final int INFORMATION_ACTIVITY_RESULT = 101;
-    private ViewHolder cardView;
 
     private LayoutInflater layoutInflater;
     private ArrayList<Information> informationList;
@@ -47,10 +46,6 @@ public class InformationCardsAdapter extends RecyclerView.Adapter<InformationCar
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int index) {
-
-        //Bind card view
-        cardView = viewHolder;
-
         //bind Card with Behaviour
         this.informationIndex = index;
         viewHolder.informationNameText.setText(informationList.get(index).getInformationName());
