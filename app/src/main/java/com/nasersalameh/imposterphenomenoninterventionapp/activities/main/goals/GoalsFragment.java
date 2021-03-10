@@ -43,6 +43,8 @@ public class GoalsFragment extends Fragment {
 
         this.root = root;
 
+        //Load list only once per view (for now)!
+        goalsList = loadGoalsFromDatabase();
         setUpRecyclerView();
 
         return root;
@@ -62,8 +64,8 @@ public class GoalsFragment extends Fragment {
         for(int i=0;i<7;i++) {
             Goal testGoal = new Goal("TestGoal"+i,"TEST", "Short",System.currentTimeMillis());
 
-            Task testTask1 = new Task("Task1");
-            Task testTask2 = new Task("Task2");
+            Task testTask1 = new Task("Task1", testGoal);
+            Task testTask2 = new Task("Task2", testGoal);
 
             testGoal.addTask(testTask1);
             testGoal.addTask(testTask2);
@@ -90,7 +92,6 @@ public class GoalsFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void setUpRecyclerView(){
         //Get (updated) Goals List
-        goalsList = loadGoalsFromDatabase();
 
         //Set up Tasks Recycler View
         RecyclerView tasksRecyclerView = root.findViewById(R.id.tasksRecyclerView);
@@ -105,4 +106,11 @@ public class GoalsFragment extends Fragment {
         goalsRecyclerView.setAdapter(adapter);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
+    public void onResume() {
+        super.onResume();
+        setUpRecyclerView();
+
+    }
 }

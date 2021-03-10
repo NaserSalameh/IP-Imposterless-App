@@ -35,7 +35,6 @@ public class GoalsCardsAdapter extends RecyclerView.Adapter<GoalsCardsAdapter.Vi
 
     //Local variables to update from different classes
     private ViewHolder viewHolder;
-    private Goal currentGoal;
 
     public GoalsCardsAdapter(Context context, ArrayList<Goal> goalsList, Activity mainActivity, RecyclerView tasksRecyclerView){
         this.layoutInflater = LayoutInflater.from(context);
@@ -57,7 +56,7 @@ public class GoalsCardsAdapter extends RecyclerView.Adapter<GoalsCardsAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int index) {
 
-        this.currentGoal = goalsList.get(index);
+        Goal currentGoal = goalsList.get(index);
 
         viewHolder.nameTextView.setText(currentGoal.getName());
 
@@ -65,28 +64,28 @@ public class GoalsCardsAdapter extends RecyclerView.Adapter<GoalsCardsAdapter.Vi
         this.viewHolder = viewHolder;
 
         //Set Goal card details
-        updateGoalCard();
-
-        //Set up Tasks recycler View
-        updateTaskRecyclerView();
-
-        viewHolder.cardView.setOnClickListener(v -> {
-            updateTaskRecyclerView();
-        });
-    }
-
-    //To-Do: Implement + Write changes to DB
-    public void updateGoalCard(){
         String tasksRemaining = "Tasks: " + currentGoal.getNumberOfCompletedTasks() + "/" + currentGoal.getTasks().size();
         viewHolder.tasksTextView.setText(tasksRemaining);
 
-
         viewHolder.tasksProgressBar.setProgress(currentGoal.getTasksProgress());
+
+        //Set up Tasks recycler View
+        updateTaskRecyclerView(currentGoal,index);
+
+        viewHolder.cardView.setOnClickListener(v -> {
+            System.out.println("Now Displaying Goal "+ currentGoal.getName());
+            updateTaskRecyclerView(currentGoal, index);
+        });
+
+        viewHolder.cardView.setOnLongClickListener(v -> {
+            System.out.println("Long Clicked Goal" + currentGoal.getName());
+            return false;
+        });
     }
 
-    public void updateTaskRecyclerView(){
+    public void updateTaskRecyclerView(Goal currentGoal, int goalPosition){
         //Set up recycler adapter with information from usage database
-        TasksCardsAdapter adapter = new TasksCardsAdapter(mainActivity, currentGoal.getTasks(),mainActivity, this);
+        TasksCardsAdapter adapter = new TasksCardsAdapter(mainActivity, currentGoal.getTasks(),mainActivity,tasksRecyclerView,this, goalPosition);
         tasksRecyclerView.setAdapter(adapter);
     }
 

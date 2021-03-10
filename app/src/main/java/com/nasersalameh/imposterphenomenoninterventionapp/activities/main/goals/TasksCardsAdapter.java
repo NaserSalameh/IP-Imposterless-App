@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
+import com.nasersalameh.imposterphenomenoninterventionapp.activities.main.achievements.AchievementCardPopup;
+import com.nasersalameh.imposterphenomenoninterventionapp.models.Goal;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Task;
 
 import java.util.ArrayList;
@@ -23,20 +25,26 @@ import java.util.ArrayList;
 public class TasksCardsAdapter extends RecyclerView.Adapter<TasksCardsAdapter.ViewHolder> {
 
     private final Activity mainActivity;
+    private RecyclerView tasksRecyclerView;
+
     private GoalsCardsAdapter goalsCardsAdapter;
+    private int goalsPosition;
 
     private LayoutInflater layoutInflater;
     private ArrayList<Task> tasksList;
 
     private Context context;
 
-    public TasksCardsAdapter(Context context, ArrayList<Task> tasksList, Activity mainActivity, GoalsCardsAdapter goalsCardsAdapter){
+    public TasksCardsAdapter(Context context, ArrayList<Task> tasksList, Activity mainActivity,RecyclerView tasksRecyclerView, GoalsCardsAdapter goalsCardsAdapter, int goalsPosition){
         this.layoutInflater = LayoutInflater.from(context);
         this.tasksList = tasksList;
 
         this.context = context;
         this.mainActivity = mainActivity;
+        this.tasksRecyclerView = tasksRecyclerView;
+
         this.goalsCardsAdapter = goalsCardsAdapter;
+        this.goalsPosition = goalsPosition;
     }
 
     @NonNull
@@ -73,7 +81,7 @@ public class TasksCardsAdapter extends RecyclerView.Adapter<TasksCardsAdapter.Vi
                 viewHolder.taskNameTextView.setPaintFlags(viewHolder.taskNameTextView.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
                 viewHolder.taskCompletedButton.setBackgroundResource(R.drawable.ic_baseline_check_box_unchecked);
 
-                goalsCardsAdapter.updateGoalCard();
+                goalsCardsAdapter.notifyItemChanged(goalsPosition);
             }
             else{
                 //set task to be complete
@@ -81,10 +89,20 @@ public class TasksCardsAdapter extends RecyclerView.Adapter<TasksCardsAdapter.Vi
                 viewHolder.taskNameTextView.setPaintFlags(viewHolder.taskNameTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 viewHolder.taskCompletedButton.setBackgroundResource(R.drawable.ic_baseline_check_box_checked);
 
-                goalsCardsAdapter.updateGoalCard();
+                goalsCardsAdapter.notifyItemChanged(goalsPosition);
             }
         });
 
+        TasksCardsAdapter thisAdapter = this;
+        viewHolder.cardView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                System.out.println("Long Pressed Task  " + currentTask.getName());
+                TaskCardPopup taskCardPopup = new TaskCardPopup(context, mainActivity,tasksRecyclerView, thisAdapter, index,currentTask, currentTask.getParentGoal());
+                taskCardPopup.createPopUpWindow(viewHolder);
+                return false;
+            }
+        });
 
     }
 
@@ -111,7 +129,7 @@ public class TasksCardsAdapter extends RecyclerView.Adapter<TasksCardsAdapter.Vi
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            cardView = itemView.findViewById(R.id.achievementCardView);
+            cardView = itemView.findViewById(R.id.taskCardView);
 
             taskNameTextView = itemView.findViewById(R.id.taskCardTaskTextView);
 

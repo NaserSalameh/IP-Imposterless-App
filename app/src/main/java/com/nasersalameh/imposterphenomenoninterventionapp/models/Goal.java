@@ -96,8 +96,16 @@ public class Goal {
         int completeTasks = getNumberOfCompletedTasks();
 
         int progress = (int) (((double) completeTasks / (double) tasks.size()) * 100);
-        System.out.println("Progress: " + progress );
         return progress;
     }
 
+    public void removeTask(Task taskToRemove) {
+        //Temp task to remove concurrency issues
+        Task tempTask = tasks.get(0);
+        for(Task task: tasks)
+            if(task == taskToRemove)
+                tempTask = task;
+
+        tasks.remove(tempTask);
+    }
 }

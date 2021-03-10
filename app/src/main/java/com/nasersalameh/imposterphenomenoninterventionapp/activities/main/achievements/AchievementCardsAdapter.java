@@ -86,13 +86,6 @@ public class AchievementCardsAdapter extends RecyclerView.Adapter<AchievementCar
 
 //        //Set on Click Listener to View Card
         viewHolder.cardView.setOnClickListener(v -> {
-
-//            //Start Achievement Activity
-//            Intent startAchievementActivity = new Intent(mainActivity, AchievementCardActivity.class);
-//
-//            //Add current information to intent
-//            startAchievementActivity.putExtra("Achievement", achievementList.get(index));
-//            mainActivity.startActivity(startAchievementActivity);
             AchievementCardPopup achievementCardPopup = new AchievementCardPopup(context, mainActivity, recyclerView, achievementList.get(index));
             achievementCardPopup.createPopUpWindow(viewHolder);
         });
