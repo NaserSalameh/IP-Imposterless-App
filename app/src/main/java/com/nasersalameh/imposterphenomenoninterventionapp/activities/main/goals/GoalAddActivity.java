@@ -21,9 +21,14 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentActivity;
 
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.AbilityData;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelper;
 import com.nasersalameh.imposterphenomenoninterventionapp.helpers.DateConverter;
+import com.nasersalameh.imposterphenomenoninterventionapp.models.Ability;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -48,6 +53,7 @@ public class GoalAddActivity extends FragmentActivity implements DatePickerDialo
     FloatingActionButton goalNameFloatingButton;
     FloatingActionButton goalDetailsFloatingButton;
     FloatingActionButton goalDateFloatingButton;
+    FloatingActionButton goalAbilitiesChipFloatingButton;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -85,6 +91,29 @@ public class GoalAddActivity extends FragmentActivity implements DatePickerDialo
             //End Activity
             finish();
         });
+
+        setUpChipGroup();
+    }
+
+    private void setUpChipGroup() {
+        //set up ChipGroup
+        ChipGroup chipGroup = findViewById(R.id.goalsAbilitiesChipGroup);
+        //remove previous chips
+        chipGroup.removeAllViews();
+
+        //add all improvements
+        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+        AbilityData abilityData = new AbilityData(databaseHelper);
+
+        ArrayList<Ability> abilities = abilityData.getAbilitiesList();
+
+        //Add ability Chips
+        for(Ability ability: abilities){
+            Chip chip = (Chip) getLayoutInflater().inflate(R.layout.fragment_goals_goal_abilities_chip,chipGroup, false);
+            chip.setText(ability.getName());
+            chip.isCheckable();
+            chipGroup.addView(chip);
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -93,6 +122,7 @@ public class GoalAddActivity extends FragmentActivity implements DatePickerDialo
         goalNameFloatingButton = findViewById(R.id.goalDetailsFloatingButton);
         goalDetailsFloatingButton = findViewById(R.id.goalTypeFloatingButton);
         goalDateFloatingButton = findViewById(R.id.goalDateFloatingButton);
+        goalAbilitiesChipFloatingButton = findViewById(R.id.goalAbilitiesFloatingButton);
 
         goalTypeFloatingButton.setOnClickListener(v -> {
             String popupTitle = "TITLE";
@@ -117,6 +147,13 @@ public class GoalAddActivity extends FragmentActivity implements DatePickerDialo
             String popupText = "TESTSTSTESTST";
             createPopup(popupTitle,popupText);
         });
+
+        goalAbilitiesChipFloatingButton.setOnClickListener(v -> {
+            String popupTitle = "TITLE";
+            String popupText = "TESTSTSTESTST";
+            createPopup(popupTitle,popupText);
+        });
+
     }
 
     private void createPopup(String popupTitle, String popupText){
@@ -171,7 +208,9 @@ public class GoalAddActivity extends FragmentActivity implements DatePickerDialo
     }
 
     private void addGoal() {
+        //Get all Goal Data
 
+        //Get Selected Chips
     }
 
 
