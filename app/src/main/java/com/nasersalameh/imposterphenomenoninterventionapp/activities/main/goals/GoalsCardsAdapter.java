@@ -32,17 +32,20 @@ public class GoalsCardsAdapter extends RecyclerView.Adapter<GoalsCardsAdapter.Vi
     private Context context;
 
     private RecyclerView tasksRecyclerView;
+    private RecyclerView goalsRecyclerView;
 
     //Local variables to update from different classes
     private ViewHolder viewHolder;
 
-    public GoalsCardsAdapter(Context context, ArrayList<Goal> goalsList, Activity mainActivity, RecyclerView tasksRecyclerView){
+    public GoalsCardsAdapter(Context context, ArrayList<Goal> goalsList, Activity mainActivity, RecyclerView tasksRecyclerView, RecyclerView goalsRecyclerView){
         this.layoutInflater = LayoutInflater.from(context);
         this.goalsList = goalsList;
 
         this.context = context;
         this.mainActivity = mainActivity;
+
         this.tasksRecyclerView = tasksRecyclerView;
+        this.goalsRecyclerView = goalsRecyclerView;
     }
 
     @NonNull
@@ -79,6 +82,8 @@ public class GoalsCardsAdapter extends RecyclerView.Adapter<GoalsCardsAdapter.Vi
 
         viewHolder.cardView.setOnLongClickListener(v -> {
             System.out.println("Long Clicked Goal" + currentGoal.getName());
+            GoalCardPopup goalCardPopup = new GoalCardPopup(context, mainActivity,goalsRecyclerView,index, currentGoal, goalsList);
+            goalCardPopup.createPopUpWindow(viewHolder);
             return false;
         });
     }

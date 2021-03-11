@@ -75,12 +75,6 @@ public class AbilitiesCardsAdapter extends RecyclerView.Adapter<AbilitiesCardsAd
 
         viewHolder.abilitiesCardProgressBar.setProgress(currentAbility.getProgress());
 
-        //get new drawable instance and change color
-//        Drawable progressDrawable = context.getDrawable(R.drawable.abilities_progress_circle).getConstantState().newDrawable();
-//        progressDrawable.setColorFilter(currentAbility.getLevelColor(), PorterDuff.Mode.SRC_IN);
-//        viewHolder.abilitiesCardProgressBar.setProgressDrawable(progressDrawable);
-//        viewHolder.abilitiesCardProgressBar.setProgressTintList(ColorStateList.valueOf(currentAbility.getLevelColor()));
-
         viewHolder.abilitiesCardNameTextView.setText(currentAbility.getName());
 
         //Drop down button
@@ -107,7 +101,6 @@ public class AbilitiesCardsAdapter extends RecyclerView.Adapter<AbilitiesCardsAd
         ChipGroup chipGroup = viewHolder.abilitiesCardImproveChipGroup;
         //remove previous chips
         chipGroup.removeAllViews();
-
 
         //add all improvements
         for(String improvement: currentAbility.getImprovements()){

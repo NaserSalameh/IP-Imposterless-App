@@ -3,7 +3,6 @@ package com.nasersalameh.imposterphenomenoninterventionapp.activities.main.goals
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
 import android.view.Gravity;
@@ -11,42 +10,48 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
 import com.nasersalameh.imposterphenomenoninterventionapp.helpers.DateConverter;
-import com.nasersalameh.imposterphenomenoninterventionapp.models.Achievement;
+import com.nasersalameh.imposterphenomenoninterventionapp.models.Ability;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Goal;
-import com.nasersalameh.imposterphenomenoninterventionapp.models.Task;
 
-import java.util.Date;
+import java.util.ArrayList;
 
 public class GoalCardPopup {
 
     private final Context context;
     private final Activity mainActivity;
-    private final Goal goal;
+
     private RecyclerView goalRecyclerView;
+    private int goalPosition;
+
+    private Goal goal;
+    private final ArrayList<Goal> goalList;
 
     private PopupWindow popupWindow;
 
-    public GoalCardPopup(Context context, Activity mainActivity, RecyclerView goalRecyclerView, Goal goal){
+    public GoalCardPopup(Context context, Activity mainActivity, RecyclerView goalRecyclerView, int goalPosition, Goal goal, ArrayList<Goal> goalList){
         this.context = context;
         this.mainActivity = mainActivity;
         this.goalRecyclerView = goalRecyclerView;
 
         this.goal = goal;
+        this.goalPosition = goalPosition;
+
+        this.goalList = goalList;
 
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public void createPopUpWindow(TasksCardsAdapter.ViewHolder viewHolder) {
+    public void createPopUpWindow(GoalsCardsAdapter.ViewHolder viewHolder) {
         //Create and inflate layout
         ViewGroup container = (ViewGroup) LayoutInflater.from(context).inflate(R.layout.fragment_goals_goal_popup,null);
 
@@ -74,7 +79,44 @@ public class GoalCardPopup {
     }
 
     private void setUpTaskPopup(ViewGroup container) {
+        //Set-up UI
+        TextView nameTextView = container.findViewById(R.id.goalsPopupNameTextView);
+        TextView typeTextView = container.findViewById(R.id.goalsPopupTypeTextView);
+        TextView detailsTextView = container.findViewById(R.id.goalsPopupDetailsTextView);
+        TextView dateTextView = container.findViewById(R.id.goalsPopupDateTextView);
 
+        nameTextView.setText(goal.getName());
+        typeTextView.setText(goal.getType());
+        detailsTextView.setText(goal.getDetails());
+        dateTextView.setText("Deadline: " + DateConverter.getDateFromUnixTime(goal.getUnixDate()));
+
+        //Chip group
+        ChipGroup abilitiesChipGroup = container.findViewById(R.id.goalsPopupChipGroup);
+        //remove previous chips
+        abilitiesChipGroup.removeAllViews();
+
+        //add all abilities
+        for(Ability ability: goal.getAbilities()){
+            Chip chip = (Chip) LayoutInflater.from(context)
+                    .inflate(R.layout.fragment_abilities_card_improve_chip,abilitiesChipGroup, false);
+            chip.setText(ability.getName());
+            abilitiesChipGroup.addView(chip);
+        }
+
+        Button deleteButton = container.findViewById(R.id.goalPopupDeleteButton);
+        deleteButton.setOnClickListener(v -> {
+            deleteGoal();
+        });
     }
+
+    private void deleteGoal() {
+        //remove goal from ArrayList
+        goalList.remove(goal);
+        //Remove goal
+        goal = null;
+        goalRecyclerView.removeViewAt(goalPosition);
+        popupWindow.dismiss();
+    }
+
 }
 

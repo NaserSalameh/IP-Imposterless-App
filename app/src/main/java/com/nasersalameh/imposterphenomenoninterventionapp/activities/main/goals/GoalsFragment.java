@@ -102,7 +102,7 @@ public class GoalsFragment extends Fragment {
         goalsRecyclerView.setLayoutManager(new LinearLayoutManager(mainActivity, LinearLayoutManager.HORIZONTAL, false));
 
         //Set up Goals recycler adapter with goals from usage database
-        GoalsCardsAdapter adapter = new GoalsCardsAdapter(mainActivity, goalsList,mainActivity,tasksRecyclerView);
+        GoalsCardsAdapter adapter = new GoalsCardsAdapter(mainActivity, goalsList,mainActivity,tasksRecyclerView, goalsRecyclerView);
         goalsRecyclerView.setAdapter(adapter);
     }
 
