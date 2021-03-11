@@ -32,13 +32,13 @@
 
             <TextView
                 android:id="@+id/taskCardTaskTextView"
-                android:layout_width="127dp"
-                android:layout_height="32dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="18dp"
                 android:layout_marginBottom="16dp"
                 android:text="TextView"
-                android:textSize="24sp"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/taskCardButton"
                 app:layout_constraintTop_toTopOf="parent"

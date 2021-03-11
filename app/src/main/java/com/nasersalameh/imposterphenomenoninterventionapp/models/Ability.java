@@ -23,6 +23,11 @@ public class Ability {
         this.experience = experience;
     }
 
+    //Only to create temp abilities for goals writing
+    public Ability(String name) {
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }

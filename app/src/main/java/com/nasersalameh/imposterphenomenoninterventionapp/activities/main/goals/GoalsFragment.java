@@ -13,22 +13,20 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupWindow;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
-import com.nasersalameh.imposterphenomenoninterventionapp.models.Ability;
-import com.nasersalameh.imposterphenomenoninterventionapp.models.Achievement;
-import com.nasersalameh.imposterphenomenoninterventionapp.models.AchievementType;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.AbilityData;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelper;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.GoalData;
+import com.nasersalameh.imposterphenomenoninterventionapp.helpers.DateConverter;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Goal;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Task;
-
 import java.util.ArrayList;
 
 public class GoalsFragment extends Fragment {
@@ -53,9 +51,6 @@ public class GoalsFragment extends Fragment {
 
         this.root = root;
 
-        //Load list only once per view (for now)!
-        goalsList = loadGoalsFromDatabase();
-
         setUpRecyclerView();
 
         setUpFloatingButton();
@@ -66,46 +61,79 @@ public class GoalsFragment extends Fragment {
 
     private ArrayList<Goal> loadGoalsFromDatabase() {
         //get Achievement from Usage Database
-//        DatabaseHelper databaseHelper = new DatabaseHelper(mainActivity);
-//        AchievementsTypeData achievementsTypeData = new AchievementsTypeData(databaseHelper);
+        DatabaseHelper databaseHelper = new DatabaseHelper(mainActivity);
+        AbilityData abilityData = new AbilityData(databaseHelper);
+        GoalData goalData = new GoalData(databaseHelper, abilityData.getAbilitiesList());
 
-//        ArrayList<AchievementType> achievementTypes = achievementsTypeData.getAchievementsTypeList();
-
-//        AchievementData achievementData = new AchievementData(databaseHelper,achievementTypes);
-
-        ArrayList<Goal> testGoals = new ArrayList<>();
-        //Add Test Data
-        for(int i=0;i<7;i++) {
-            Goal testGoal = new Goal("TestGoal"+i,"TEST", "Short",System.currentTimeMillis());
-
-            Task testTask1 = new Task("Task1", testGoal);
-            Task testTask2 = new Task("Task2", testGoal);
-
-            testGoal.addTask(testTask1);
-            testGoal.addTask(testTask2);
-
-            Ability testAbility1 = new Ability("Ability1","TEST",100);
-            Ability testAbility2 = new Ability("Ability2","TEST", 100);
-
-            testGoal.addAbility(testAbility1);
-            testGoal.addAbility(testAbility2);
-
-            AchievementType achievementType = new AchievementType("Ach. Type",200);
-            Achievement testAchievement1 = new Achievement("Achievement1", "Test", achievementType,System.currentTimeMillis());
-            Achievement testAchievement2 = new Achievement("Achievement2", "Test", achievementType,System.currentTimeMillis());
-
-            testGoal.addAchievement(testAchievement1);
-            testGoal.addAchievement(testAchievement2);
-
-            testGoals.add(testGoal);
+        ArrayList<Goal> goalsListFromDB = goalData.getGoalsList();
+        if(goalsListFromDB.isEmpty()){
+            goalsListFromDB.add(createSetupGoal());
         }
 
-        return testGoals;
+        return goalsListFromDB;
+
+//        ArrayList<AchievementType> achievementTypes = achievementsTypeData.getAchievementsTypeList();
+//        AchievementData achievementData = new AchievementData(databaseHelper,achievementTypes);
+//        ArrayList<Goal> testGoals = new ArrayList<>();
+//        //Add Test Data
+//        for(int i=0;i<7;i++) {
+//            Goal testGoal = new Goal("TestGoal"+i,"TEST", "Short",System.currentTimeMillis());
+//
+//            Task testTask1 = new Task("Task1", testGoal);
+//            Task testTask2 = new Task("Task2", testGoal);
+//
+//            testGoal.addTask(testTask1);
+//            testGoal.addTask(testTask2);
+//
+//            Ability testAbility1 = new Ability("Ability1","TEST",100);
+//            Ability testAbility2 = new Ability("Ability2","TEST", 100);
+//
+//            testGoal.addAbility(testAbility1);
+//            testGoal.addAbility(testAbility2);
+//
+//            AchievementType achievementType = new AchievementType("Ach. Type",200);
+//            Achievement testAchievement1 = new Achievement("Achievement1", "Test", achievementType,System.currentTimeMillis());
+//            Achievement testAchievement2 = new Achievement("Achievement2", "Test", achievementType,System.currentTimeMillis());
+//
+//            testGoal.addAchievement(testAchievement1);
+//            testGoal.addAchievement(testAchievement2);
+//
+//            testGoals.add(testGoal);
+//        }
+//        return testGoals;
+    }
+
+    private Goal createSetupGoal() {
+        //Get all Goal Data
+        String goalName = "Setup";
+        String goalType = "Medium";
+        String goalDetails = "Explore the application!";
+
+        //only get the date
+        Long goalDate = System.currentTimeMillis();
+
+        Goal newGoal = new Goal(goalName, goalType, goalDetails, goalDate);
+
+        ArrayList<Task> setupTasks = new ArrayList<>();
+        setupTasks.add(new Task("Explore Profile Tab!", newGoal));
+        setupTasks.add(new Task("Explore Information Tab!", newGoal));
+        setupTasks.add(new Task("Explore Ability Tab!", newGoal));
+        setupTasks.add(new Task("Explore Achievement Tab!", newGoal));
+        setupTasks.add(new Task("Explore Settings Tab!", newGoal));
+        setupTasks.add(new Task("Explore Settings Tab!", newGoal));
+        setupTasks.add(new Task("Explore Settings Tab!", newGoal));
+        setupTasks.add(new Task("Explore Settings Tab!", newGoal));
+        setupTasks.add(new Task("Explore Settings Tab!", newGoal));
+
+
+        newGoal.setTasks(setupTasks);
+        return newGoal;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void setUpRecyclerView(){
         //Get (updated) Goals List
+        goalsList = loadGoalsFromDatabase();
 
         //Set up Tasks Recycler View
         RecyclerView tasksRecyclerView = root.findViewById(R.id.tasksRecyclerView);
@@ -121,7 +149,6 @@ public class GoalsFragment extends Fragment {
     }
 
     private void setUpFloatingButton() {
-
         //Choice can be "Task" or "Goal"
         final Object choice = "";
 

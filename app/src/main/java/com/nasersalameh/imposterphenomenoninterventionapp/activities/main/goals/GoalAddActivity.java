@@ -26,12 +26,17 @@ import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.AbilityData;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.AchievementData;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.AchievementsTypeData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelper;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.GoalData;
 import com.nasersalameh.imposterphenomenoninterventionapp.helpers.DateConverter;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Ability;
+import com.nasersalameh.imposterphenomenoninterventionapp.models.Goal;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class GoalAddActivity extends FragmentActivity implements DatePickerDialog.OnDateSetListener {
 
@@ -209,10 +214,38 @@ public class GoalAddActivity extends FragmentActivity implements DatePickerDialo
 
     private void addGoal() {
         //Get all Goal Data
+        String goalName = goalNameEditText.getText().toString();
+        String goalType = goalTypeSpinner.getSelectedItem().toString();
+        String goalDetails = goalDetailsEditText.getText().toString();
+
+
+        //only get the date
+        String date = selectedDateTextView.getText().toString().split(" ")[2];
+        Long goalDate = DateConverter.getUnixTimeFromData(date);
+
+        Goal newGoal = new Goal(goalName, goalType, goalDetails, goalDate);
+
 
         //Get Selected Chips
-    }
+        ChipGroup chipGroup = findViewById(R.id.goalsAbilitiesChipGroup);
+        List<Integer> checkedChipIds = chipGroup.getCheckedChipIds();
+        for (Integer chipId : checkedChipIds) {
+            Chip chip = chipGroup.findViewById(chipId);
 
+            //will only write the names to table, when it reads the dbHelper will get the persistent ability object
+            Ability newTempAbility = new Ability(chip.getText().toString());
+            newGoal.addAbility(newTempAbility);
+        }
+
+        //Prep database writers
+        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+        AbilityData abilityData = new AbilityData(databaseHelper);
+        GoalData goalData = new GoalData(databaseHelper, abilityData.getAbilitiesList());
+
+        //write new Goal
+        goalData.insertNewGoal(newGoal);
+
+    }
 
 
 }

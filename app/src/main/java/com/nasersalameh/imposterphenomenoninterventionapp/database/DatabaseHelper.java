@@ -33,7 +33,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private AchievementsTypeData achievementsTypeData;
     private AchievementData achievementData;
     private AbilityData abilityData;
-
+    private GoalData goalData;
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, DB_NAME, null, 1);
@@ -87,6 +87,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ArrayList<Ability> abilities = installAbilityData.getAbilitiesList();
         for(Ability ability : abilities)
             abilityData.insertNewAbility(ability);
+
+        //After migrating Abilities, initialise GoalsData
+        goalData = new GoalData(this,abilities);
+        goalData.setDB(db);
+        goalData.createGoalTable();
     }
 
     private void copyAchievementsTypeFromInstallDatabase(InstallDatabaseHelper installDatabaseHelper) {

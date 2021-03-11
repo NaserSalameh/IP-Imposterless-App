@@ -94,14 +94,11 @@ public class TasksCardsAdapter extends RecyclerView.Adapter<TasksCardsAdapter.Vi
         });
 
         TasksCardsAdapter thisAdapter = this;
-        viewHolder.cardView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                System.out.println("Long Pressed Task  " + currentTask.getName());
-                TaskCardPopup taskCardPopup = new TaskCardPopup(context, mainActivity,tasksRecyclerView, thisAdapter, index,currentTask, currentTask.getParentGoal());
-                taskCardPopup.createPopUpWindow(viewHolder);
-                return false;
-            }
+        viewHolder.cardView.setOnLongClickListener(v -> {
+            System.out.println("Long Pressed Task  " + currentTask.getName());
+            TaskCardPopup taskCardPopup = new TaskCardPopup(context, mainActivity,tasksRecyclerView, thisAdapter, index,currentTask, currentTask.getParentGoal());
+            taskCardPopup.createPopUpWindow(viewHolder);
+            return false;
         });
 
     }
