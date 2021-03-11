@@ -44,6 +44,11 @@
 
         </activity>
 
+        <!-- Add Goal Activity        -->
+        <activity android:name=".activities.main.goals.GoalAddActivity"
+            android:theme="@style/Theme.ImposterPhenomenonInterventionApp.NoActionBar">
+
+        </activity>
 
     </application>
 

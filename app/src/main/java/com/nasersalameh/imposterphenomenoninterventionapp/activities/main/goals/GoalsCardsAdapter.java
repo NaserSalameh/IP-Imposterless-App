@@ -37,6 +37,8 @@ public class GoalsCardsAdapter extends RecyclerView.Adapter<GoalsCardsAdapter.Vi
     //Local variables to update from different classes
     private ViewHolder viewHolder;
 
+    private Goal activeGoal;
+
     public GoalsCardsAdapter(Context context, ArrayList<Goal> goalsList, Activity mainActivity, RecyclerView tasksRecyclerView, RecyclerView goalsRecyclerView){
         this.layoutInflater = LayoutInflater.from(context);
         this.goalsList = goalsList;
@@ -46,6 +48,9 @@ public class GoalsCardsAdapter extends RecyclerView.Adapter<GoalsCardsAdapter.Vi
 
         this.tasksRecyclerView = tasksRecyclerView;
         this.goalsRecyclerView = goalsRecyclerView;
+
+        //First goal is first in list
+        activeGoal = goalsList.get(0);
     }
 
     @NonNull
@@ -77,6 +82,8 @@ public class GoalsCardsAdapter extends RecyclerView.Adapter<GoalsCardsAdapter.Vi
 
         viewHolder.cardView.setOnClickListener(v -> {
             System.out.println("Now Displaying Goal "+ currentGoal.getName());
+            //Set active goal
+            activeGoal = currentGoal;
             updateTaskRecyclerView(currentGoal, index);
         });
 
@@ -102,6 +109,10 @@ public class GoalsCardsAdapter extends RecyclerView.Adapter<GoalsCardsAdapter.Vi
     @Override
     public int getItemCount() {
         return goalsList.size();
+    }
+
+    public Goal getActiveGoal() {
+        return this.activeGoal;
     }
 
     //Tie the UI to the adapter
