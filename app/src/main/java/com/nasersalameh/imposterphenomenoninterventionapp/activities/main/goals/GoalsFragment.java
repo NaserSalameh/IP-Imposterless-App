@@ -39,6 +39,7 @@ public class GoalsFragment extends Fragment {
 
     private ArrayList<Goal> goalsList;
     private GoalsCardsAdapter goalsAdapter;
+    private boolean suppressWriteToDB;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -58,7 +59,6 @@ public class GoalsFragment extends Fragment {
         return root;
     }
 
-
     private ArrayList<Goal> loadGoalsFromDatabase() {
         //get Achievement from Usage Database
         DatabaseHelper databaseHelper = new DatabaseHelper(mainActivity);
@@ -66,63 +66,8 @@ public class GoalsFragment extends Fragment {
         GoalData goalData = new GoalData(databaseHelper, abilityData.getAbilitiesList());
 
         ArrayList<Goal> goalsListFromDB = goalData.getGoalsList();
-        if(goalsListFromDB.isEmpty()){
-            goalsListFromDB.add(createSetupGoal());
-        }
 
         return goalsListFromDB;
-
-//        ArrayList<AchievementType> achievementTypes = achievementsTypeData.getAchievementsTypeList();
-//        AchievementData achievementData = new AchievementData(databaseHelper,achievementTypes);
-//        ArrayList<Goal> testGoals = new ArrayList<>();
-//        //Add Test Data
-//        for(int i=0;i<7;i++) {
-//            Goal testGoal = new Goal("TestGoal"+i,"TEST", "Short",System.currentTimeMillis());
-//
-//            Task testTask1 = new Task("Task1", testGoal);
-//            Task testTask2 = new Task("Task2", testGoal);
-//
-//            testGoal.addTask(testTask1);
-//            testGoal.addTask(testTask2);
-//
-//            Ability testAbility1 = new Ability("Ability1","TEST",100);
-//            Ability testAbility2 = new Ability("Ability2","TEST", 100);
-//
-//            testGoal.addAbility(testAbility1);
-//            testGoal.addAbility(testAbility2);
-//
-//            AchievementType achievementType = new AchievementType("Ach. Type",200);
-//            Achievement testAchievement1 = new Achievement("Achievement1", "Test", achievementType,System.currentTimeMillis());
-//            Achievement testAchievement2 = new Achievement("Achievement2", "Test", achievementType,System.currentTimeMillis());
-//
-//            testGoal.addAchievement(testAchievement1);
-//            testGoal.addAchievement(testAchievement2);
-//
-//            testGoals.add(testGoal);
-//        }
-//        return testGoals;
-    }
-
-    private Goal createSetupGoal() {
-        //Get all Goal Data
-        String goalName = "Setup";
-        String goalType = "Medium";
-        String goalDetails = "Explore the application!";
-
-        //only get the date
-        Long goalDate = System.currentTimeMillis();
-
-        Goal newGoal = new Goal(goalName, goalType, goalDetails, goalDate);
-
-        ArrayList<Task> setupTasks = new ArrayList<>();
-        setupTasks.add(new Task("Explore Profile Tab!", newGoal));
-        setupTasks.add(new Task("Explore Information Tab!", newGoal));
-        setupTasks.add(new Task("Explore Ability Tab!", newGoal));
-        setupTasks.add(new Task("Explore Achievement Tab!", newGoal));
-        setupTasks.add(new Task("Explore Settings Tab!", newGoal));
-
-        newGoal.setTasks(setupTasks);
-        return newGoal;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -169,10 +114,15 @@ public class GoalsFragment extends Fragment {
 
         Button goalChoiceButton = container.findViewById(R.id.goalsChoicePopupGoalButton);
         goalChoiceButton.setOnClickListener(v -> {
+            suppressWriteToDB = true;
             popupWindow.dismiss();
 
             //Start Add Goal Activity
             Intent startAddGoalActivity = new Intent(mainActivity, GoalAddActivity.class);
+
+            //add suppress boolean check
+            startAddGoalActivity.putExtra("Suppress Check",suppressWriteToDB);
+
             mainActivity.startActivity(startAddGoalActivity);
         });
 
@@ -183,7 +133,6 @@ public class GoalsFragment extends Fragment {
             //Create Add Task Popup
             createAddTaskPopup();
         });
-
     }
 
     private void createAddTaskPopup() {
@@ -203,24 +152,19 @@ public class GoalsFragment extends Fragment {
         EditText taskNameText = container.findViewById(R.id.goalsAddTaskPopupNameEditText);
 
         Button addTaskButton = container.findViewById(R.id.goalsAddTaskPopupAddButton);
-        addTaskButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Goal activeGoal = goalsAdapter.getActiveGoal();
+        addTaskButton.setOnClickListener(v -> {
+            Goal activeGoal = goalsAdapter.getActiveGoal();
 
-                Task newTask = new Task(taskNameText.getText().toString());
+            Task newTask = new Task(taskNameText.getText().toString());
 
-                newTask.setParentGoal(activeGoal);
-                activeGoal.addTask(newTask);
+            newTask.setParentGoal(activeGoal);
+            activeGoal.addTask(newTask);
 
-                goalsAdapter.notifyItemChanged(goalsList.indexOf(activeGoal));
+            goalsAdapter.notifyItemChanged(goalsList.indexOf(activeGoal));
 
-                popupWindow.dismiss();
-            }
+            popupWindow.dismiss();
         });
-
     }
-
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -228,5 +172,26 @@ public class GoalsFragment extends Fragment {
         super.onResume();
         setUpRecyclerView();
 
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if(!suppressWriteToDB){
+            writeToDb();
+            System.out.println("Rewrote to DB");
+        }
+        else
+            System.out.println("Suppressed Write To DB");
+    }
+
+    private void writeToDb() {
+
+        DatabaseHelper databaseHelper = new DatabaseHelper(mainActivity);
+        AbilityData abilityData = new AbilityData(databaseHelper);
+        GoalData goalData = new GoalData(databaseHelper, abilityData.getAbilitiesList());
+
+        //Replace all goals with new goalsList
+        goalData.replaceGoalsInDB(goalsList);
     }
 }

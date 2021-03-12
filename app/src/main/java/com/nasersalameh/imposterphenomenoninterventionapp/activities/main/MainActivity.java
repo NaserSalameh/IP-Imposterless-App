@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -17,6 +18,7 @@ import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelpe
 import com.nasersalameh.imposterphenomenoninterventionapp.database.UserData;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.User;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -52,6 +54,14 @@ public class MainActivity extends AppCompatActivity {
     private void setUpNavigation(){
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                return false;
+            }
+        });
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -78,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
         unlockAppropriateTabs(user);
 
         //SetUpActivityResults
-
     }
 
 

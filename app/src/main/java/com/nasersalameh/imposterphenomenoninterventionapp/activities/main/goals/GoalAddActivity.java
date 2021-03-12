@@ -218,13 +218,11 @@ public class GoalAddActivity extends FragmentActivity implements DatePickerDialo
         String goalType = goalTypeSpinner.getSelectedItem().toString();
         String goalDetails = goalDetailsEditText.getText().toString();
 
-
         //only get the date
         String date = selectedDateTextView.getText().toString().split(" ")[2];
         Long goalDate = DateConverter.getUnixTimeFromData(date);
 
         Goal newGoal = new Goal(goalName, goalType, goalDetails, goalDate);
-
 
         //Get Selected Chips
         ChipGroup chipGroup = findViewById(R.id.goalsAbilitiesChipGroup);
@@ -245,6 +243,9 @@ public class GoalAddActivity extends FragmentActivity implements DatePickerDialo
         //write new Goal
         goalData.insertNewGoal(newGoal);
 
+        //remove write to db suppression
+        boolean suppressCheck = (boolean) getIntent().getSerializableExtra("Suppress Check");
+        suppressCheck = false;
     }
 
 

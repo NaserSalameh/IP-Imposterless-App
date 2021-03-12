@@ -39,7 +39,34 @@ public class GoalData {
                 " ABILITIES TEXT)";
 
         db.execSQL(createTableStatement);
+
+        //Add setup goal at creation of table
+        insertNewGoal(createSetupGoal());
     }
+
+
+    private Goal createSetupGoal() {
+        //Get all Goal Data
+        String goalName = "Setup";
+        String goalType = "Medium";
+        String goalDetails = "Explore the application!";
+
+        //only get the date
+        Long goalDate = System.currentTimeMillis();
+
+        Goal newGoal = new Goal(goalName, goalType, goalDetails, goalDate);
+
+        ArrayList<Task> setupTasks = new ArrayList<>();
+        setupTasks.add(new Task("Explore Profile Tab!", newGoal));
+        setupTasks.add(new Task("Explore Information Tab!", newGoal));
+        setupTasks.add(new Task("Explore Ability Tab!", newGoal));
+        setupTasks.add(new Task("Explore Achievement Tab!", newGoal));
+        setupTasks.add(new Task("Explore Settings Tab!", newGoal));
+
+        newGoal.setTasks(setupTasks);
+        return newGoal;
+    }
+
 
     //Insert New GOAL
     public boolean insertNewGoal(Goal goal){
@@ -109,26 +136,29 @@ public class GoalData {
 
                     //Add all complete Tasks
                     String completeTasks = cursor.getString(5);
-                    for(String completeTask : completeTasks.split(",")){
-                        Task newCompleteTask = new Task(completeTask,goal,true);
-                        goal.addTask(newCompleteTask);
-                    }
+                    if(!completeTasks.equals(""))
+                        for(String completeTask : completeTasks.split(",")){
+                            Task newCompleteTask = new Task(completeTask,goal,true);
+                            goal.addTask(newCompleteTask);
+                        }
 
                     //Add all incomplete Tasks
                     String incompleteTasks = cursor.getString(6);
-                    for(String completeTask : incompleteTasks.split(",")){
-                        Task newCompleteTask = new Task(completeTask,goal,false);
-                        goal.addTask(newCompleteTask);
-                    }
+                    if(!incompleteTasks.equals(""))
+                        for(String completeTask : incompleteTasks.split(",")){
+                            Task newCompleteTask = new Task(completeTask,goal,false);
+                            goal.addTask(newCompleteTask);
+                        }
 
                     //Add all abilities
                     String abilities = cursor.getString(7);
 
                     //Find ability object
-                    for(String abilityString : abilities.split(","))
-                        for(Ability ability: abilitiesList)
-                            if(ability.getName().equals(abilityString))
-                                goal.addAbility(ability);
+                    if(!abilities.equals(""))
+                        for(String abilityString : abilities.split(","))
+                            for(Ability ability: abilitiesList)
+                                if(ability.getName().equals(abilityString))
+                                    goal.addAbility(ability);
 
 
                     goalsList.add(goal);
@@ -143,14 +173,30 @@ public class GoalData {
         this.goalsList = goalsList;
     }
 
-
     public ArrayList<Goal> getGoalsList() {
         //Create achievement List updated as necessary
         createGoalList();
         return goalsList;
     }
 
+    private void deleteDataInTable(){
+        String truncateTableStatement = "DELETE FROM " + GOAL_TABLE;
+        db.rawQuery(truncateTableStatement,null);
+    }
+
+    private void insertGoalsList(ArrayList<Goal> goals){
+        for(Goal goal: goals)
+            insertNewGoal(goal);
+    }
+
+    public void replaceGoalsInDB(ArrayList<Goal> goals){
+        //delete all current goals
+        deleteDataInTable();
+        insertGoalsList(goals);
+    }
+
     public void setDB(SQLiteDatabase db) {
         this.db = db;
     }
+
 }
