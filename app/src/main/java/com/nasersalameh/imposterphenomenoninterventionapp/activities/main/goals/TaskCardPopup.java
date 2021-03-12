@@ -33,23 +33,30 @@ public class TaskCardPopup {
     private final Activity mainActivity;
 
     private RecyclerView taskRecyclerView;
+
     private TasksCardsAdapter taskCardsAdapter;
     private int taskPosition;
-
     private final Task task;
+
+    private GoalsCardsAdapter goalsCardsAdapter;
+    private final int goalPosition;
     private final Goal goal;
+
 
     private PopupWindow popupWindow;
 
-    public TaskCardPopup(Context context, Activity mainActivity, RecyclerView taskRecyclerView,TasksCardsAdapter taskCardsAdapter,int taskPosition, Task task, Goal goal){
+    public TaskCardPopup(Context context, Activity mainActivity, RecyclerView taskRecyclerView, TasksCardsAdapter taskCardsAdapter, int taskPosition, Task task, GoalsCardsAdapter goalsCardsAdapter, int goalPosition, Goal goal){
         this.context = context;
         this.mainActivity = mainActivity;
 
         this.taskRecyclerView = taskRecyclerView;
+
         this.taskCardsAdapter = taskCardsAdapter;
         this.taskPosition= taskPosition;
-
         this.task = task;
+
+        this.goalsCardsAdapter = goalsCardsAdapter;
+        this.goalPosition = goalPosition;
         this.goal = goal;
     }
 
@@ -104,7 +111,9 @@ public class TaskCardPopup {
 
     private void deleteTask() {
         goal.removeTask(task);
-        taskRecyclerView.removeViewAt(taskPosition);
+        taskCardsAdapter.getTasksList().remove(task);
+
+        goalsCardsAdapter.notifyItemChanged(goalPosition);
         popupWindow.dismiss();
     }
 

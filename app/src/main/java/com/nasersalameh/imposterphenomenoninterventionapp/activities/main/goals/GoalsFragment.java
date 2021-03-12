@@ -120,11 +120,6 @@ public class GoalsFragment extends Fragment {
         setupTasks.add(new Task("Explore Ability Tab!", newGoal));
         setupTasks.add(new Task("Explore Achievement Tab!", newGoal));
         setupTasks.add(new Task("Explore Settings Tab!", newGoal));
-        setupTasks.add(new Task("Explore Settings Tab!", newGoal));
-        setupTasks.add(new Task("Explore Settings Tab!", newGoal));
-        setupTasks.add(new Task("Explore Settings Tab!", newGoal));
-        setupTasks.add(new Task("Explore Settings Tab!", newGoal));
-
 
         newGoal.setTasks(setupTasks);
         return newGoal;
