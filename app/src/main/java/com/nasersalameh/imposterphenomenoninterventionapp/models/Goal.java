@@ -20,6 +20,8 @@ public class Goal {
     //Achievements this goal will create
     private ArrayList<Achievement> achievements;
 
+    private Reflection reflection;
+
     public Goal(String name, String details, String type, Long unixDate) {
         this.name = name;
         this.details = details;
@@ -107,5 +109,13 @@ public class Goal {
                 tempTask = task;
 
         tasks.remove(tempTask);
+    }
+
+    public Reflection getReflection() {
+        return reflection;
+    }
+
+    public void setReflection(Reflection reflection) {
+        this.reflection = reflection;
     }
 }

@@ -85,9 +85,8 @@ public class MainActivity extends AppCompatActivity {
         //Populate Nav Header:
         User user = loadUserData(dbHelper);
         populateNavHeader(user);
-        unlockAppropriateTabs(user);
 
-        //SetUpActivityResults
+        //TO-DO: Content
     }
 
 
@@ -115,9 +114,6 @@ public class MainActivity extends AppCompatActivity {
         navText.setText(user.getUserName());
     }
 
-    private void unlockAppropriateTabs(User user) {
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -132,17 +128,4 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        //Information Tab Activity
-        if(requestCode == INFORMATION_ACTIVITY_RESULT)
-            if(requestCode== Activity.RESULT_OK || requestCode == Activity.RESULT_CANCELED){
-                //Get Card Progress Bar
-//                System.out.println("IM HERE NOW");
-//                ProgressBar cardProgressBar = findViewById(R.id.cardProgressBar);
-//                cardProgressBar.setProgress(data.getIntExtra("Progress",-1));
-            }
-
-    }
 }

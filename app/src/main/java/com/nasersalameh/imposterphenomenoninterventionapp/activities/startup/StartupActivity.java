@@ -45,11 +45,16 @@ public class StartupActivity extends AppCompatActivity {
         //Copy Database From Assets
         copyAsset(getAssets(),INSTALL_DB_NAME,pathToDatabases + INSTALL_DB_NAME);
 
-        boolean databaseExists = checkForTable(DB_NAME,"USER_TABLE");
+        //Create Usage table
+        dbHelper = new DatabaseHelper(StartupActivity.this);
 
-        if(databaseExists)
+        boolean setupCompleted = checkForUser(DB_NAME);
+
+        if(setupCompleted)
             startApplication();
         else {
+            //Delete Db
+            dbHelper.deleteUsageDB(this);
             //Check permission and startup if possible
             requestPermission();
         }
@@ -127,15 +132,36 @@ public class StartupActivity extends AppCompatActivity {
         return db != null;
     }
 
+    //This will check if the database exists
+    public boolean checkForUser(String dbName) {
+        try {
+            db = SQLiteDatabase.openDatabase(String.valueOf(this.getDatabasePath(dbName)), null,
+                    SQLiteDatabase.OPEN_READONLY);
+
+            boolean check = true;
+            String selectQuery = "SELECT * FROM USER_TABLE";
+            try (Cursor cursor = db.rawQuery(selectQuery, null)) {
+                if(cursor!=null) {
+                    if(cursor.getCount()>0)
+                        check = true;
+                    else
+                        check = false;
+                }
+            }
+            db.close();
+            return check;
+        } catch (SQLiteException e) {
+            // database doesn't exist yet.
+            System.err.println("No User Found!");
+        }
+        return db != null;
+    }
+
     private void startSetup() {
 
         TextView loadingText = findViewById(R.id.setupTextView);
         loadingText.setText("Welcome!\nCreating Database!");
-
-        //Create Usage table
-        dbHelper = new DatabaseHelper(StartupActivity.this);
-
-        //Migrate Data from install to usage
+//Migrate Data from install to usage
         dbHelper.migrateDataFromInstallToUsage();
 
         //intent to start setup activity

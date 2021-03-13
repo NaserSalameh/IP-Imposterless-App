@@ -60,7 +60,12 @@ public class ProfileFragment extends Fragment {
 
         //Set User Image
         ImageView profileImageView = root.findViewById(R.id.profileImageView);
-        profileImageView.setImageURI(Uri.fromFile(new File(user.getImagePath()+"/profile.jpg")));
+
+        //If no picture, set default
+        if(user.getImagePath().equals("NA"))
+            profileImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher_foreground));
+        else
+            profileImageView.setImageURI(Uri.fromFile(new File(user.getImagePath()+"/profile.jpg")));
 
     }
 

@@ -107,6 +107,19 @@ public class GoalCardPopup {
         deleteButton.setOnClickListener(v -> {
             deleteGoal();
         });
+
+        Button reflectButton = container.findViewById(R.id.goalPopupReflectButton);
+        //enable reflect button if needed
+        if(goal.getTasksProgress() == 100 && goal.getReflection() == null)
+            reflectButton.setEnabled(true);
+
+        reflectButton.setOnClickListener(v -> {
+            reflectGoal();
+        });
+    }
+
+    //TO-DO: Reflect Activity
+    private void reflectGoal() {
     }
 
     private void deleteGoal() {

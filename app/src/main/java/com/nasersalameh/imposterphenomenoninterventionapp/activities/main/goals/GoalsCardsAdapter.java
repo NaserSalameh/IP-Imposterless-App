@@ -75,6 +75,13 @@ public class GoalsCardsAdapter extends RecyclerView.Adapter<GoalsCardsAdapter.Vi
         String tasksRemaining = "Tasks: " + currentGoal.getNumberOfCompletedTasks() + "/" + currentGoal.getTasks().size();
         viewHolder.tasksTextView.setText(tasksRemaining);
 
+        //set reflection all all tasks completed
+        if(currentGoal.getTasksProgress() == 100 && currentGoal.getReflection() == null)
+            viewHolder.reflectionTextView.setText("Goal Complete - Reflection Needed.");
+        else
+            viewHolder.reflectionTextView.setText("");
+
+
         viewHolder.tasksProgressBar.setProgress(currentGoal.getTasksProgress());
 
         //Set up Tasks recycler View
@@ -122,6 +129,7 @@ public class GoalsCardsAdapter extends RecyclerView.Adapter<GoalsCardsAdapter.Vi
 
         TextView nameTextView;
         TextView tasksTextView;
+        TextView reflectionTextView;
 
         ProgressBar tasksProgressBar;
 
@@ -132,7 +140,7 @@ public class GoalsCardsAdapter extends RecyclerView.Adapter<GoalsCardsAdapter.Vi
 
             nameTextView = itemView.findViewById(R.id.goalCardNameTextView);
             tasksTextView = itemView.findViewById(R.id.goalCardTasksTextView);
-
+            reflectionTextView = itemView.findViewById(R.id.goalCardReflectionTextView);;
             tasksProgressBar = itemView.findViewById(R.id.goalCardProgressBar);
         }
     }

@@ -85,13 +85,27 @@
         android:id="@+id/goalPopupDeleteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="64dp"
+        android:layout_marginEnd="32dp"
         android:layout_marginBottom="16dp"
         android:text="Delete Goal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/goalPopupReflectButton"
+        app:layout_constraintTop_toBottomOf="@id/goalsPopupChipGroup"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/goalPopupReflectButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:enabled="false"
+        android:text="Reflecti on Goal"
+        app:layout_constraintEnd_toStartOf="@+id/goalPopupDeleteButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/goalsPopupChipGroup" />
+        app:layout_constraintTop_toBottomOf="@+id/goalsPopupChipGroup" />
 </androidx.constraintlayout.widget.ConstraintLayout>
