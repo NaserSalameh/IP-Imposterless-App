@@ -20,6 +20,12 @@ public class Achievement implements Serializable {
         this.achievementDate = achievementDate;
     }
 
+    public Achievement(String achievementName, String achievementDetails, Long achievementDate) {
+        this.achievementName = achievementName;
+        this.achievementDetails = achievementDetails;
+        this.achievementDate = achievementDate;
+    }
+
     public String getAchievementName() {
         return achievementName;
     }
@@ -34,5 +40,9 @@ public class Achievement implements Serializable {
 
     public String getAchievementDetails() {
         return achievementDetails;
+    }
+
+    public void setAchievementType(AchievementType achievementType) {
+        this.achievementType = achievementType;
     }
 }

@@ -22,16 +22,22 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.slider.LabelFormatter;
 import com.google.android.material.slider.RangeSlider;
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
+import com.nasersalameh.imposterphenomenoninterventionapp.activities.main.achievements.AchievementCardsAdapter;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.AbilityData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.AchievementsTypeData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelper;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Ability;
+import com.nasersalameh.imposterphenomenoninterventionapp.models.Achievement;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.AchievementType;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Goal;
+import com.nasersalameh.imposterphenomenoninterventionapp.models.Reflection;
 
 import java.util.ArrayList;
 
@@ -57,7 +63,11 @@ public class GoalReflectionActivity extends FragmentActivity {
     private boolean deadlineMet;
 
     private RangeSlider successRangeSlider;
+    private EditText lowSuccessEditText;
+
     private RangeSlider expectationRangeSlider;
+    private EditText lowExpectationEditText;
+
 
     //Helper Floaters
     private FloatingActionButton blockerHelper;
@@ -107,7 +117,10 @@ public class GoalReflectionActivity extends FragmentActivity {
         deadlineReasonEditText =  findViewById(R.id.reflectionDeadlineEditText);
 
         successRangeSlider =  findViewById(R.id.reflectionSuccessRangeSlider);
+        lowSuccessEditText = findViewById(R.id.reflectionLowSuccessEditText);
+
         expectationRangeSlider =  findViewById(R.id.reflectionExpectationRangeSlider);
+        lowExpectationEditText = findViewById(R.id.reflectionLowExpectationEditText);
 
         seeAchievementsButton =  findViewById(R.id.createReflectionAchievementsButton);
 
@@ -129,17 +142,166 @@ public class GoalReflectionActivity extends FragmentActivity {
 
         setupDeadlineSection();
 
-        seeAchievementsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                transitionToGoalAchievementsLayout();
-            }
+        seeAchievementsButton.setOnClickListener(v -> {
+            Reflection reflection = collectReflection();
+            ArrayList<Achievement> achievementList = getAchievements(reflection);
+            transitionToGoalAchievementsLayout(achievementList);
         });
     }
 
-    private void transitionToGoalAchievementsLayout() {
+    private Reflection collectReflection() {
+        Reflection reflection = new Reflection(goal);
+
+        reflection.setGreatAchievement(achievementEditText.getText().toString());
+        reflection.setAchievementType(achievementTypeSpinner.getSelectedItem().toString());
+
+        if(!goal.getAbilities().isEmpty()){
+            Ability tempAbility;
+            reflection.setBestAbility(abilitySpinner.getSelectedItem().toString());
+            //TODO Add exp to abilities in DB!
+        }
+
+        if(blockerCheckBox.isSelected()){
+            reflection.setBlocker(blockerEditText.getText().toString());
+            reflection.setBlockerDifficulty((int) Math.floor(blockerRangeSlider.getValues().get(0)));
+        }
+
+        reflection.setDeadlineMet(deadlineMet);
+        if(deadlineMet){
+            reflection.setDeadlineReason(deadlineReasonEditText.getText().toString());
+        }
+
+        int successScore = (int) Math.floor(successRangeSlider.getValues().get(0));
+        reflection.setSuccessScore(successScore);
+        if(successScore <= 2){
+            reflection.setLowSuccessReason(lowSuccessEditText.getText().toString());
+        }
+
+        int expectationScore = (int) Math.floor(expectationRangeSlider.getValues().get(0));
+        reflection.setExpectationScore(expectationScore);
+        if(expectationScore == 1){
+            reflection.setLowExpectationReason(lowExpectationEditText.getText().toString());
+        }
+
+        //TODO Write Reflection TO DB
+        return reflection;
+    }
+
+    private ArrayList<Achievement> getAchievements(Reflection reflection) {
+
+        ArrayList<Achievement> achievements = new ArrayList<>();
+
+        //Get Achievement Types
+        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+        AchievementsTypeData achievementsTypeData = new AchievementsTypeData(databaseHelper);
+        ArrayList<AchievementType> achievementTypes = achievementsTypeData.getAchievementsTypeList();
+
+        //Finished Goal
+        Achievement goalAchievement = new Achievement(
+                goal+" Goal Achievement",
+                "Awarded for completing the " + goal.getType() +" size goal: " + goal.getName() + "!",
+                goal.getCompletionUnixDate());
+
+        for(AchievementType type: achievementTypes)
+            if(type.getAchievementType().equals(goal.getType() +" Goal"))
+                goalAchievement.setAchievementType(type);
+
+        achievements.add(goalAchievement);
+
+        //Large Task Achievement
+        if(goal.getTasks().size()>6){
+            Achievement taskSizeAchievement = new Achievement(
+                    goal+" Goal - Task Size Achievement",
+                    "Awarded for completing a goal with a considerable number of tasks (Goal: " + goal.getName() + ")!",
+                    goal.getCompletionUnixDate());
+
+            for(AchievementType type: achievementTypes)
+                if(type.getAchievementType().equals("Task Size"))
+                    taskSizeAchievement.setAchievementType(type);
+
+            achievements.add(taskSizeAchievement);
+        }
+
+        //Greatest Achievement
+        Achievement greatestAchievement = new Achievement(
+                goal+" Goal - " + reflection.getGreatAchievement(),
+                "Awarded as the greatest achievement during the " + goal.getName() + " Goal!",
+                goal.getCompletionUnixDate());
+
+
+        for(AchievementType type: achievementTypes)
+            if(type.getAchievementType().equals(reflection.getAchievementType()))
+                greatestAchievement.setAchievementType(type);
+
+        achievements.add(greatestAchievement);
+
+        //Ability Boost Achievement
+        if(abilityRangeSlider.getValues().get(0)==5){
+            Achievement abilityAchievement = new Achievement(
+                    goal+" Goal - Ability Boost Achievement",
+                    "Awarded for a large ability improvement during the " + goal.getName() + " Goal!",
+                    goal.getCompletionUnixDate());
+
+            for(AchievementType type: achievementTypes)
+                if(type.getAchievementType().equals("Ability Boost"))
+                    abilityAchievement.setAchievementType(type);
+
+            achievements.add(abilityAchievement);
+        }
+
+        //Blocker Surpassing Achievement
+        if(blockerCheckBox.isSelected()){
+            Achievement blockerAchievement = new Achievement(
+                    goal+" Goal - Overcoming Blocker Achievement",
+                    "Awarded for overcoming a blocker during the " + goal.getName() + " Goal!",
+                    goal.getCompletionUnixDate());
+
+            for(AchievementType type: achievementTypes)
+                if(type.getAchievementType().equals("Overcoming Blocker"))
+                    blockerAchievement.setAchievementType(type);
+
+            achievements.add(blockerAchievement);
+        }
+
+        //Deadline Met Achievement
+        if(deadlineMet){
+            Achievement deadlineMetAchievement = new Achievement(
+                    goal+" Goal - Deadline Met Achievement",
+                    "Awarded for meeting the deadline for the " + goal.getName() + " Goal!",
+                    goal.getCompletionUnixDate());
+
+            for(AchievementType type: achievementTypes)
+                if(type.getAchievementType().equals("Meeting Deadline"))
+                    deadlineMetAchievement.setAchievementType(type);
+
+            achievements.add(deadlineMetAchievement);
+        }
+
+        //Aligned Expectation achievement
+        if(expectationRangeSlider.getValues().get(0) >= 3){
+            Achievement alignedExpectation = new Achievement(
+                    goal+" Goal - Aligned Expectation Achievement",
+                    "Awarded for the result aligning and/or exceeding expectation for the " + goal.getName() + " Goal!",
+                    goal.getCompletionUnixDate());
+
+            for(AchievementType type: achievementTypes)
+                if(type.getAchievementType().equals("Aligned Expectation"))
+                    alignedExpectation.setAchievementType(type);
+
+            achievements.add(alignedExpectation);
+        }
+        return achievements;
+    }
+
+    private void transitionToGoalAchievementsLayout(ArrayList<Achievement> achievementList) {
         setContentView(R.layout.fragment_goals_reflection_activity_achievements);
 
+        RecyclerView reflectionAchievementsRecyclerView = findViewById(R.id.reflectionAchievementsRecyclerView);
+        reflectionAchievementsRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+
+        //Set up recycler adapter
+        AchievementCardsAdapter adapter = new AchievementCardsAdapter(this, achievementList,this,reflectionAchievementsRecyclerView);
+        reflectionAchievementsRecyclerView.setAdapter(adapter);
 
         //At activity end remove suppression
         boolean suppressionCheck = (boolean) getIntent().getSerializableExtra("Suppress Check");
