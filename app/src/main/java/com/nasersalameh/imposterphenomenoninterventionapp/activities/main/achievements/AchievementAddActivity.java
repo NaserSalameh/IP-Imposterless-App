@@ -137,7 +137,7 @@ public class AchievementAddActivity extends FragmentActivity implements DatePick
 
     private void createPopup(String popupTitle, String popupText){
         //Create and inflate layout
-        ViewGroup container = (ViewGroup) LayoutInflater.from(AchievementAddActivity.this).inflate(R.layout.fragment_achievements_add_activity_popup,null);
+        ViewGroup container = (ViewGroup) LayoutInflater.from(AchievementAddActivity.this).inflate(R.layout.help_popup,null);
 
         // which view you pass in doesn't matter, it is only used for the window tolken
         @SuppressLint("WrongViewCast")
@@ -149,10 +149,10 @@ public class AchievementAddActivity extends FragmentActivity implements DatePick
         Runnable r= () -> popupWindow.showAtLocation(constraintLayout, Gravity.CENTER, 100, 100);
         handler.postDelayed(r, 1000);
 
-        TextView popupTitleTextView = container.findViewById(R.id.addAchievementHelpTitlePopupTextView);
+        TextView popupTitleTextView = container.findViewById(R.id.helpTitleTextView);
         popupTitleTextView.setText(popupTitle);
 
-        TextView popupTextView = container.findViewById(R.id.addAchievementHelpPopupTextView);
+        TextView popupTextView = container.findViewById(R.id.helpPopupConstraintLayout);
         popupTextView.setText(popupText);
     }
 

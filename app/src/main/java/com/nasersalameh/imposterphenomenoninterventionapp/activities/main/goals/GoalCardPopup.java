@@ -3,6 +3,7 @@ package com.nasersalameh.imposterphenomenoninterventionapp.activities.main.goals
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
 import android.view.Gravity;
@@ -19,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
+import com.nasersalameh.imposterphenomenoninterventionapp.activities.main.MainActivity;
 import com.nasersalameh.imposterphenomenoninterventionapp.helpers.DateConverter;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Ability;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Goal;
@@ -35,10 +37,11 @@ public class GoalCardPopup {
 
     private Goal goal;
     private final ArrayList<Goal> goalList;
+    private boolean suppressWriteToDB;
 
     private PopupWindow popupWindow;
 
-    public GoalCardPopup(Context context, Activity mainActivity, RecyclerView goalRecyclerView, int goalPosition, Goal goal, ArrayList<Goal> goalList){
+    public GoalCardPopup(Context context, Activity mainActivity, RecyclerView goalRecyclerView, int goalPosition, Goal goal, ArrayList<Goal> goalList, boolean suppressWriteToDB){
         this.context = context;
         this.mainActivity = mainActivity;
         this.goalRecyclerView = goalRecyclerView;
@@ -47,6 +50,8 @@ public class GoalCardPopup {
         this.goalPosition = goalPosition;
 
         this.goalList = goalList;
+
+        this.suppressWriteToDB = suppressWriteToDB;
 
     }
 
@@ -64,21 +69,17 @@ public class GoalCardPopup {
 
         //Handler to thread sleep and slow down process
         Handler handler=new Handler();
-        Runnable r=new Runnable() {
-            public void run() {
-                popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
-            }
-        };
+        Runnable r= () -> popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
         handler.postDelayed(r, 500);
 
         //Handler to thread sleep and slow down process
-        r = () -> setUpTaskPopup(container);
+        r = () -> setUpGoalPopup(container);
         handler.postDelayed(r, 500);
 
         this.popupWindow = popupWindow;
     }
 
-    private void setUpTaskPopup(ViewGroup container) {
+    private void setUpGoalPopup(ViewGroup container) {
         //Set-up UI
         TextView nameTextView = container.findViewById(R.id.goalsPopupNameTextView);
         TextView typeTextView = container.findViewById(R.id.goalsPopupTypeTextView);
@@ -88,7 +89,7 @@ public class GoalCardPopup {
         nameTextView.setText(goal.getName());
         typeTextView.setText(goal.getType());
         detailsTextView.setText(goal.getDetails());
-        dateTextView.setText("Deadline: " + DateConverter.getDateFromUnixTime(goal.getUnixDate()));
+        dateTextView.setText("Deadline: " + DateConverter.getDateFromUnixTime(goal.getDeadlineUnixDate()));
 
         //Chip group
         ChipGroup abilitiesChipGroup = container.findViewById(R.id.goalsPopupChipGroup);
@@ -120,6 +121,12 @@ public class GoalCardPopup {
 
     //TO-DO: Reflect Activity
     private void reflectGoal() {
+        Intent startReflectionActivity = new Intent(mainActivity,GoalReflectionActivity.class);
+        startReflectionActivity.putExtra("Goal", this.goal);
+        startReflectionActivity.putExtra("Suppress Check",suppressWriteToDB);
+
+        //start Activity
+        mainActivity.startActivity(startReflectionActivity);
     }
 
     private void deleteGoal() {
@@ -128,6 +135,9 @@ public class GoalCardPopup {
         //Remove goal
         goal = null;
         goalRecyclerView.removeViewAt(goalPosition);
+
+        //End Suppression
+        suppressWriteToDB = false;
         popupWindow.dismiss();
     }
 

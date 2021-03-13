@@ -163,7 +163,7 @@ public class GoalAddActivity extends FragmentActivity implements DatePickerDialo
 
     private void createPopup(String popupTitle, String popupText){
         //Create and inflate layout
-        ViewGroup container = (ViewGroup) LayoutInflater.from(GoalAddActivity.this).inflate(R.layout.fragment_goals_task_popup,null);
+        ViewGroup container = (ViewGroup) LayoutInflater.from(GoalAddActivity.this).inflate(R.layout.help_popup,null);
 
         // which view you pass in doesn't matter, it is only used for the window tolken
         @SuppressLint("WrongViewCast")
@@ -175,10 +175,10 @@ public class GoalAddActivity extends FragmentActivity implements DatePickerDialo
         Runnable r= () -> popupWindow.showAtLocation(constraintLayout, Gravity.CENTER, 100, 100);
         handler.postDelayed(r, 1000);
 
-        TextView popupTitleTextView = container.findViewById(R.id.addGoalHelpTitlePopupTextView);
+        TextView popupTitleTextView = container.findViewById(R.id.helpTitleTextView);
         popupTitleTextView.setText(popupTitle);
 
-        TextView popupTextView = container.findViewById(R.id.addGoalHelpPopupTextView);
+        TextView popupTextView = container.findViewById(R.id.helpDetailsTextView);
         popupTextView.setText(popupText);
     }
 

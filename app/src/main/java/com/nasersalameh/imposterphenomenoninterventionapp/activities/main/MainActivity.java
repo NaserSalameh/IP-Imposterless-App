@@ -55,13 +55,6 @@ public class MainActivity extends AppCompatActivity {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
 
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                return false;
-            }
-        });
-
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -103,7 +96,11 @@ public class MainActivity extends AppCompatActivity {
 
         //Get image Path
         try {
-            navImage.setImageURI(Uri.fromFile(new File(user.getImagePath() + "/profile.jpg")));
+            //If no picture, set default
+            if(user.getImagePath().equals("NA"))
+                navImage.setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher_foreground));
+            else
+                navImage.setImageURI(Uri.fromFile(new File(user.getImagePath()+"/profile.jpg")));
         }
         catch (Exception e){
             System.err.println(e.getMessage());

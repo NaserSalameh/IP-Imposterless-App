@@ -54,7 +54,7 @@ public class GoalData {
         //only get the date
         Long goalDate = System.currentTimeMillis();
 
-        Goal newGoal = new Goal(goalName, goalType, goalDetails, goalDate);
+        Goal newGoal = new Goal(goalName, goalDetails, goalType, goalDate);
 
         ArrayList<Task> setupTasks = new ArrayList<>();
         setupTasks.add(new Task("Explore Profile Tab!", newGoal));
@@ -78,7 +78,7 @@ public class GoalData {
             cv.put("GOAL_NAME", goal.getName());
             cv.put("GOAL_DETAILS", goal.getDetails());
             cv.put("GOAL_TYPE", goal.getType());
-            cv.put("GOAL_DATE", goal.getUnixDate());
+            cv.put("GOAL_DATE", goal.getDeadlineUnixDate());
 
             String completeTasks = "";
             String incompleteTasks = "";

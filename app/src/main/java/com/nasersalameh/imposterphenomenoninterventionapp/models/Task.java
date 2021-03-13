@@ -1,6 +1,9 @@
 package com.nasersalameh.imposterphenomenoninterventionapp.models;
 
-public class Task {
+import java.io.Serializable;
+
+//Imports Serializable to send across Intents
+public class Task implements Serializable {
 
     private String name;
     private boolean completed;

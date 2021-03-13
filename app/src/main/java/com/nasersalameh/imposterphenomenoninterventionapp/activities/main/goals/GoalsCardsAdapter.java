@@ -37,9 +37,11 @@ public class GoalsCardsAdapter extends RecyclerView.Adapter<GoalsCardsAdapter.Vi
     //Local variables to update from different classes
     private ViewHolder viewHolder;
 
+    private boolean suppressWriteToDB;
+
     private Goal activeGoal;
 
-    public GoalsCardsAdapter(Context context, ArrayList<Goal> goalsList, Activity mainActivity, RecyclerView tasksRecyclerView, RecyclerView goalsRecyclerView){
+    public GoalsCardsAdapter(Context context, ArrayList<Goal> goalsList, Activity mainActivity, RecyclerView tasksRecyclerView, RecyclerView goalsRecyclerView, boolean suppressWriteToDB){
         this.layoutInflater = LayoutInflater.from(context);
         this.goalsList = goalsList;
 
@@ -51,6 +53,8 @@ public class GoalsCardsAdapter extends RecyclerView.Adapter<GoalsCardsAdapter.Vi
 
         //First goal is first in list
         activeGoal = goalsList.get(0);
+
+        this.suppressWriteToDB = suppressWriteToDB;
     }
 
     @NonNull
@@ -76,8 +80,11 @@ public class GoalsCardsAdapter extends RecyclerView.Adapter<GoalsCardsAdapter.Vi
         viewHolder.tasksTextView.setText(tasksRemaining);
 
         //set reflection all all tasks completed
-        if(currentGoal.getTasksProgress() == 100 && currentGoal.getReflection() == null)
+        if(currentGoal.getTasksProgress() == 100 && currentGoal.getReflection() == null){
             viewHolder.reflectionTextView.setText("Goal Complete - Reflection Needed.");
+            //If goal is complete, set completion Date
+            currentGoal.setCompletionUnixDate(System.currentTimeMillis());
+        }
         else
             viewHolder.reflectionTextView.setText("");
 
@@ -88,15 +95,13 @@ public class GoalsCardsAdapter extends RecyclerView.Adapter<GoalsCardsAdapter.Vi
         updateTaskRecyclerView(currentGoal,index);
 
         viewHolder.cardView.setOnClickListener(v -> {
-            System.out.println("Now Displaying Goal "+ currentGoal.getName());
             //Set active goal
             activeGoal = currentGoal;
             updateTaskRecyclerView(currentGoal, index);
         });
 
         viewHolder.cardView.setOnLongClickListener(v -> {
-            System.out.println("Long Clicked Goal" + currentGoal.getName());
-            GoalCardPopup goalCardPopup = new GoalCardPopup(context, mainActivity,goalsRecyclerView,index, currentGoal, goalsList);
+            GoalCardPopup goalCardPopup = new GoalCardPopup(context, mainActivity,goalsRecyclerView,index, currentGoal, goalsList,suppressWriteToDB);
             goalCardPopup.createPopUpWindow(viewHolder);
             return false;
         });
@@ -124,7 +129,6 @@ public class GoalsCardsAdapter extends RecyclerView.Adapter<GoalsCardsAdapter.Vi
 
     //Tie the UI to the adapter
     public class ViewHolder extends RecyclerView.ViewHolder {
-
         MaterialCardView cardView;
 
         TextView nameTextView;

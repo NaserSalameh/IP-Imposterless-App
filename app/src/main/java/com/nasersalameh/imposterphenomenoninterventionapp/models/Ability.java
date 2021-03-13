@@ -4,9 +4,11 @@ import android.graphics.Color;
 
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Ability {
+//Imports Serializable to send across Intents
+public class Ability implements Serializable {
 
     private String name;
     private String details;

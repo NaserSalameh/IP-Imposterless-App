@@ -1,4 +1,7 @@
 package com.nasersalameh.imposterphenomenoninterventionapp.models;
 
-public class Reflection {
+import java.io.Serializable;
+
+//Imports Serializable to send across Intents
+public class Reflection implements Serializable {
 }

@@ -84,14 +84,12 @@ public class GoalsFragment extends Fragment {
         goalsRecyclerView.setLayoutManager(new LinearLayoutManager(mainActivity, LinearLayoutManager.HORIZONTAL, false));
 
         //Set up Goals recycler adapter with goals from usage database
-        goalsAdapter = new GoalsCardsAdapter(mainActivity, goalsList,mainActivity, tasksRecyclerView, goalsRecyclerView);
+        suppressWriteToDB = true;
+        goalsAdapter = new GoalsCardsAdapter(mainActivity, goalsList,mainActivity, tasksRecyclerView, goalsRecyclerView, suppressWriteToDB);
         goalsRecyclerView.setAdapter(goalsAdapter);
     }
 
     private void setUpFloatingButton() {
-        //Choice can be "Task" or "Goal"
-        final Object choice = "";
-
         FloatingActionButton addGoalButton = root.findViewById(R.id.goalsFloatingActionButton);
         addGoalButton.setOnClickListener(v -> {
             createChoicePopup();
@@ -177,12 +175,8 @@ public class GoalsFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        if(!suppressWriteToDB){
+        if(!suppressWriteToDB)
             writeToDb();
-            System.out.println("Rewrote to DB");
-        }
-        else
-            System.out.println("Suppressed Write To DB");
     }
 
     private void writeToDb() {

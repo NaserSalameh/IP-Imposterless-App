@@ -1,8 +1,10 @@
 package com.nasersalameh.imposterphenomenoninterventionapp.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Goal {
+//Imports Serializable to send across Intents
+public class Goal implements Serializable {
 
     private String name;
     private String details;
@@ -10,7 +12,9 @@ public class Goal {
     //Type is either small, medium, or large Goal
     private String type;
 
-    private Long unixDate;
+    private Long deadlineUnixDate;
+
+    private Long completionUnixDate;
 
     private ArrayList<Task> tasks;
 
@@ -22,11 +26,11 @@ public class Goal {
 
     private Reflection reflection;
 
-    public Goal(String name, String details, String type, Long unixDate) {
+    public Goal(String name, String details, String type, Long deadlineUnixDate) {
         this.name = name;
         this.details = details;
         this.type = type;
-        this.unixDate = unixDate;
+        this.deadlineUnixDate = deadlineUnixDate;
 
         this.tasks = new ArrayList<>();
         this.abilities = new ArrayList<>();
@@ -45,8 +49,8 @@ public class Goal {
         return type;
     }
 
-    public Long getUnixDate() {
-        return unixDate;
+    public Long getDeadlineUnixDate() {
+        return deadlineUnixDate;
     }
 
     public ArrayList<Task> getTasks() {
@@ -117,5 +121,14 @@ public class Goal {
 
     public void setReflection(Reflection reflection) {
         this.reflection = reflection;
+    }
+
+
+    public Long getCompletionUnixDate() {
+        return completionUnixDate;
+    }
+
+    public void setCompletionUnixDate(Long completionUnixDate) {
+        this.completionUnixDate = completionUnixDate;
     }
 }

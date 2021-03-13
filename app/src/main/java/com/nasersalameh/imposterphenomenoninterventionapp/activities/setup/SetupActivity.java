@@ -30,7 +30,6 @@ import com.nasersalameh.imposterphenomenoninterventionapp.R;
 import com.nasersalameh.imposterphenomenoninterventionapp.activities.main.MainActivity;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.CIPsQuestionData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.CIPsResponseData;
-import com.nasersalameh.imposterphenomenoninterventionapp.database.InstallDatabaseHelper;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.UserData;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.CIPsResponse;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelper;
@@ -227,8 +226,8 @@ public class SetupActivity extends AppCompatActivity {
         //Setup UI:
         scrollView = findViewById(R.id.scrollView);
 
-        rangeSlider1 = findViewById(R.id.rangeSlider1);
-        rangeSlider2 = findViewById(R.id.rangeSlider2);
+        rangeSlider1 = findViewById(R.id.reflectionSuccessRangeSlider);
+        rangeSlider2 = findViewById(R.id.reflectionBlockerRangeSlider);
         rangeSlider3 = findViewById(R.id.rangeSlider3);
         rangeSlider4 = findViewById(R.id.rangeSlider4);
 
@@ -250,7 +249,7 @@ public class SetupActivity extends AppCompatActivity {
         //Fill textViews with questions
         populateQuestions();
 
-        cipsButton = findViewById(R.id.setupCipsButton);
+        cipsButton = findViewById(R.id.createReflectionAchievementsButton);
 
         cipsButton.setOnClickListener(v -> {
             //If all responses collected
