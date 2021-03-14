@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.DragEvent;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,8 +30,10 @@ import com.google.android.material.slider.RangeSlider;
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
 import com.nasersalameh.imposterphenomenoninterventionapp.activities.main.achievements.AchievementCardsAdapter;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.AbilityData;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.AchievementData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.AchievementsTypeData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelper;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.ReflectionData;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Ability;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Achievement;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.AchievementType;
@@ -43,6 +44,7 @@ import java.util.ArrayList;
 
 public class GoalReflectionActivity extends FragmentActivity {
 
+    public static final int EXP_AMOUNT = 100;
     //Goal passed from intent
     Goal goal;
 
@@ -150,15 +152,28 @@ public class GoalReflectionActivity extends FragmentActivity {
     }
 
     private Reflection collectReflection() {
+
+        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+
         Reflection reflection = new Reflection(goal);
+
 
         reflection.setGreatAchievement(achievementEditText.getText().toString());
         reflection.setAchievementType(achievementTypeSpinner.getSelectedItem().toString());
 
         if(!goal.getAbilities().isEmpty()){
-            Ability tempAbility;
+            //Get ability Data to write changes
+            AbilityData abilityData = new AbilityData(databaseHelper);
+
+            //Get best ability
             reflection.setBestAbility(abilitySpinner.getSelectedItem().toString());
-            //TODO Add exp to abilities in DB!
+            for(Ability ability: goal.getAbilities()){
+                if(ability.getName().equals(reflection.getBestAbility()))
+                    //Add improvement to best ability
+                    abilityData.addExpToAbility(ability, (int) (EXP_AMOUNT*abilityRangeSlider.getValues().get(0)));
+                else
+                    abilityData.addExpToAbility(ability, EXP_AMOUNT);
+            }
         }
 
         if(blockerCheckBox.isSelected()){
@@ -183,7 +198,10 @@ public class GoalReflectionActivity extends FragmentActivity {
             reflection.setLowExpectationReason(lowExpectationEditText.getText().toString());
         }
 
-        //TODO Write Reflection TO DB
+        //Write Reflection to DB
+        AbilityData abilityData = new AbilityData(databaseHelper);
+        ReflectionData reflectionData = new ReflectionData(databaseHelper,abilityData.getAbilitiesList());
+        reflectionData.insertNewReflection(reflection);
         return reflection;
     }
 
@@ -290,9 +308,12 @@ public class GoalReflectionActivity extends FragmentActivity {
 
             achievements.add(alignedExpectation);
         }
-        for(Achievement achievement: achievements){
-            System.out.println(achievement.getAchievementName());
-            System.out.println(achievement.getAchievementName()+"::"+achievement.getAchievementType().getAchievementType());
+
+
+        //Write Achievements to DB
+        AchievementData achievementData = new AchievementData(databaseHelper,achievementTypes);
+        for(Achievement achievement:achievements){
+            achievementData.insertNewAchievement(achievement);
         }
 
         return achievements;

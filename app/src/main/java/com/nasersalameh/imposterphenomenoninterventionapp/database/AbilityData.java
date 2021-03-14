@@ -39,7 +39,7 @@ public class AbilityData {
             db = dbHelper.getWritableDatabase();
             ContentValues cv = new ContentValues();
 
-            //Add Achievement Name, Type, and date
+            //Add Ability Name, Type, and EXP
             cv.put("ABILITY_NAME", ability.getName());
             cv.put("ABILITY_DETAILS", ability.getDetails());
             cv.put("ABILITY_EXP", ability.getExperience());
@@ -103,6 +103,24 @@ public class AbilityData {
         //Create achievement List updated as necessary
         createAbilityList();
         return abilitiesList;
+    }
+
+    public void addExpToAbility(Ability ability, int expAmount){
+        db  = dbHelper.getReadableDatabase();
+
+        ContentValues cv = new ContentValues();
+        //Add Ability Name, Type, and EXP
+        cv.put("ABILITY_NAME", ability.getName());
+        cv.put("ABILITY_DETAILS", ability.getDetails());
+        cv.put("ABILITY_EXP", ability.getExperience()+expAmount);
+
+        String improvements = ability.getImprovements().get(0);
+        for(int i=1;i<ability.getImprovements().size();i++)
+            improvements += "," + ability.getImprovements().get(i);
+
+        cv.put("ABILITY_IMPROVE", improvements);
+
+        db.update(ABILITY_TABLE, cv, " ABILITY_NAME = ?", new String[]{ability.getName()});
     }
 
     public void setDB(SQLiteDatabase db) {
