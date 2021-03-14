@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
+import com.nasersalameh.imposterphenomenoninterventionapp.helpers.DrawableGetter;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Achievement;
 
 import java.util.ArrayList;
@@ -52,33 +53,7 @@ public class AchievementCardsAdapter extends RecyclerView.Adapter<AchievementCar
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int index) {
 
         //get and set achievement icon
-        int iconID = 0;
-        switch(achievementList.get(index).getAchievementType().getAchievementType()){
-            case "Small Goal":
-                iconID = R.drawable.ic_achievement_small_goal;
-                break;
-            case "Medium Goal":
-                iconID = R.drawable.ic_achievement_medium_goal;
-                break;
-            case "Large Goal":
-                iconID = R.drawable.ic_achievement_large_goal;
-                break;
-            case "Meeting Deadline":
-                iconID = R.drawable.ic_achievement_cips_completion;
-                break;
-            case "Overcoming Blocker":
-                iconID = R.drawable.ic_achievement_information_completion;
-                break;
-            case "Task Size":
-                iconID = R.drawable.ic_achievement_streak;
-                break;
-            case "Ability Boost":
-                iconID = R.drawable.ic_achievement_growth;
-                break;
-            case "Aligned Expectation":
-                iconID = R.drawable.ic_achievement_growth;
-                break;
-        }
+        int iconID = DrawableGetter.getAchievementDrawable(achievementList.get(index).getAchievementType().getAchievementType());
         Drawable drawable = ContextCompat.getDrawable(context.getApplicationContext(),iconID);
         viewHolder.achievementImageView.setImageDrawable(drawable);
 

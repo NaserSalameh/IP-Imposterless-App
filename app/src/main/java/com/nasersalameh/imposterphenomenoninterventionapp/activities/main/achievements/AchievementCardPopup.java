@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
 import com.nasersalameh.imposterphenomenoninterventionapp.helpers.DateConverter;
+import com.nasersalameh.imposterphenomenoninterventionapp.helpers.DrawableGetter;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Achievement;
 
 import java.util.Date;
@@ -110,33 +111,7 @@ public class AchievementCardPopup {
 
     private Drawable getAchievementDrawable(String achievementType){
         //get and set achievement icon
-        int iconID = 0;
-        switch(achievementType){
-            case "type0":
-                iconID = R.drawable.ic_achievement_small_goal;
-                break;
-            case "type1":
-                iconID = R.drawable.ic_achievement_medium_goal;
-                break;
-            case "type2":
-                iconID = R.drawable.ic_achievement_large_goal;
-                break;
-            case "type3":
-                iconID = R.drawable.ic_achievement_cips_completion;
-                break;
-            case "type4":
-                iconID = R.drawable.ic_achievement_information_completion;
-                break;
-            case "type5":
-                iconID = R.drawable.ic_achievement_streak;
-                break;
-            case "type6":
-                iconID = R.drawable.ic_achievement_time;
-                break;
-            case "type7":
-                iconID = R.drawable.ic_achievement_growth;
-                break;
-        }
+        int iconID = DrawableGetter.getAchievementDrawable(achievementType);
         return ContextCompat.getDrawable(context,iconID);
     }
 

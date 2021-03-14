@@ -41,6 +41,8 @@ import com.nasersalameh.imposterphenomenoninterventionapp.models.AchievementType
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Goal;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Reflection;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class GoalReflectionActivity extends FragmentActivity {
@@ -327,6 +329,15 @@ public class GoalReflectionActivity extends FragmentActivity {
 
     private void transitionToGoalAchievementsLayout(ArrayList<Achievement> achievementList) {
         setContentView(R.layout.fragment_goals_reflection_activity_achievements);
+
+        //Set Score
+
+        int score = 0;
+        for(Achievement achievement: achievementList)
+            score+=achievement.getAchievementType().getAchievementScore();
+
+        TextView achievementScoreView = findViewById(R.id.reflectionsAchievementScoreTextView);
+        achievementScoreView.setText("Achievement Score Earned: " + score + "!");
 
         RecyclerView reflectionAchievementsRecyclerView = findViewById(R.id.reflectionAchievementsRecyclerView);
         reflectionAchievementsRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));

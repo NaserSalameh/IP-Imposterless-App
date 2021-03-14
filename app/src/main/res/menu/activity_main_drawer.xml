@@ -9,23 +9,29 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_profile" />
         <item
-            android:id="@+id/nav_abilities"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="@string/menu_abilities" />
+            android:id="@+id/nav_goals"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/menu_goals" />
+        <item
+            android:id="@+id/nav_reflections"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/menu_reflections" />
         <item
             android:id="@+id/nav_achievements"
             android:icon="@drawable/ic_menu_gallery"
             android:title="@string/menu_achievements" />
         <item
+            android:id="@+id/nav_abilities"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/menu_abilities" />
+        <item
             android:id="@+id/nav_information"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_information" />
-
         <item
-            android:id="@+id/nav_goals"
+            android:id="@+id/nav_cips"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_goals" />
-
+            android:title="@string/menu_CIPs" />
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_menu_slideshow"

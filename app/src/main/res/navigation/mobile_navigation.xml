@@ -12,10 +12,16 @@
         tools:layout="@layout/fragment_profile" />
 
     <fragment
-        android:id="@+id/nav_abilities"
-        android:name="com.nasersalameh.imposterphenomenoninterventionapp.activities.main.abilities.AbilitiesFragment"
-        android:label="@string/menu_abilities"
-        tools:layout="@layout/fragment_abilities" />
+        android:id="@+id/nav_goals"
+        android:name="com.nasersalameh.imposterphenomenoninterventionapp.activities.main.goals.GoalsFragment"
+        android:label="@string/menu_goals"
+        tools:layout="@layout/fragment_goals" />
+
+    <fragment
+        android:id="@+id/nav_reflections"
+        android:name="com.nasersalameh.imposterphenomenoninterventionapp.activities.main.reflections.ReflectionsFragment"
+        android:label="@string/menu_reflections"
+        tools:layout="@layout/fragment_reflections" />
 
     <fragment
         android:id="@+id/nav_achievements"
@@ -24,16 +30,23 @@
         tools:layout="@layout/fragment_achievements" />
 
     <fragment
+        android:id="@+id/nav_abilities"
+        android:name="com.nasersalameh.imposterphenomenoninterventionapp.activities.main.abilities.AbilitiesFragment"
+        android:label="@string/menu_abilities"
+        tools:layout="@layout/fragment_abilities" />
+
+    <fragment
         android:id="@+id/nav_information"
         android:name="com.nasersalameh.imposterphenomenoninterventionapp.activities.main.information.InformationFragment"
         android:label="@string/menu_information"
         tools:layout="@layout/fragment_information" />
 
     <fragment
-        android:id="@+id/nav_goals"
-        android:name="com.nasersalameh.imposterphenomenoninterventionapp.activities.main.goals.GoalsFragment"
-        android:label="@string/menu_goals"
-        tools:layout="@layout/fragment_goals" />
+        android:id="@+id/nav_cips"
+        android:name="com.nasersalameh.imposterphenomenoninterventionapp.activities.main.CIPs.CIPsFragment"
+        android:label="@string/menu_CIPs"
+        tools:layout="@layout/fragment_cips" />
+
     <fragment
         android:id="@+id/nav_settings"
         android:name="com.nasersalameh.imposterphenomenoninterventionapp.activities.main.settings.SettingsFragment"

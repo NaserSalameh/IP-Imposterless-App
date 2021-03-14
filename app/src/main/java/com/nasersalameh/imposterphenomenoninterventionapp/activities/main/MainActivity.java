@@ -60,9 +60,11 @@ public class MainActivity extends AppCompatActivity {
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_profile,
                 R.id.nav_goals,
-                R.id.nav_abilities,
+                R.id.nav_reflections,
                 R.id.nav_achievements,
+                R.id.nav_abilities,
                 R.id.nav_information,
+                R.id.nav_cips,
                 R.id.nav_settings)
                 .setOpenableLayout(drawer)
                 .build();
@@ -79,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         User user = loadUserData(dbHelper);
         populateNavHeader(user);
 
-        //TO-DO: Content
+        //TODO: Content
     }
 
 
