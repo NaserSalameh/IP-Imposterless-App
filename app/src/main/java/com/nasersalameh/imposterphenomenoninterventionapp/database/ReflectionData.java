@@ -69,7 +69,7 @@ public class ReflectionData {
             //Remove last comma
             completeTasks.replaceFirst(".$","");
 
-            cv.put("COMPLETE_TASKS", completeTasks);
+            cv.put("TASKS", completeTasks);
 
             //Add Abilities
             String abilities = "";

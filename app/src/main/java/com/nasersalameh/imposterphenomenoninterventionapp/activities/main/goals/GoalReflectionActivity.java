@@ -33,6 +33,7 @@ import com.nasersalameh.imposterphenomenoninterventionapp.database.AbilityData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.AchievementData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.AchievementsTypeData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelper;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.GoalData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.ReflectionData;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Ability;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Achievement;
@@ -198,8 +199,13 @@ public class GoalReflectionActivity extends FragmentActivity {
             reflection.setLowExpectationReason(lowExpectationEditText.getText().toString());
         }
 
-        //Write Reflection to DB
         AbilityData abilityData = new AbilityData(databaseHelper);
+
+        //Delete Goal from goals Table
+        GoalData goalData = new GoalData(databaseHelper,abilityData.getAbilitiesList());
+        goalData.deleteGoalRow(goal);
+
+        //Write Reflection to DB
         ReflectionData reflectionData = new ReflectionData(databaseHelper,abilityData.getAbilitiesList());
         reflectionData.insertNewReflection(reflection);
         return reflection;

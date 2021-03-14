@@ -179,7 +179,13 @@ public class GoalData {
         return goalsList;
     }
 
-    private void deleteDataInTable(){
+    public boolean deleteGoalRow(Goal goal){
+        db  = dbHelper.getWritableDatabase();
+        return db.delete(GOAL_TABLE, "GOAL_NAME=?" ,  new String[]{goal.getName()}) > 0;
+    }
+
+    private void deleteAllDataInTable(){
+        db  = dbHelper.getWritableDatabase();
         String truncateTableStatement = "DELETE FROM " + GOAL_TABLE;
         db.rawQuery(truncateTableStatement,null);
     }
@@ -191,7 +197,7 @@ public class GoalData {
 
     public void replaceGoalsInDB(ArrayList<Goal> goals){
         //delete all current goals
-        deleteDataInTable();
+        deleteAllDataInTable();
         insertGoalsList(goals);
     }
 

@@ -52,7 +52,9 @@ public class GoalsCardsAdapter extends RecyclerView.Adapter<GoalsCardsAdapter.Vi
         this.goalsRecyclerView = goalsRecyclerView;
 
         //First goal is first in list
-        activeGoal = goalsList.get(0);
+        if(!goalsList.isEmpty())
+            activeGoal = goalsList.get(0);
+
 
         this.suppressWriteToDB = suppressWriteToDB;
     }
