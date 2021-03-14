@@ -54,28 +54,28 @@ public class AchievementCardsAdapter extends RecyclerView.Adapter<AchievementCar
         //get and set achievement icon
         int iconID = 0;
         switch(achievementList.get(index).getAchievementType().getAchievementType()){
-            case "type0":
+            case "Small Goal":
                 iconID = R.drawable.ic_achievement_small_goal;
                 break;
-            case "type1":
+            case "Medium Goal":
                 iconID = R.drawable.ic_achievement_medium_goal;
                 break;
-            case "type2":
+            case "Large Goal":
                 iconID = R.drawable.ic_achievement_large_goal;
                 break;
-            case "type3":
+            case "Meeting Deadline":
                 iconID = R.drawable.ic_achievement_cips_completion;
                 break;
-            case "type4":
+            case "Overcoming Blocker":
                 iconID = R.drawable.ic_achievement_information_completion;
                 break;
-            case "type5":
+            case "Task Size":
                 iconID = R.drawable.ic_achievement_streak;
                 break;
-            case "type6":
-                iconID = R.drawable.ic_achievement_time;
+            case "Ability Boost":
+                iconID = R.drawable.ic_achievement_growth;
                 break;
-            case "type7":
+            case "Aligned Expectation":
                 iconID = R.drawable.ic_achievement_growth;
                 break;
         }

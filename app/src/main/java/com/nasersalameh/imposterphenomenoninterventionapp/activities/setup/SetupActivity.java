@@ -226,8 +226,8 @@ public class SetupActivity extends AppCompatActivity {
         //Setup UI:
         scrollView = findViewById(R.id.scrollView);
 
-        rangeSlider1 = findViewById(R.id.reflectionSuccessRangeSlider);
-        rangeSlider2 = findViewById(R.id.reflectionBlockerRangeSlider);
+        rangeSlider1 = findViewById(R.id.rangeSlider1);
+        rangeSlider2 = findViewById(R.id.rangeSlider2);
         rangeSlider3 = findViewById(R.id.rangeSlider3);
         rangeSlider4 = findViewById(R.id.rangeSlider4);
 
@@ -249,7 +249,7 @@ public class SetupActivity extends AppCompatActivity {
         //Fill textViews with questions
         populateQuestions();
 
-        cipsButton = findViewById(R.id.createReflectionAchievementsButton);
+        cipsButton = findViewById(R.id.setupCipsButton);
 
         cipsButton.setOnClickListener(v -> {
             //If all responses collected

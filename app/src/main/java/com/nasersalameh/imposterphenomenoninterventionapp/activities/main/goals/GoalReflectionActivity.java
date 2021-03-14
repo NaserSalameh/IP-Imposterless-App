@@ -198,7 +198,7 @@ public class GoalReflectionActivity extends FragmentActivity {
 
         //Finished Goal
         Achievement goalAchievement = new Achievement(
-                goal+" Goal Achievement",
+                goal.getName()+" Goal Achievement",
                 "Awarded for completing the " + goal.getType() +" size goal: " + goal.getName() + "!",
                 goal.getCompletionUnixDate());
 
@@ -211,7 +211,7 @@ public class GoalReflectionActivity extends FragmentActivity {
         //Large Task Achievement
         if(goal.getTasks().size()>6){
             Achievement taskSizeAchievement = new Achievement(
-                    goal+" Goal - Task Size Achievement",
+                    goal.getName()+" Goal - Task Size Achievement",
                     "Awarded for completing a goal with a considerable number of tasks (Goal: " + goal.getName() + ")!",
                     goal.getCompletionUnixDate());
 
@@ -224,7 +224,7 @@ public class GoalReflectionActivity extends FragmentActivity {
 
         //Greatest Achievement
         Achievement greatestAchievement = new Achievement(
-                goal+" Goal - " + reflection.getGreatAchievement(),
+                goal.getName()+" Goal - " + reflection.getGreatAchievement(),
                 "Awarded as the greatest achievement during the " + goal.getName() + " Goal!",
                 goal.getCompletionUnixDate());
 
@@ -238,7 +238,7 @@ public class GoalReflectionActivity extends FragmentActivity {
         //Ability Boost Achievement
         if(abilityRangeSlider.getValues().get(0)==5){
             Achievement abilityAchievement = new Achievement(
-                    goal+" Goal - Ability Boost Achievement",
+                    goal.getName()+" Goal - Ability Boost Achievement",
                     "Awarded for a large ability improvement during the " + goal.getName() + " Goal!",
                     goal.getCompletionUnixDate());
 
@@ -252,7 +252,7 @@ public class GoalReflectionActivity extends FragmentActivity {
         //Blocker Surpassing Achievement
         if(blockerCheckBox.isSelected()){
             Achievement blockerAchievement = new Achievement(
-                    goal+" Goal - Overcoming Blocker Achievement",
+                    goal.getName()+" Goal - Overcoming Blocker Achievement",
                     "Awarded for overcoming a blocker during the " + goal.getName() + " Goal!",
                     goal.getCompletionUnixDate());
 
@@ -266,7 +266,7 @@ public class GoalReflectionActivity extends FragmentActivity {
         //Deadline Met Achievement
         if(deadlineMet){
             Achievement deadlineMetAchievement = new Achievement(
-                    goal+" Goal - Deadline Met Achievement",
+                    goal.getName()+" Goal - Deadline Met Achievement",
                     "Awarded for meeting the deadline for the " + goal.getName() + " Goal!",
                     goal.getCompletionUnixDate());
 
@@ -280,7 +280,7 @@ public class GoalReflectionActivity extends FragmentActivity {
         //Aligned Expectation achievement
         if(expectationRangeSlider.getValues().get(0) >= 3){
             Achievement alignedExpectation = new Achievement(
-                    goal+" Goal - Aligned Expectation Achievement",
+                    goal.getName()+" Goal - Aligned Expectation Achievement",
                     "Awarded for the result aligning and/or exceeding expectation for the " + goal.getName() + " Goal!",
                     goal.getCompletionUnixDate());
 
@@ -290,6 +290,11 @@ public class GoalReflectionActivity extends FragmentActivity {
 
             achievements.add(alignedExpectation);
         }
+        for(Achievement achievement: achievements){
+            System.out.println(achievement.getAchievementName());
+            System.out.println(achievement.getAchievementName()+"::"+achievement.getAchievementType().getAchievementType());
+        }
+
         return achievements;
     }
 
