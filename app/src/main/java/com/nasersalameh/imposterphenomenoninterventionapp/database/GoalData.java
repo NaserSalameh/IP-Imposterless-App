@@ -185,7 +185,7 @@ public class GoalData {
     }
 
     public ArrayList<Goal> getGoalsList() {
-        //Create achievement List updated as necessary
+        //Create Goals List updated as necessary
         createGoalList();
         return goalsList;
     }

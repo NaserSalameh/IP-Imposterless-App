@@ -5,7 +5,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.nasersalameh.imposterphenomenoninterventionapp.models.CIPsResponse;
+import com.nasersalameh.imposterphenomenoninterventionapp.models.Information;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,6 +16,8 @@ public class CIPsResponseData {
     private SQLiteDatabase db;
     private DatabaseHelper dbHelper;
     private static final String CIPS_TABLE ="CIPS_TABLE" ;
+
+    private ArrayList<CIPsResponse> responsesList;
 
     public CIPsResponseData(DatabaseHelper dbHelper){
         this.dbHelper = dbHelper;
@@ -80,7 +84,6 @@ public class CIPsResponseData {
         String selectQuery = "SELECT * FROM " + CIPS_TABLE;
 
         Cursor cursor = db.rawQuery(selectQuery,null);
-
         try {
             //Setup response is first entry
             if (cursor.moveToFirst()) {
@@ -98,7 +101,7 @@ public class CIPsResponseData {
                 db.close();
 
                 CIPsResponse returnResponse = new CIPsResponse(responsesMapping,responseType);
-                //return new User
+                //return new Response
                 return returnResponse;
             } else {
                 //Select Statement Failed
@@ -115,4 +118,54 @@ public class CIPsResponseData {
     public void setDB(SQLiteDatabase db) {
         this.db = db;
     }
+
+    public void createAllResponses() {
+        db  = dbHelper.getReadableDatabase();
+
+        ArrayList<CIPsResponse> responses = new ArrayList<>();
+
+        String selectQuery = "SELECT * FROM " + CIPS_TABLE;
+        Cursor cursor = db.rawQuery(selectQuery,null);
+
+        try {
+            //Setup response is first entry
+            if (cursor.moveToFirst()) {
+                do{
+                    //Statement works
+                    String responseType = cursor.getString(2);
+
+                    HashMap<Integer,Integer> responsesMapping = new HashMap<>();
+
+                    //ID, Column offset is 3
+                    for(int i =0;i<20;i++)
+                        responsesMapping.put(i,cursor.getInt(i+3));
+
+                CIPsResponse response = new CIPsResponse(responsesMapping,responseType);
+                responses.add(response);
+                }while (cursor.moveToNext());
+
+                //Close cursor and DB
+                cursor.close();
+                db.close();
+
+
+                //set all responses
+                this.responsesList = responses;
+            } else {
+                //Select Statement Failed
+                throw new Exception("Select CIPsResponse Statement Failed");
+            }
+        }
+        catch (Exception e){
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<CIPsResponse> getResponsesList() {
+        //Create information List updated as necessary
+        createAllResponses();
+        return responsesList;
+    }
+
 }

@@ -6,29 +6,22 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
 import com.nasersalameh.imposterphenomenoninterventionapp.activities.main.abilities.AbilitiesCardsAdapter;
-import com.nasersalameh.imposterphenomenoninterventionapp.activities.main.achievements.AchievementCardsAdapter;
-import com.nasersalameh.imposterphenomenoninterventionapp.activities.main.reflections.ReflectionsViewModel;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.AbilityData;
-import com.nasersalameh.imposterphenomenoninterventionapp.database.AchievementData;
-import com.nasersalameh.imposterphenomenoninterventionapp.database.AchievementsTypeData;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.CIPsResponseData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelper;
-import com.nasersalameh.imposterphenomenoninterventionapp.models.Ability;
-import com.nasersalameh.imposterphenomenoninterventionapp.models.Achievement;
-import com.nasersalameh.imposterphenomenoninterventionapp.models.AchievementType;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.ReflectionData;
+import com.nasersalameh.imposterphenomenoninterventionapp.models.CIPsResponse;
+import com.nasersalameh.imposterphenomenoninterventionapp.models.Reflection;
 
 import java.util.ArrayList;
 
@@ -40,7 +33,7 @@ public class CIPsFragment extends Fragment {
 
     private Activity mainActivity;
 
-    private ArrayList<Ability> abilitiesList;
+    private ArrayList<CIPsResponse> responsesList;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -53,32 +46,32 @@ public class CIPsFragment extends Fragment {
 
         mainActivity = getActivity();
 
-//        setUpRecyclerView();
+        setUpRecyclerView();
 
         return root;
     }
 
 
-    private ArrayList<Ability> loadAbilitiesFromDatabase() {
-        //get Abilities from Usage Database
+    private ArrayList<CIPsResponse> loadResponsesFromDatabase() {
+        //get responses from Usage Database
         DatabaseHelper databaseHelper = new DatabaseHelper(mainActivity);
-        AbilityData abilityData = new AbilityData(databaseHelper);
+        CIPsResponseData cipsResponseData = new CIPsResponseData(databaseHelper);
 
-        return abilityData.getAbilitiesList();
+        return cipsResponseData.getResponsesList();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void setUpRecyclerView(){
         //Get (updated) information List
-        abilitiesList = loadAbilitiesFromDatabase();
+        responsesList = loadResponsesFromDatabase();
 
         //get Recycler View:
-        RecyclerView abilitiesRecyclerView = root.findViewById(R.id.abilitiesRecyclerView);
-        abilitiesRecyclerView.setLayoutManager(new LinearLayoutManager(mainActivity));
+        RecyclerView cipsRecyclerView = root.findViewById(R.id.cipsRecyclerView);
+        cipsRecyclerView.setLayoutManager(new LinearLayoutManager(mainActivity));
 
         //Set up recycler adapter with abilities from usage database
-        AbilitiesCardsAdapter adapter = new AbilitiesCardsAdapter(mainActivity, abilitiesList,mainActivity,abilitiesRecyclerView);
-        abilitiesRecyclerView.setAdapter(adapter);
+        CIPsCardsAdapter adapter = new CIPsCardsAdapter(mainActivity, responsesList,mainActivity);
+        cipsRecyclerView.setAdapter(adapter);
     }
 
 
