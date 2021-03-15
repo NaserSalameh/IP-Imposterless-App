@@ -62,6 +62,11 @@
 
         </activity>
 
+        <!-- Add CIPs Activity        -->
+        <activity android:name=".activities.main.CIPs.CIPsAddActivity"
+            android:theme="@style/Theme.ImposterPhenomenonInterventionApp.NoActionBar">
+
+        </activity>
     </application>
 
 </manifest>

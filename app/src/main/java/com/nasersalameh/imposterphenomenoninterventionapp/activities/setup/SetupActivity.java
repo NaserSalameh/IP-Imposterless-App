@@ -224,7 +224,7 @@ public class SetupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_setup_cips);
 
         //Setup UI:
-        scrollView = findViewById(R.id.scrollView);
+        scrollView = findViewById(R.id.cipsScrollView);
 
         rangeSlider1 = findViewById(R.id.rangeSlider1);
         rangeSlider2 = findViewById(R.id.rangeSlider2);
@@ -264,7 +264,7 @@ public class SetupActivity extends AppCompatActivity {
                         transitionToSetupResults();
                     }
                 };
-                handler.postDelayed(r, 1000);
+                handler.postDelayed(r, 750);
             }
             else{
                 //If last page
