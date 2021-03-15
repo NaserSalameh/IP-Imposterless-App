@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
+import com.nasersalameh.imposterphenomenoninterventionapp.helpers.DateConverter;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Reflection;
 
 import java.util.ArrayList;
@@ -46,7 +47,9 @@ public class ReflectionsCardsAdapter extends RecyclerView.Adapter<ReflectionsCar
         //bind Card with Behaviour
         this.informationIndex = index;
         viewHolder.reflectionNameTextView.setText(reflectionsList.get(index).getGoal().getName()+" Reflection");
-        viewHolder.reflectionCardDateTextView.setText("Completed: "+ reflectionsList.get(index).getGoal().getCompletionUnixDate());
+
+        String completionDate = DateConverter.getDateFromUnixTime(reflectionsList.get(index).getGoal().getCompletionUnixDate()/1000);
+        viewHolder.reflectionCardDateTextView.setText("Completed: " + completionDate);
 
         //Set on Click Listener to View Card
         viewHolder.cardView.setOnClickListener(v -> {

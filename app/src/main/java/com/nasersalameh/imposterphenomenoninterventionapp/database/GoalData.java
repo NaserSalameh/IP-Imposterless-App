@@ -34,6 +34,7 @@ public class GoalData {
                 " GOAL_DETAILS TEXT," +
                 " GOAL_TYPE TEXT," +
                 " GOAL_DATE INTEGER," +
+                " COMPLETED_DATE INTEGER," +
                 " COMPLETE_TASKS TEXT," +
                 " INCOMPLETE_TASKS TEXT," +
                 " ABILITIES TEXT)";
@@ -79,6 +80,12 @@ public class GoalData {
             cv.put("GOAL_DETAILS", goal.getDetails());
             cv.put("GOAL_TYPE", goal.getType());
             cv.put("GOAL_DATE", goal.getDeadlineUnixDate());
+
+            //add if goal is completed
+            if(goal.getCompletionUnixDate() != null)
+                cv.put("COMPLETED_DATE", goal.getCompletionUnixDate());
+            else
+                cv.put("COMPLETED_DATE", 0l);
 
             String completeTasks = "";
             String incompleteTasks = "";
@@ -134,8 +141,12 @@ public class GoalData {
                 do{
                     Goal goal = new Goal(cursor.getString(1),cursor.getString(2), cursor.getString(3),cursor.getLong(4));
 
+                    //if goal is completed
+                    if(cursor.getLong(5) > 0)
+                        goal.setCompletionUnixDate(cursor.getLong(5));
+
                     //Add all complete Tasks
-                    String completeTasks = cursor.getString(5);
+                    String completeTasks = cursor.getString(6);
                     if(!completeTasks.equals(""))
                         for(String completeTask : completeTasks.split(",")){
                             Task newCompleteTask = new Task(completeTask,goal,true);
@@ -143,7 +154,7 @@ public class GoalData {
                         }
 
                     //Add all incomplete Tasks
-                    String incompleteTasks = cursor.getString(6);
+                    String incompleteTasks = cursor.getString(7);
                     if(!incompleteTasks.equals(""))
                         for(String completeTask : incompleteTasks.split(",")){
                             Task newCompleteTask = new Task(completeTask,goal,false);
@@ -151,7 +162,7 @@ public class GoalData {
                         }
 
                     //Add all abilities
-                    String abilities = cursor.getString(7);
+                    String abilities = cursor.getString(8);
 
                     //Find ability object
                     if(!abilities.equals(""))

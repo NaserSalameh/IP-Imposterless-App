@@ -37,11 +37,9 @@ public class GoalsCardsAdapter extends RecyclerView.Adapter<GoalsCardsAdapter.Vi
     //Local variables to update from different classes
     private ViewHolder viewHolder;
 
-    private boolean suppressWriteToDB;
-
     private Goal activeGoal;
 
-    public GoalsCardsAdapter(Context context, ArrayList<Goal> goalsList, Activity mainActivity, RecyclerView tasksRecyclerView, RecyclerView goalsRecyclerView, boolean suppressWriteToDB){
+    public GoalsCardsAdapter(Context context, ArrayList<Goal> goalsList, Activity mainActivity, RecyclerView tasksRecyclerView, RecyclerView goalsRecyclerView){
         this.layoutInflater = LayoutInflater.from(context);
         this.goalsList = goalsList;
 
@@ -54,9 +52,6 @@ public class GoalsCardsAdapter extends RecyclerView.Adapter<GoalsCardsAdapter.Vi
         //First goal is first in list
         if(!goalsList.isEmpty())
             activeGoal = goalsList.get(0);
-
-
-        this.suppressWriteToDB = suppressWriteToDB;
     }
 
     @NonNull
@@ -104,7 +99,7 @@ public class GoalsCardsAdapter extends RecyclerView.Adapter<GoalsCardsAdapter.Vi
         });
 
         viewHolder.cardView.setOnLongClickListener(v -> {
-            GoalCardPopup goalCardPopup = new GoalCardPopup(context, mainActivity,goalsRecyclerView,index, currentGoal, goalsList,suppressWriteToDB);
+            GoalCardPopup goalCardPopup = new GoalCardPopup(context, mainActivity,goalsRecyclerView,index, goalsList.get(index), goalsList);
             goalCardPopup.createPopUpWindow(viewHolder);
             return false;
         });
@@ -150,5 +145,9 @@ public class GoalsCardsAdapter extends RecyclerView.Adapter<GoalsCardsAdapter.Vi
             reflectionTextView = itemView.findViewById(R.id.goalCardReflectionTextView);;
             tasksProgressBar = itemView.findViewById(R.id.goalCardProgressBar);
         }
+    }
+
+    public ArrayList<Goal> getGoalsList() {
+        return goalsList;
     }
 }

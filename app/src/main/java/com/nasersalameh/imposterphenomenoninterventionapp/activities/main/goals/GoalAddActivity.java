@@ -242,11 +242,5 @@ public class GoalAddActivity extends FragmentActivity implements DatePickerDialo
 
         //write new Goal
         goalData.insertNewGoal(newGoal);
-
-        //remove write to db suppression
-        boolean suppressCheck = (boolean) getIntent().getSerializableExtra("Suppress Check");
-        suppressCheck = false;
     }
-
-
 }

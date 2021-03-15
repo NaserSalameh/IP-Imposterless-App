@@ -39,7 +39,6 @@ public class GoalsFragment extends Fragment {
 
     private ArrayList<Goal> goalsList;
     private GoalsCardsAdapter goalsAdapter;
-    private boolean suppressWriteToDB;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -75,18 +74,20 @@ public class GoalsFragment extends Fragment {
         //Get (updated) Goals List
         goalsList = loadGoalsFromDatabase();
 
-        //Set up Tasks Recycler View
-        RecyclerView tasksRecyclerView = root.findViewById(R.id.tasksRecyclerView);
-        tasksRecyclerView.setLayoutManager(new LinearLayoutManager(mainActivity));
+        if(!goalsList.isEmpty()){
+            //Set up Tasks Recycler View
+            RecyclerView tasksRecyclerView = root.findViewById(R.id.tasksRecyclerView);
+            tasksRecyclerView.setLayoutManager(new LinearLayoutManager(mainActivity));
 
-        //get Goals Recycler View:
-        RecyclerView goalsRecyclerView = root.findViewById(R.id.goalsRecyclerView);
-        goalsRecyclerView.setLayoutManager(new LinearLayoutManager(mainActivity, LinearLayoutManager.HORIZONTAL, false));
+            //get Goals Recycler View:
+            RecyclerView goalsRecyclerView = root.findViewById(R.id.goalsRecyclerView);
+            goalsRecyclerView.setLayoutManager(new LinearLayoutManager(mainActivity, LinearLayoutManager.HORIZONTAL, false));
 
-        //Set up Goals recycler adapter with goals from usage database
-        suppressWriteToDB = true;
-        goalsAdapter = new GoalsCardsAdapter(mainActivity, goalsList,mainActivity, tasksRecyclerView, goalsRecyclerView, suppressWriteToDB);
-        goalsRecyclerView.setAdapter(goalsAdapter);
+            //Set up Goals recycler adapter with goals from usage database
+            goalsAdapter = new GoalsCardsAdapter(mainActivity, goalsList,mainActivity, tasksRecyclerView, goalsRecyclerView);
+            goalsRecyclerView.setAdapter(goalsAdapter);
+        }
+
     }
 
     private void setUpFloatingButton() {
@@ -112,20 +113,18 @@ public class GoalsFragment extends Fragment {
 
         Button goalChoiceButton = container.findViewById(R.id.goalsChoicePopupGoalButton);
         goalChoiceButton.setOnClickListener(v -> {
-            suppressWriteToDB = true;
             popupWindow.dismiss();
 
             //Start Add Goal Activity
             Intent startAddGoalActivity = new Intent(mainActivity, GoalAddActivity.class);
 
-            //add suppress boolean check
-            startAddGoalActivity.putExtra("Suppress Check",suppressWriteToDB);
-
             mainActivity.startActivity(startAddGoalActivity);
         });
 
         Button taskChoiceButton = container.findViewById(R.id.goalsChoicePopupTaskButton);
-        if(goalsAdapter.getActiveGoal() == null)
+
+        //If there are no active goals
+        if(goalsAdapter == null || goalsAdapter.getActiveGoal() == null)
             taskChoiceButton.setEnabled(false);
         else
             taskChoiceButton.setEnabled(true);
@@ -164,7 +163,7 @@ public class GoalsFragment extends Fragment {
             activeGoal.addTask(newTask);
 
             goalsAdapter.notifyItemChanged(goalsList.indexOf(activeGoal));
-
+            writeToDb();
             popupWindow.dismiss();
         });
     }
@@ -177,15 +176,7 @@ public class GoalsFragment extends Fragment {
 
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        if(!suppressWriteToDB)
-            writeToDb();
-    }
-
     private void writeToDb() {
-
         DatabaseHelper databaseHelper = new DatabaseHelper(mainActivity);
         AbilityData abilityData = new AbilityData(databaseHelper);
         GoalData goalData = new GoalData(databaseHelper, abilityData.getAbilitiesList());

@@ -348,10 +348,6 @@ public class GoalReflectionActivity extends FragmentActivity {
         AchievementCardsAdapter adapter = new AchievementCardsAdapter(this, achievementList,this,reflectionAchievementsRecyclerView);
         reflectionAchievementsRecyclerView.setAdapter(adapter);
 
-        //At activity end remove suppression
-        boolean suppressionCheck = (boolean) getIntent().getSerializableExtra("Suppress Check");
-        suppressionCheck = false;
-
         //Finish activity
         Button saveAchievementButton = findViewById(R.id.saveReflectionButton);
         saveAchievementButton.setOnClickListener(v -> finish());

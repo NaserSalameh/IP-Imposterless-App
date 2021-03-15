@@ -20,6 +20,9 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.AbilityData;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelper;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.GoalData;
 import com.nasersalameh.imposterphenomenoninterventionapp.helpers.DateConverter;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Achievement;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Goal;
@@ -106,6 +109,8 @@ public class TaskCardPopup {
     private void editTask(TextView taskNameTextView) {
         task.setName(taskNameTextView.getText().toString());
         taskCardsAdapter.notifyItemChanged(taskPosition);
+
+        writeToDb();
         popupWindow.dismiss();
     }
 
@@ -114,7 +119,18 @@ public class TaskCardPopup {
         taskCardsAdapter.getTasksList().remove(task);
 
         goalsCardsAdapter.notifyItemChanged(goalPosition);
+
+        writeToDb();
         popupWindow.dismiss();
+    }
+
+    private void writeToDb() {
+        DatabaseHelper databaseHelper = new DatabaseHelper(mainActivity);
+        AbilityData abilityData = new AbilityData(databaseHelper);
+        GoalData goalData = new GoalData(databaseHelper, abilityData.getAbilitiesList());
+
+        //Replace all goals with new goalsList
+        goalData.replaceGoalsInDB(goalsCardsAdapter.getGoalsList());
     }
 
 }

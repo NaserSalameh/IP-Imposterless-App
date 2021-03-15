@@ -36,6 +36,7 @@ public class ReflectionData {
                 " GOAL_DETAILS TEXT," +
                 " GOAL_TYPE TEXT," +
                 " GOAL_DATE INTEGER," +
+                " COMPLETED_DATE INTEGER," +
                 " TASKS TEXT," +
                 " ABILITIES TEXT," +
                 " GREAT_ACHIEVEMENT TEXT," +
@@ -63,6 +64,7 @@ public class ReflectionData {
             cv.put("GOAL_DETAILS", reflection.getGoal().getDetails());
             cv.put("GOAL_TYPE", reflection.getGoal().getType());
             cv.put("GOAL_DATE", reflection.getGoal().getDeadlineUnixDate());
+            cv.put("COMPLETED_DATE", reflection.getGoal().getCompletionUnixDate());
 
             String completeTasks = "";
 
@@ -124,9 +126,9 @@ public class ReflectionData {
             if(cursor.moveToFirst())
                 do{
                     Goal goal = new Goal(cursor.getString(1),cursor.getString(2), cursor.getString(3),cursor.getLong(4));
-
+                    goal.setCompletionUnixDate(cursor.getLong(5));
                     //Add all complete Tasks
-                    String completeTasks = cursor.getString(5);
+                    String completeTasks = cursor.getString(6);
                     if(!completeTasks.equals(""))
                         for(String completeTask : completeTasks.split(",")){
                             Task newCompleteTask = new Task(completeTask,goal,true);
@@ -134,7 +136,7 @@ public class ReflectionData {
                         }
 
                     //Add all abilities
-                    String abilities = cursor.getString(6);
+                    String abilities = cursor.getString(7);
 
                     //Find ability object
                     if(!abilities.equals(""))
@@ -144,22 +146,23 @@ public class ReflectionData {
                                     goal.addAbility(ability);
 
 
+
                     Reflection reflection = new Reflection(goal);
 
-                    reflection.setGreatAchievement(cursor.getString(7));
+                    reflection.setGreatAchievement(cursor.getString(8));
 
-                    reflection.setBestAbility(cursor.getString(8));
+                    reflection.setBestAbility(cursor.getString(9));
 
-                    reflection.setBlocker(cursor.getString(9));
-                    reflection.setBlockerDifficulty(cursor.getInt(10));
+                    reflection.setBlocker(cursor.getString(10));
+                    reflection.setBlockerDifficulty(cursor.getInt(11));
 
-                    reflection.setDeadlineMet(cursor.getInt(11)==1);
-                    reflection.setDeadlineReason(cursor.getString(12));
+                    reflection.setDeadlineMet(cursor.getInt(12)==1);
+                    reflection.setDeadlineReason(cursor.getString(13));
 
-                    reflection.setSuccessScore(cursor.getInt(13));
-                    reflection.setLowSuccessReason(cursor.getString(14));
-                    reflection.setExpectationScore(cursor.getInt(15));
-                    reflection.setLowExpectationReason(cursor.getString(16));
+                    reflection.setSuccessScore(cursor.getInt(14));
+                    reflection.setLowSuccessReason(cursor.getString(15));
+                    reflection.setExpectationScore(cursor.getInt(16));
+                    reflection.setLowExpectationReason(cursor.getString(17));
 
                     reflectionsList.add(reflection);
                 }

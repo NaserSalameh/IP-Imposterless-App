@@ -20,7 +20,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
-import com.nasersalameh.imposterphenomenoninterventionapp.activities.main.MainActivity;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.AbilityData;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelper;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.GoalData;
 import com.nasersalameh.imposterphenomenoninterventionapp.helpers.DateConverter;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Ability;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Goal;
@@ -36,12 +38,11 @@ public class GoalCardPopup {
     private int goalPosition;
 
     private Goal goal;
-    private final ArrayList<Goal> goalList;
-    private boolean suppressWriteToDB;
+    private final ArrayList<Goal> goalsList;
 
     private PopupWindow popupWindow;
 
-    public GoalCardPopup(Context context, Activity mainActivity, RecyclerView goalRecyclerView, int goalPosition, Goal goal, ArrayList<Goal> goalList, boolean suppressWriteToDB){
+    public GoalCardPopup(Context context, Activity mainActivity, RecyclerView goalRecyclerView, int goalPosition, Goal goal, ArrayList<Goal> goalsList){
         this.context = context;
         this.mainActivity = mainActivity;
         this.goalRecyclerView = goalRecyclerView;
@@ -49,10 +50,7 @@ public class GoalCardPopup {
         this.goal = goal;
         this.goalPosition = goalPosition;
 
-        this.goalList = goalList;
-
-        this.suppressWriteToDB = suppressWriteToDB;
-
+        this.goalsList = goalsList;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -90,8 +88,6 @@ public class GoalCardPopup {
         nameTextView.setText(goal.getName());
         typeTextView.setText(goal.getType());
         detailsTextView.setText(goal.getDetails());
-        System.out.println(goal.getDeadlineUnixDate());
-        System.out.println(DateConverter.getDateFromUnixTime(goal.getDeadlineUnixDate()));
         dateTextView.setText("Deadline: " + DateConverter.getDateFromUnixTime(goal.getDeadlineUnixDate()));
 
         //Chip group
@@ -125,9 +121,7 @@ public class GoalCardPopup {
     //TO-DO: Reflect Activity
     private void reflectGoal() {
         Intent startReflectionActivity = new Intent(mainActivity,GoalReflectionActivity.class);
-        System.out.println("DDD:" + goal.getDetails());
         startReflectionActivity.putExtra("Goal", this.goal);
-        startReflectionActivity.putExtra("Suppress Check",suppressWriteToDB);
 
         //start Activity
         mainActivity.startActivity(startReflectionActivity);
@@ -135,13 +129,11 @@ public class GoalCardPopup {
 
     private void deleteGoal() {
         //remove goal from ArrayList
-        goalList.remove(goal);
+        goalsList.remove(goal);
         //Remove goal
         goal = null;
         goalRecyclerView.removeViewAt(goalPosition);
 
-        //End Suppression
-        suppressWriteToDB = false;
         popupWindow.dismiss();
     }
 
