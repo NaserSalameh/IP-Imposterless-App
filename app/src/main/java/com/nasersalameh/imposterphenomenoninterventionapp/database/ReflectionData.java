@@ -173,7 +173,7 @@ public class ReflectionData {
         this.reflectionsList = reflectionsList;
     }
 
-    public ArrayList<Reflection> getGoalsList() {
+    public ArrayList<Reflection> getReflectionsList() {
         //Create achievement List updated as necessary
         createReflectionList();
         return reflectionsList;

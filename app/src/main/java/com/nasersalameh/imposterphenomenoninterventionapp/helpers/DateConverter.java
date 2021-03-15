@@ -22,7 +22,7 @@ public class DateConverter {
     }
 
     public static String getDateFromUnixTime(Long unix){
-        Date date = new Date((long)unix);
+        Date date = new Date((long)unix*1000);
         return dateFormat.format(date);
     }
 

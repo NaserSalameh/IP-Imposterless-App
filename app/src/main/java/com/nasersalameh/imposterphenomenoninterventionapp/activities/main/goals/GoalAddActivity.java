@@ -81,7 +81,7 @@ public class GoalAddActivity extends FragmentActivity implements DatePickerDialo
         });
 
         selectedDateTextView = findViewById(R.id.selectedGoalDateTextView);
-        Long currentUnix = System.currentTimeMillis();
+        Long currentUnix = System.currentTimeMillis()/1000;
         String currentDate = DateConverter.getDateFromUnixTime(currentUnix);
         selectedDateTextView.setText("Selected Date: " + currentDate);
 
@@ -185,9 +185,9 @@ public class GoalAddActivity extends FragmentActivity implements DatePickerDialo
     private void setUpSpinner() {
 
         ArrayList<String> goalTypeList = new ArrayList<>();
-        goalTypeList.add("Small");
-        goalTypeList.add("Medium");
-        goalTypeList.add("Big");
+        goalTypeList.add("Small Goal");
+        goalTypeList.add("Medium Goal");
+        goalTypeList.add("Big Goal");
 
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, goalTypeList);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -208,7 +208,7 @@ public class GoalAddActivity extends FragmentActivity implements DatePickerDialo
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        String date = dayOfMonth + "/" + month + "/" + year;
+        String date = dayOfMonth + "/" + (month+1) + "/" + year;
         selectedDateTextView.setText("Selected Date: " + date);
     }
 
@@ -222,7 +222,7 @@ public class GoalAddActivity extends FragmentActivity implements DatePickerDialo
         String date = selectedDateTextView.getText().toString().split(" ")[2];
         Long goalDate = DateConverter.getUnixTimeFromData(date);
 
-        Goal newGoal = new Goal(goalName, goalType, goalDetails, goalDate);
+        Goal newGoal = new Goal(goalName, goalDetails,goalType, goalDate);
 
         //Get Selected Chips
         ChipGroup chipGroup = findViewById(R.id.goalsAbilitiesChipGroup);

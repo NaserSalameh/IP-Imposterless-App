@@ -73,7 +73,7 @@ public class ReflectionCardActivity extends FragmentActivity {
         taskButton = findViewById(R.id.reflectionActivityTaskButton);
         backButton = findViewById(R.id.reflectionActivityBackButton);
 
-        titleTextView = findViewById(R.id.reflectionCardNameTextView);
+        titleTextView = findViewById(R.id.reflectionActivityReflectionName);
 
         deadlineTextView = findViewById(R.id.reflectionActivityDeadlineTextView);
         completionTextView = findViewById(R.id.reflectionActivityGoalCompletionTextView);

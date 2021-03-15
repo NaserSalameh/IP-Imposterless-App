@@ -160,7 +160,6 @@ public class GoalReflectionActivity extends FragmentActivity {
 
         Reflection reflection = new Reflection(goal);
 
-
         reflection.setGreatAchievement(achievementEditText.getText().toString());
         reflection.setAchievementType(achievementTypeSpinner.getSelectedItem().toString());
 
@@ -228,11 +227,14 @@ public class GoalReflectionActivity extends FragmentActivity {
                 "Awarded for completing the " + goal.getType() +" size goal: " + goal.getName() + "!",
                 goal.getCompletionUnixDate());
 
-        for(AchievementType type: achievementTypes)
-            if(type.getAchievementType().equals(goal.getType() +" Goal"))
+        for(AchievementType type: achievementTypes){
+            if(type.getAchievementType().equals(goal.getType()))
                 goalAchievement.setAchievementType(type);
 
+        }
+
         achievements.add(goalAchievement);
+
 
         //Large Task Achievement
         if(goal.getTasks().size()>6){
@@ -331,10 +333,10 @@ public class GoalReflectionActivity extends FragmentActivity {
         setContentView(R.layout.fragment_goals_reflection_activity_achievements);
 
         //Set Score
-
         int score = 0;
-        for(Achievement achievement: achievementList)
+        for(Achievement achievement: achievementList){
             score+=achievement.getAchievementType().getAchievementScore();
+        }
 
         TextView achievementScoreView = findViewById(R.id.reflectionsAchievementScoreTextView);
         achievementScoreView.setText("Achievement Score Earned: " + score + "!");
@@ -349,6 +351,10 @@ public class GoalReflectionActivity extends FragmentActivity {
         //At activity end remove suppression
         boolean suppressionCheck = (boolean) getIntent().getSerializableExtra("Suppress Check");
         suppressionCheck = false;
+
+        //Finish activity
+        Button saveAchievementButton = findViewById(R.id.saveReflectionButton);
+        saveAchievementButton.setOnClickListener(v -> finish());
     }
 
     private void setupDeadlineSection() {

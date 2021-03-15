@@ -50,8 +50,14 @@
 
         </activity>
 
-        <!-- Reflect Goal Activity        -->
+        <!-- Add Reflection Activity        -->
         <activity android:name=".activities.main.goals.GoalReflectionActivity"
+            android:theme="@style/Theme.ImposterPhenomenonInterventionApp.NoActionBar">
+
+        </activity>
+
+        <!-- View Reflection Activity        -->
+        <activity android:name=".activities.main.reflections.ReflectionCardActivity"
             android:theme="@style/Theme.ImposterPhenomenonInterventionApp.NoActionBar">
 
         </activity>

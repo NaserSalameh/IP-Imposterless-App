@@ -62,7 +62,8 @@ public class GoalCardPopup {
 
         // which view you pass in doesn't matter, it is only used for the window tolken
         @SuppressLint("WrongViewCast")
-        View view = goalRecyclerView.getLayoutManager().findViewByPosition(0);
+//        View view = goalRecyclerView.getLayoutManager().findViewByPosition(0);
+        View view = (View) goalRecyclerView.getParent();
 
         final PopupWindow popupWindow = new PopupWindow(container, 1000, 1000, true);
         //what ever you do here will be done after 3 seconds delay.
@@ -89,6 +90,8 @@ public class GoalCardPopup {
         nameTextView.setText(goal.getName());
         typeTextView.setText(goal.getType());
         detailsTextView.setText(goal.getDetails());
+        System.out.println(goal.getDeadlineUnixDate());
+        System.out.println(DateConverter.getDateFromUnixTime(goal.getDeadlineUnixDate()));
         dateTextView.setText("Deadline: " + DateConverter.getDateFromUnixTime(goal.getDeadlineUnixDate()));
 
         //Chip group
@@ -122,6 +125,7 @@ public class GoalCardPopup {
     //TO-DO: Reflect Activity
     private void reflectGoal() {
         Intent startReflectionActivity = new Intent(mainActivity,GoalReflectionActivity.class);
+        System.out.println("DDD:" + goal.getDetails());
         startReflectionActivity.putExtra("Goal", this.goal);
         startReflectionActivity.putExtra("Suppress Check",suppressWriteToDB);
 

@@ -125,6 +125,11 @@ public class GoalsFragment extends Fragment {
         });
 
         Button taskChoiceButton = container.findViewById(R.id.goalsChoicePopupTaskButton);
+        if(goalsAdapter.getActiveGoal() == null)
+            taskChoiceButton.setEnabled(false);
+        else
+            taskChoiceButton.setEnabled(true);
+
         taskChoiceButton.setOnClickListener(v -> {
             popupWindow.dismiss();
 

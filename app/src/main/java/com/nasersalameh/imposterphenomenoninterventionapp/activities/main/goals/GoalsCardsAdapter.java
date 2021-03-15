@@ -86,6 +86,7 @@ public class GoalsCardsAdapter extends RecyclerView.Adapter<GoalsCardsAdapter.Vi
             viewHolder.reflectionTextView.setText("Goal Complete - Reflection Needed.");
             //If goal is complete, set completion Date
             currentGoal.setCompletionUnixDate(System.currentTimeMillis());
+            System.out.println("Completed!: " + currentGoal.getCompletionUnixDate());
         }
         else
             viewHolder.reflectionTextView.setText("");
