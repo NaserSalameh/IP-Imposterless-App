@@ -31,6 +31,14 @@ public class DrawableGetter {
             case "Aligned Expectation":
                 iconID = R.drawable.ic_achievement_growth;
                 break;
+
+            case "Test1":
+                iconID = R.drawable.ic_achievement_growth;
+                break;
+
+            case "Test2":
+                iconID = R.drawable.ic_achievement_growth;
+                break;
         }
 
         return iconID;

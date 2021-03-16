@@ -176,11 +176,18 @@ public class GoalsFragment extends Fragment {
 
     }
 
+    @Override
+    public void onPause() {
+        writeToDb();
+        super.onPause();
+    }
+
     private void writeToDb() {
         DatabaseHelper databaseHelper = new DatabaseHelper(mainActivity);
         AbilityData abilityData = new AbilityData(databaseHelper);
         GoalData goalData = new GoalData(databaseHelper, abilityData.getAbilitiesList());
 
+        System.out.println("WROTE GOALS TO DB");
         //Replace all goals with new goalsList
         goalData.replaceGoalsInDB(goalsList);
     }

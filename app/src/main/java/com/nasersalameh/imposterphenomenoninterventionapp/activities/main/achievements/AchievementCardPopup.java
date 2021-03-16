@@ -97,7 +97,7 @@ public class AchievementCardPopup {
                                         "\nScore: " + achievement.getAchievementType().getAchievementScore());
 
         //Set date -> Convert To Readable Date
-        String date = DateConverter.getDateFromUnixTime(achievement.getAchievementDate());
+        String date = DateConverter.getDateFromUnixTime(achievement.getAchievementDate()/1000);
         achievementDateTextView.setText(date);
 
         //set Details

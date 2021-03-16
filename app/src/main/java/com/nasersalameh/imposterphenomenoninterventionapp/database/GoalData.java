@@ -49,7 +49,7 @@ public class GoalData {
     private Goal createSetupGoal() {
         //Get all Goal Data
         String goalName = "Setup";
-        String goalType = "Medium";
+        String goalType = "Medium Goal";
         String goalDetails = "Explore the application!";
 
         //only get the date
@@ -198,7 +198,7 @@ public class GoalData {
     private void deleteAllDataInTable(){
         db  = dbHelper.getWritableDatabase();
         String truncateTableStatement = "DELETE FROM " + GOAL_TABLE;
-        db.rawQuery(truncateTableStatement,null);
+        db.execSQL(truncateTableStatement);
     }
 
     private void insertGoalsList(ArrayList<Goal> goals){

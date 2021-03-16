@@ -26,7 +26,8 @@ public class AchievementsTypeData {
         String createTableStatement = "CREATE TABLE " + ACHIEVEMENTS_TYPE_TABLE +
                 " (ID INTEGER PRIMARY KEY AUTOINCREMENT," +
                 " ACHIEVEMENT_TYPE TEXT, " +
-                " ACHIEVEMENT_SCORE INTEGER)";
+                " ACHIEVEMENT_SCORE INTEGER," +
+                " USER_ADDABLE INTEGER)";
 
         db.execSQL(createTableStatement);
     }
@@ -40,6 +41,11 @@ public class AchievementsTypeData {
             //Add Information Name and progress
             cv.put("ACHIEVEMENT_TYPE", achievementType.getAchievementType());
             cv.put("ACHIEVEMENT_SCORE", achievementType.getAchievementScore());
+
+            if(achievementType.isUserAddable())
+                cv.put("USER_ADDABLE", 1);
+            else
+                cv.put("USER_ADDABLE", -1);
 
             long insertResult = db.insert(ACHIEVEMENTS_TYPE_TABLE,null,cv);
 
@@ -68,7 +74,7 @@ public class AchievementsTypeData {
         try {
             if(cursor.moveToFirst())
                 do{
-                    AchievementType achievementType = new AchievementType(cursor.getString(1), cursor.getInt(2));
+                    AchievementType achievementType = new AchievementType(cursor.getString(1), cursor.getInt(2), cursor.getInt(3) == 1);
                     achievementTypes.add(achievementType);
                 }while (cursor.moveToNext());
 

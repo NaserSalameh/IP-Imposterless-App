@@ -41,6 +41,8 @@ public class SettingsFragment extends Fragment {
 
         deleteDB.setOnClickListener(v -> {
             databaseHelper.deleteUsageDB(getContext());
+            //Close App
+            getActivity().finish();
         });
     }
 

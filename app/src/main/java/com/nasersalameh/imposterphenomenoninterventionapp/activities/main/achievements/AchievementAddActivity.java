@@ -164,8 +164,10 @@ public class AchievementAddActivity extends FragmentActivity implements DatePick
 
         ArrayList<String> achievementTypesString = new ArrayList<>();
 
+        //Add User Addable Achievements ONLY
         for(AchievementType a: achievementTypes)
-            achievementTypesString.add(a.getAchievementType());
+            if(a.isUserAddable())
+                achievementTypesString.add(a.getAchievementType());
 
 
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,achievementTypesString );

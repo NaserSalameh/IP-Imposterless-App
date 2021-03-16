@@ -508,9 +508,11 @@ public class GoalReflectionActivity extends FragmentActivity {
 
         abilitySpinner.setAdapter(abilitySpinnerAdapter);
 
+        //Only Add User Addable Achievements
         ArrayList<String> achievementTypeStrings = new ArrayList<>();
         for(AchievementType achievementsType: achievementsTypeData.getAchievementsTypeList())
-            achievementTypeStrings.add(achievementsType.getAchievementType());
+            if(achievementsType.isUserAddable())
+                achievementTypeStrings.add(achievementsType.getAchievementType());
 
         ArrayAdapter<String> achievementTypeSpinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, achievementTypeStrings);
         achievementTypeSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

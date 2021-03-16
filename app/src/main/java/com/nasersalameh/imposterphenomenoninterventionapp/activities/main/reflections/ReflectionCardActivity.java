@@ -98,8 +98,8 @@ public class ReflectionCardActivity extends FragmentActivity {
         //Set Name
         titleTextView.setText(reflection.getGoal().getName()+" Reflection");
 
-        deadlineTextView.setText("Scheduled Date: " + DateConverter.getDateFromUnixTime(reflection.getGoal().getDeadlineUnixDate()));
-        completionTextView.setText("Completion Date: " + DateConverter.getDateFromUnixTime(reflection.getGoal().getCompletionUnixDate()));
+        deadlineTextView.setText("Scheduled Date: " + DateConverter.getDateFromUnixTime(reflection.getGoal().getDeadlineUnixDate()/1000));
+        completionTextView.setText("Completion Date: " + DateConverter.getDateFromUnixTime(reflection.getGoal().getCompletionUnixDate()/1000));
 
         String deadlineAdvice = "";
         if(reflection.isDeadlineMet()){
@@ -162,19 +162,9 @@ public class ReflectionCardActivity extends FragmentActivity {
 
     private void setUpReflectionButtons() {
 
-        goalButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createGoalPopup();
-            }
-        });
+        goalButton.setOnClickListener(v -> createGoalPopup());
 
-        taskButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+        taskButton.setOnClickListener(v -> createTaskPopup());
 
         //Set On Click Listener to button
         backButton.setOnClickListener(v -> {
@@ -241,7 +231,7 @@ public class ReflectionCardActivity extends FragmentActivity {
         //Handler to thread sleep and slow down process
         Handler handler=new Handler();
         Runnable r= () -> popupWindow.showAtLocation(constraintLayout, Gravity.CENTER, 100, 100);
-        handler.postDelayed(r, 500);
+        handler.postDelayed(r, 1000);
 
         //Set up Tasks Recycler View
         RecyclerView tasksRecyclerView = findViewById(R.id.reflectionsActivityTaskRecyclerView);
