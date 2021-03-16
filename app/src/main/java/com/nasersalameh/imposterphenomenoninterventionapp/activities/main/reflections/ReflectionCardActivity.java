@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.transition.Scene;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -203,7 +204,7 @@ public class ReflectionCardActivity extends FragmentActivity {
         nameTextView.setText(goal.getName());
         typeTextView.setText(goal.getType());
         detailsTextView.setText(goal.getDetails());
-        dateTextView.setText("Deadline: " + DateConverter.getDateFromUnixTime(goal.getDeadlineUnixDate()));
+        dateTextView.setText("Deadline: " + DateConverter.getDateFromUnixTime(goal.getDeadlineUnixDate()/1000));
 
         //Chip group
         ChipGroup abilitiesChipGroup = container.findViewById(R.id.goalsPopupChipGroup);
@@ -230,15 +231,21 @@ public class ReflectionCardActivity extends FragmentActivity {
 
         //Handler to thread sleep and slow down process
         Handler handler=new Handler();
-        Runnable r= () -> popupWindow.showAtLocation(constraintLayout, Gravity.CENTER, 100, 100);
-        handler.postDelayed(r, 1000);
 
-        //Set up Tasks Recycler View
-        RecyclerView tasksRecyclerView = findViewById(R.id.reflectionsActivityTaskRecyclerView);
-        tasksRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        Runnable r = () -> popupWindow.showAtLocation(constraintLayout, Gravity.CENTER, 100, 100);
 
-        ReflectionsTasksCardsAdapter adapter = new ReflectionsTasksCardsAdapter(this,reflection.getGoal().getTasks(),this);
-        tasksRecyclerView.setAdapter(adapter);
+        handler.postDelayed(r, 500);
+
+        r = () -> {
+            //Set up Tasks Recycler View
+            RecyclerView tasksRecyclerView = container.findViewById(R.id.reflectionsActivityTaskRecyclerView);
+            tasksRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+            System.out.println("REF:" + reflection.getGoal().getTasks().size());
+            ReflectionsTasksCardsAdapter adapter = new ReflectionsTasksCardsAdapter(this,reflection.getGoal().getTasks(),this);
+            tasksRecyclerView.setAdapter(adapter);
+        };
+        handler.postDelayed(r, 500);
+
     }
 
 

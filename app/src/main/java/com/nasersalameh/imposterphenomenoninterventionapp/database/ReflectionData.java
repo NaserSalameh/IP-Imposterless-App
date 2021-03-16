@@ -66,12 +66,14 @@ public class ReflectionData {
             cv.put("GOAL_DATE", reflection.getGoal().getDeadlineUnixDate());
             cv.put("COMPLETED_DATE", reflection.getGoal().getCompletionUnixDate());
 
-            String completeTasks = "";
+            String tasks = "";
+            for(Task task : reflection.getGoal().getTasks())
+                tasks += task.getName() + ",";
 
             //Remove last comma
-            completeTasks.replaceFirst(".$","");
+            tasks.replaceFirst(".$","");
 
-            cv.put("TASKS", completeTasks);
+            cv.put("TASKS", tasks);
 
             //Add Abilities
             String abilities = "";
@@ -79,7 +81,7 @@ public class ReflectionData {
                 abilities+= ability.getName() + ",";
 
             abilities.replaceFirst(".$","");
-            cv.put("ABILITIES", completeTasks);
+            cv.put("ABILITIES", abilities);
 
             cv.put("GREAT_ACHIEVEMENT", reflection.getGreatAchievement());
             cv.put("BEST_ABILITY", reflection.getBestAbility());

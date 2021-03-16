@@ -74,20 +74,23 @@ public class GoalsFragment extends Fragment {
         //Get (updated) Goals List
         goalsList = loadGoalsFromDatabase();
 
-        if(!goalsList.isEmpty()){
-            //Set up Tasks Recycler View
-            RecyclerView tasksRecyclerView = root.findViewById(R.id.tasksRecyclerView);
-            tasksRecyclerView.setLayoutManager(new LinearLayoutManager(mainActivity));
+        //Set up Tasks Recycler View
+        RecyclerView tasksRecyclerView = root.findViewById(R.id.tasksRecyclerView);
+        tasksRecyclerView.setLayoutManager(new LinearLayoutManager(mainActivity));
 
-            //get Goals Recycler View:
-            RecyclerView goalsRecyclerView = root.findViewById(R.id.goalsRecyclerView);
-            goalsRecyclerView.setLayoutManager(new LinearLayoutManager(mainActivity, LinearLayoutManager.HORIZONTAL, false));
+        //get Goals Recycler View:
+        RecyclerView goalsRecyclerView = root.findViewById(R.id.goalsRecyclerView);
+        goalsRecyclerView.setLayoutManager(new LinearLayoutManager(mainActivity, LinearLayoutManager.HORIZONTAL, false));
 
-            //Set up Goals recycler adapter with goals from usage database
-            goalsAdapter = new GoalsCardsAdapter(mainActivity, goalsList,mainActivity, tasksRecyclerView, goalsRecyclerView);
-            goalsRecyclerView.setAdapter(goalsAdapter);
-        }
+        //Set up Goals recycler adapter with goals from usage database
+        goalsAdapter = new GoalsCardsAdapter(mainActivity, goalsList,mainActivity, tasksRecyclerView, goalsRecyclerView);
+        goalsRecyclerView.setAdapter(goalsAdapter);
 
+        //if no goals, empty tasks view
+        if(goalsList.isEmpty()){
+            ArrayList<Task> emptyTasks = new ArrayList<>();
+            TasksCardsAdapter adapter = new TasksCardsAdapter(mainActivity, emptyTasks,mainActivity,tasksRecyclerView,goalsAdapter, 0);
+            tasksRecyclerView.setAdapter(adapter);        }
     }
 
     private void setUpFloatingButton() {
@@ -171,11 +174,11 @@ public class GoalsFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onResume() {
-        super.onResume();
         setUpRecyclerView();
-
+        super.onResume();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onPause() {
         writeToDb();
@@ -187,7 +190,6 @@ public class GoalsFragment extends Fragment {
         AbilityData abilityData = new AbilityData(databaseHelper);
         GoalData goalData = new GoalData(databaseHelper, abilityData.getAbilitiesList());
 
-        System.out.println("WROTE GOALS TO DB");
         //Replace all goals with new goalsList
         goalData.replaceGoalsInDB(goalsList);
     }

@@ -87,7 +87,7 @@ public class AchievementAddActivity extends FragmentActivity implements DatePick
 
         selectedDateTextView = findViewById(R.id.selectedDateTextView);
         Long currentUnix = System.currentTimeMillis();
-        String currentDate = DateConverter.getDateFromUnixTime(currentUnix);
+        String currentDate = DateConverter.getDateFromUnixTime(currentUnix/1000);
         selectedDateTextView.setText("Selected Date: " + currentDate);
 
         //Set up Floating Buttons

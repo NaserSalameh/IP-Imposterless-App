@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -53,7 +54,7 @@ public class CIPsFragment extends Fragment {
 
     private void setUpFloatingButton() {
 
-        FloatingActionButton addResponseButton = root.findViewById(R.id.addCipsFloatingButton);
+        Button addResponseButton = root.findViewById(R.id.addCipsButton);
         addResponseButton.setOnClickListener(v -> {
             Intent startAddCIPsActionIntent = new Intent(mainActivity, CIPsAddActivity.class);
 

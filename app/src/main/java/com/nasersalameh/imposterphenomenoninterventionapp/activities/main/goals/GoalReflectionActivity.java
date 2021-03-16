@@ -4,6 +4,9 @@ import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.transition.AutoTransition;
+import android.transition.Scene;
+import android.transition.TransitionManager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,8 +43,6 @@ import com.nasersalameh.imposterphenomenoninterventionapp.models.Achievement;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.AchievementType;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Goal;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Reflection;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -139,11 +140,24 @@ public class GoalReflectionActivity extends FragmentActivity {
             abilitiesConstraintLayout.setVisibility(View.GONE);
         }
 
-        //Hide Constraint Layout if no blockers
-        if(!blockerCheckBox.isSelected()){
-            ConstraintLayout blockerConstraintLayout= findViewById(R.id.reflectionBlockerConstraintLayout);
-            blockerConstraintLayout.setVisibility(View.GONE);
-        }
+        blockerCheckBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ConstraintLayout blockerConstraintLayout= findViewById(R.id.reflectionBlockerConstraintLayout);
+                //Hide Constraint Layout if no blockers
+                if(blockerConstraintLayout.getVisibility() == View.GONE){
+                    ViewGroup view = (ViewGroup) ((ViewGroup) findViewById(android.R.id.content)).getChildAt(0);
+                    TransitionManager.beginDelayedTransition(view, new AutoTransition());
+
+                    blockerConstraintLayout.setVisibility(View.VISIBLE);
+                }
+                else{
+                    blockerConstraintLayout.setVisibility(View.GONE);
+                }
+            }
+        });
+
+
 
         setupDeadlineSection();
 
@@ -477,7 +491,7 @@ public class GoalReflectionActivity extends FragmentActivity {
 
         // which view you pass in doesn't matter, it is only used for the window tolken
         @SuppressLint("WrongViewCast")
-        View constraintLayout = findViewById(R.id.addGoalConstraintLayout);
+        View constraintLayout = findViewById(R.id.goalReflectionConstraintLayout);
         final PopupWindow popupWindow = new PopupWindow(container, 1000, 1000, true);
 
         //Handler to thread sleep and slow down process

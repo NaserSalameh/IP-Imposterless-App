@@ -115,10 +115,11 @@ public class GoalCardPopup {
 
         reflectButton.setOnClickListener(v -> {
             reflectGoal();
+            popupWindow.dismiss();
         });
     }
 
-    //TO-DO: Reflect Activity
+    //Reflect Activity
     private void reflectGoal() {
         Intent startReflectionActivity = new Intent(mainActivity,GoalReflectionActivity.class);
         startReflectionActivity.putExtra("Goal", this.goal);
