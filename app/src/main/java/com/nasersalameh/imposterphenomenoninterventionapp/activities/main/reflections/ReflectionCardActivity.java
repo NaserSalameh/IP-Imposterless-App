@@ -162,7 +162,6 @@ public class ReflectionCardActivity extends FragmentActivity {
 
 
     private void setUpReflectionButtons() {
-
         goalButton.setOnClickListener(v -> createGoalPopup());
 
         taskButton.setOnClickListener(v -> createTaskPopup());
@@ -187,6 +186,9 @@ public class ReflectionCardActivity extends FragmentActivity {
         Handler handler=new Handler();
         Runnable r= () -> popupWindow.showAtLocation(constraintLayout, Gravity.CENTER, 100, 100);
         handler.postDelayed(r, 500);
+
+        Button closeButton = container.findViewById(R.id.goalsPopupCloseButton);
+        closeButton.setOnClickListener(v -> popupWindow.dismiss());
 
         setUpGoalPopup(container);
     }
@@ -218,6 +220,9 @@ public class ReflectionCardActivity extends FragmentActivity {
             chip.setText(ability.getName());
             abilitiesChipGroup.addView(chip);
         }
+
+
+
     }
 
     private void createTaskPopup(){
@@ -243,6 +248,10 @@ public class ReflectionCardActivity extends FragmentActivity {
             System.out.println("REF:" + reflection.getGoal().getTasks().size());
             ReflectionsTasksCardsAdapter adapter = new ReflectionsTasksCardsAdapter(this,reflection.getGoal().getTasks(),this);
             tasksRecyclerView.setAdapter(adapter);
+
+
+            Button closeButton = container.findViewById(R.id.reflectionsActivityTaskPopupCloseButton);
+            closeButton.setOnClickListener(v -> popupWindow.dismiss());
         };
         handler.postDelayed(r, 500);
 

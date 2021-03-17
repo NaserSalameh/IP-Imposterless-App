@@ -7,12 +7,22 @@
     android:layout_height="wrap_content"
     android:background="@color/dark_blue_background">
 
+    <Button
+        android:id="@+id/goalsChoicePopupTaskCloseButton"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/ic_baseline_close_16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/addChoiceHelpTitlePopupTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="125dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="125dp"
         android:text="What Would You Like To Add?"
         android:textAlignment="center"

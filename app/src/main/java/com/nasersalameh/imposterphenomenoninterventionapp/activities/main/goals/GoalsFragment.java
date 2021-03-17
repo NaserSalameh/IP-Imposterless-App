@@ -24,7 +24,6 @@ import com.nasersalameh.imposterphenomenoninterventionapp.R;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.AbilityData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelper;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.GoalData;
-import com.nasersalameh.imposterphenomenoninterventionapp.helpers.DateConverter;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Goal;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Task;
 import java.util.ArrayList;
@@ -114,6 +113,9 @@ public class GoalsFragment extends Fragment {
         Runnable r= () -> popupWindow.showAtLocation(constraintLayout, Gravity.CENTER, 100, 100);
         handler.postDelayed(r, 1000);
 
+        Button closeButton = container.findViewById(R.id.goalsChoicePopupTaskCloseButton);
+        closeButton.setOnClickListener(v -> popupWindow.dismiss());
+
         Button goalChoiceButton = container.findViewById(R.id.goalsChoicePopupGoalButton);
         goalChoiceButton.setOnClickListener(v -> {
             popupWindow.dismiss();
@@ -155,6 +157,9 @@ public class GoalsFragment extends Fragment {
         handler.postDelayed(r, 1000);
 
         EditText taskNameText = container.findViewById(R.id.goalsAddTaskPopupNameEditText);
+
+        Button closeButton = container.findViewById(R.id.goalsAddTaskPopupCloseButton);
+        closeButton.setOnClickListener(v -> popupWindow.dismiss());
 
         Button addTaskButton = container.findViewById(R.id.goalsAddTaskPopupAddButton);
         addTaskButton.setOnClickListener(v -> {

@@ -108,6 +108,9 @@ public class GoalCardPopup {
             deleteGoal();
         });
 
+        Button closeButton = container.findViewById(R.id.goalPopupCloseButton);
+        closeButton.setOnClickListener(v -> popupWindow.dismiss());
+
         Button reflectButton = container.findViewById(R.id.goalPopupReflectButton);
         //enable reflect button if needed
         if(goal.getTasksProgress() == 100 && goal.getReflection() == null)

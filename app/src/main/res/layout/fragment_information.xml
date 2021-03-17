@@ -6,6 +6,16 @@
     android:layout_height="wrap_content"
     tools:context=".activities.main.information.InformationFragment">
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/informationTitleFloatingButton"
+        android:layout_width="28dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="32dp"
+        android:clickable="true"
+        android:src="@android:drawable/ic_input_add"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView23" />
+
     <TextView
         android:id="@+id/textView23"
         android:layout_width="wrap_content"

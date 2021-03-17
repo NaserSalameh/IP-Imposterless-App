@@ -88,6 +88,9 @@ public class GoalAddActivity extends FragmentActivity implements DatePickerDialo
         //Set up Floating Buttons
         setUpFloatingButtons();
 
+        Button closeButton = findViewById(R.id.cancelGoalButton);
+        closeButton.setOnClickListener(v -> finish());
+
         saveGoalButton = findViewById(R.id.saveGoalButton);
 
         saveGoalButton.setOnClickListener(v -> {

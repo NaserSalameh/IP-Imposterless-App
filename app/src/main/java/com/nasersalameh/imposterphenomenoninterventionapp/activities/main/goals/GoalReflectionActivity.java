@@ -97,6 +97,9 @@ public class GoalReflectionActivity extends FragmentActivity {
 
         TextView informationTextView = findViewById(R.id.reflectionInfoTextView);
 
+        Button closeButton = findViewById(R.id.closeReflectionButton);
+        closeButton.setOnClickListener(v -> finish());
+
         Button startReflectionButton = findViewById(R.id.startReflectionButton);
         startReflectionButton.setOnClickListener(v -> transitionToReflectionFormLayout());
 
@@ -157,9 +160,10 @@ public class GoalReflectionActivity extends FragmentActivity {
             }
         });
 
-
-
         setupDeadlineSection();
+
+        Button cancelAchievementButton = findViewById(R.id.closeReflectionAchievementsButton);
+        cancelAchievementButton.setOnClickListener(v -> finish());
 
         seeAchievementsButton.setOnClickListener(v -> {
             Reflection reflection = collectReflection();

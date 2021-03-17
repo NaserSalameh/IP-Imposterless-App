@@ -72,7 +72,4 @@ public class ReflectionsFragment extends Fragment {
         ReflectionsCardsAdapter adapter = new ReflectionsCardsAdapter(mainActivity, reflectionsList,mainActivity);
         reflectionsRecyclerView.setAdapter(adapter);
     }
-
-
-
 }

@@ -93,6 +93,9 @@ public class AchievementAddActivity extends FragmentActivity implements DatePick
         //Set up Floating Buttons
         setUpFloatingButtons();
 
+        Button closeButton = findViewById(R.id.cancelAchievementButton);
+        closeButton.setOnClickListener(v -> finish());
+
         saveAchievementButton = findViewById(R.id.saveAchievementButton);
 
         saveAchievementButton.setOnClickListener(v -> {

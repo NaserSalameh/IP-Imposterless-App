@@ -46,14 +46,18 @@
                 android:layout_height="wrap_content">
 
                 <Button
-                    android:id="@+id/setupInformationButton"
+                    android:id="@+id/setupInformationStartButton"
                     android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_marginTop="56dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginBottom="8dp"
                     android:text="@string/setup_information_button"
                     android:textColor="@android:color/white"
+                    app:layout_constraintBottom_toTopOf="@+id/setupProgressBar"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/setupInformationCloseButton"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ProgressBar
@@ -65,7 +69,21 @@
                     android:scaleY="5"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/setupInformationButton" />
+                    app:layout_constraintTop_toBottomOf="@+id/setupInformationStartButton" />
+
+                <Button
+                    android:id="@+id/setupInformationCloseButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Cancel"
+                    app:layout_constraintBottom_toTopOf="@+id/setupProgressBar"
+                    app:layout_constraintEnd_toStartOf="@+id/setupInformationStartButton"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

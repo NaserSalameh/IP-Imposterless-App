@@ -93,8 +93,10 @@ public class TaskCardPopup {
 
         taskNameTextView.setText(task.getName());
 
-        Button editTaskButton = container.findViewById(R.id.taskPopupEditTaskButton);
+        Button closeButton = container.findViewById(R.id.taskPopupTaskCloseButton);
+        closeButton.setOnClickListener(v -> popupWindow.dismiss());
 
+        Button editTaskButton = container.findViewById(R.id.taskPopupEditTaskButton);
         editTaskButton.setOnClickListener(v -> {
             editTask(taskNameTextView);
         });

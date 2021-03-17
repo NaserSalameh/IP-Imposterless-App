@@ -107,6 +107,7 @@ public class SetupActivity extends AppCompatActivity {
 
     private int progress;
     public static final int COMPLETE_PROGRESS = 84;
+    private Button backButton;
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -209,9 +210,12 @@ public class SetupActivity extends AppCompatActivity {
     private void transitionToSetupInformation() {
         setContentView(R.layout.activity_setup_information);
 
-        informationButton = findViewById(R.id.setupInformationButton);
         progressBar=findViewById(R.id.setupProgressBar);
 
+        Button cancelButton = findViewById(R.id.setupInformationCloseButton);
+        cancelButton.setVisibility(View.GONE);
+
+        informationButton = findViewById(R.id.setupInformationStartButton);
         informationButton.setOnClickListener(v -> {
             transitionToSetupCIPs();
             progressBar.setProgress(progress+=10);
@@ -249,6 +253,14 @@ public class SetupActivity extends AppCompatActivity {
         //Fill textViews with questions
         populateQuestions();
 
+        backButton = findViewById(R.id.backCipsButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                moveBackCIPsSetup();
+            }
+        });
+
         cipsButton = findViewById(R.id.setupCipsButton);
 
         cipsButton.setOnClickListener(v -> {
@@ -276,7 +288,6 @@ public class SetupActivity extends AppCompatActivity {
             }
         });
     }
-
 
     private void setLabelFormatters() {
         LabelFormatter labelFormatter = value -> {
@@ -332,6 +343,22 @@ public class SetupActivity extends AppCompatActivity {
 
         populateQuestions();
     }
+
+    private void moveBackCIPsSetup(){
+        //reset to top of scrollView
+        scrollView.scrollTo(0,0);
+
+        //reset rangeSliders
+        rangeSlider1.setValues(3f);
+        rangeSlider2.setValues(3f);
+        rangeSlider3.setValues(3f);
+        rangeSlider4.setValues(3f);
+
+        progressBar.setProgress(progress-=16);
+
+        populateQuestions();
+    }
+
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void saveSetupResults() {

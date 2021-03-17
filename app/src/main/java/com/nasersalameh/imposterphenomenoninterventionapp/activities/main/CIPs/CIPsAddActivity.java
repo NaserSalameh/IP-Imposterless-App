@@ -3,6 +3,7 @@ package com.nasersalameh.imposterphenomenoninterventionapp.activities.main.CIPs;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
@@ -95,6 +96,14 @@ public class CIPsAddActivity extends FragmentActivity {
         //Fill textViews with questions
         populateQuestions();
 
+        Button backButton = findViewById(R.id.backCipsButton);
+        backButton.setOnClickListener(v -> {
+            if(progress==0)
+                finish();
+            else
+                moveBackCIPsSetup();
+        });
+
         cipsButton = findViewById(R.id.setupCipsButton);
 
         cipsButton.setOnClickListener(v -> {
@@ -172,6 +181,21 @@ public class CIPsAddActivity extends FragmentActivity {
         rangeSlider4.setValues(3f);
 
         progressBar.setProgress(progress+=20);
+
+        populateQuestions();
+    }
+
+    private void moveBackCIPsSetup(){
+        //reset to top of scrollView
+        scrollView.scrollTo(0,0);
+
+        //reset rangeSliders
+        rangeSlider1.setValues(3f);
+        rangeSlider2.setValues(3f);
+        rangeSlider3.setValues(3f);
+        rangeSlider4.setValues(3f);
+
+        progressBar.setProgress(progress-=20);
 
         populateQuestions();
     }
