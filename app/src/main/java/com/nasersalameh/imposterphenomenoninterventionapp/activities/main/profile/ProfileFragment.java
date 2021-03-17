@@ -21,9 +21,11 @@ import com.nasersalameh.imposterphenomenoninterventionapp.R;
 import com.nasersalameh.imposterphenomenoninterventionapp.activities.setup.TailoredPlanCardsAdapter;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.CIPsResponseData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelper;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.LogData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.UserData;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.CIPsResponse;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Information;
+import com.nasersalameh.imposterphenomenoninterventionapp.models.Log;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.User;
 
 import java.io.File;
@@ -33,12 +35,18 @@ public class ProfileFragment extends Fragment {
 
     private ProfileViewModel profileViewModel;
 
+    private DatabaseHelper dbHelper;
+    private LogData logData;
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         profileViewModel =
                 new ViewModelProvider(this).get(ProfileViewModel.class);
         View root = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        dbHelper = new DatabaseHelper(getActivity());
+        logData = new LogData(dbHelper);
 
         setupProfileUI(root);
         setUpRecyclerView(root);
@@ -48,7 +56,6 @@ public class ProfileFragment extends Fragment {
 
     private void setupProfileUI(View root){
         Activity currentActivity = getActivity();
-        DatabaseHelper dbHelper = new DatabaseHelper(currentActivity);
 
         //Get User from Database
         UserData userData = new UserData(dbHelper);
@@ -84,5 +91,17 @@ public class ProfileFragment extends Fragment {
         planRecyclerView.setLayoutManager(new LinearLayoutManager(currentActivity));
         TailoredPlanCardsAdapter adapter = new TailoredPlanCardsAdapter(currentActivity, response.getTailoredPlan());
         planRecyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onResume() {
+        logData.insertNewLog(new Log("Profile", "Switched to Profile Tab."));
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        logData.insertNewLog(new Log("Profile", "Left Profile Tab."));
+        super.onPause();
     }
 }

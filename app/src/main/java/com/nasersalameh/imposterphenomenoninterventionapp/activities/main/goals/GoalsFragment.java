@@ -24,7 +24,9 @@ import com.nasersalameh.imposterphenomenoninterventionapp.R;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.AbilityData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelper;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.GoalData;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.LogData;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Goal;
+import com.nasersalameh.imposterphenomenoninterventionapp.models.Log;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Task;
 import java.util.ArrayList;
 
@@ -39,6 +41,9 @@ public class GoalsFragment extends Fragment {
     private ArrayList<Goal> goalsList;
     private GoalsCardsAdapter goalsAdapter;
 
+    private DatabaseHelper databaseHelper;
+    private LogData logData;
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -47,6 +52,9 @@ public class GoalsFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_goals, container, false);
 
         mainActivity = getActivity();
+
+        databaseHelper = new DatabaseHelper(mainActivity);
+        logData = new LogData(databaseHelper);
 
         this.root = root;
 
@@ -59,7 +67,6 @@ public class GoalsFragment extends Fragment {
 
     private ArrayList<Goal> loadGoalsFromDatabase() {
         //get Achievement from Usage Database
-        DatabaseHelper databaseHelper = new DatabaseHelper(mainActivity);
         AbilityData abilityData = new AbilityData(databaseHelper);
         GoalData goalData = new GoalData(databaseHelper, abilityData.getAbilitiesList());
 
@@ -118,6 +125,8 @@ public class GoalsFragment extends Fragment {
 
         Button goalChoiceButton = container.findViewById(R.id.goalsChoicePopupGoalButton);
         goalChoiceButton.setOnClickListener(v -> {
+            logData.insertNewLog(new Log("Goal","Clicked Add Goal Button"));
+
             popupWindow.dismiss();
 
             //Start Add Goal Activity
@@ -135,6 +144,8 @@ public class GoalsFragment extends Fragment {
             taskChoiceButton.setEnabled(true);
 
         taskChoiceButton.setOnClickListener(v -> {
+            logData.insertNewLog(new Log("Goal","Clicked Add Task Button"));
+
             popupWindow.dismiss();
 
             //Create Add Task Popup
@@ -163,6 +174,8 @@ public class GoalsFragment extends Fragment {
 
         Button addTaskButton = container.findViewById(R.id.goalsAddTaskPopupAddButton);
         addTaskButton.setOnClickListener(v -> {
+            logData.insertNewLog(new Log("Goal","Added New Task"));
+
             Goal activeGoal = goalsAdapter.getActiveGoal();
 
             Task newTask = new Task(taskNameText.getText().toString());
@@ -179,6 +192,8 @@ public class GoalsFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onResume() {
+        logData.insertNewLog(new Log("Goal","Switched to Goal Tab"));
+
         setUpRecyclerView();
         super.onResume();
     }
@@ -186,6 +201,8 @@ public class GoalsFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onPause() {
+        logData.insertNewLog(new Log("Goal","Left Goal Tab"));
+
         writeToDb();
         super.onPause();
     }

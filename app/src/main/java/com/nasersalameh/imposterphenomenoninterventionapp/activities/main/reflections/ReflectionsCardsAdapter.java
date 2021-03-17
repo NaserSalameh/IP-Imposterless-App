@@ -13,7 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelper;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.LogData;
 import com.nasersalameh.imposterphenomenoninterventionapp.helpers.DateConverter;
+import com.nasersalameh.imposterphenomenoninterventionapp.models.Log;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Reflection;
 
 import java.util.ArrayList;
@@ -28,11 +31,17 @@ public class ReflectionsCardsAdapter extends RecyclerView.Adapter<ReflectionsCar
 
     private Activity mainActivity;
 
+    private DatabaseHelper databaseHelper;
+    private LogData logData;
+
     public ReflectionsCardsAdapter(Context context, ArrayList<Reflection> reflectionsList, Activity mainActivity){
         this.layoutInflater = LayoutInflater.from(context);
         this.reflectionsList = reflectionsList;
 
         this.mainActivity = mainActivity;
+
+        databaseHelper = new DatabaseHelper(mainActivity);
+        logData = new LogData(databaseHelper);
     }
 
     @NonNull
@@ -54,6 +63,7 @@ public class ReflectionsCardsAdapter extends RecyclerView.Adapter<ReflectionsCar
         //Set on Click Listener to View Card
         viewHolder.cardView.setOnClickListener(v -> {
 
+            logData.insertNewLog(new Log("Reflections", "Viewed Reflection for Goal" + reflectionsList.get(index).getGoal()));
             //Start Reflection Activity
             Intent viewReflectionActivity = new Intent(mainActivity, ReflectionCardActivity.class);
 

@@ -30,15 +30,20 @@ import com.nasersalameh.imposterphenomenoninterventionapp.database.AchievementDa
 import com.nasersalameh.imposterphenomenoninterventionapp.database.AchievementsTypeData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelper;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.GoalData;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.LogData;
 import com.nasersalameh.imposterphenomenoninterventionapp.helpers.DateConverter;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Ability;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Goal;
+import com.nasersalameh.imposterphenomenoninterventionapp.models.Log;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 public class GoalAddActivity extends FragmentActivity implements DatePickerDialog.OnDateSetListener {
+
+    private DatabaseHelper databaseHelper;
+    private LogData logData;
 
     //UI
     Spinner goalTypeSpinner;
@@ -66,6 +71,9 @@ public class GoalAddActivity extends FragmentActivity implements DatePickerDialo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_goals_add_activity);
 
+        databaseHelper = new DatabaseHelper(this);
+        logData = new LogData(databaseHelper);
+
         //Inject UI:
         goalTypeSpinner = findViewById(R.id.goalTypeSpinner);
 
@@ -82,18 +90,23 @@ public class GoalAddActivity extends FragmentActivity implements DatePickerDialo
 
         selectedDateTextView = findViewById(R.id.selectedGoalDateTextView);
         Long currentUnix = System.currentTimeMillis();
-        String currentDate = DateConverter.getDateFromUnixTime(currentUnix/1000 );
+        String currentDate = DateConverter.getDateFromUnixTime(currentUnix/1000);
         selectedDateTextView.setText("Selected Date: " + currentDate);
 
         //Set up Floating Buttons
         setUpFloatingButtons();
 
         Button closeButton = findViewById(R.id.cancelGoalButton);
-        closeButton.setOnClickListener(v -> finish());
+        closeButton.setOnClickListener(v -> {
+            logData.insertNewLog(new Log("Goal","Cancelled Adding New Goal."));
+
+            finish();
+        });
 
         saveGoalButton = findViewById(R.id.saveGoalButton);
 
         saveGoalButton.setOnClickListener(v -> {
+            logData.insertNewLog(new Log("Goal","Added New Goal."));
             addGoal();
 
             //End Activity
@@ -178,6 +191,8 @@ public class GoalAddActivity extends FragmentActivity implements DatePickerDialo
         Runnable r= () -> popupWindow.showAtLocation(constraintLayout, Gravity.CENTER, 100, 100);
         handler.postDelayed(r, 1000);
 
+        logData.insertNewLog(new Log("Goal","Clicked Help Button: " + popupTitle));
+
         TextView popupTitleTextView = container.findViewById(R.id.helpTitleTextView);
         popupTitleTextView.setText(popupTitle);
 
@@ -239,7 +254,6 @@ public class GoalAddActivity extends FragmentActivity implements DatePickerDialo
         }
 
         //Prep database writers
-        DatabaseHelper databaseHelper = new DatabaseHelper(this);
         AbilityData abilityData = new AbilityData(databaseHelper);
         GoalData goalData = new GoalData(databaseHelper, abilityData.getAbilitiesList());
 

@@ -24,13 +24,18 @@ import com.nasersalameh.imposterphenomenoninterventionapp.database.AbilityData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.AchievementData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.AchievementsTypeData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelper;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.LogData;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Ability;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Achievement;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.AchievementType;
+import com.nasersalameh.imposterphenomenoninterventionapp.models.Log;
 
 import java.util.ArrayList;
 
 public class AbilitiesFragment extends Fragment {
+
+    private DatabaseHelper databaseHelper;
+    private LogData logData;
 
     private AbilitiesViewModel abilitiesViewModel;
 
@@ -47,9 +52,12 @@ public class AbilitiesFragment extends Fragment {
                 new ViewModelProvider(this).get(AbilitiesViewModel.class);
         View root = inflater.inflate(R.layout.fragment_abilities, container, false);
 
-        this.root = root;
+       this.root = root;
 
         mainActivity = getActivity();
+
+        databaseHelper = new DatabaseHelper(mainActivity);
+        logData = new LogData(databaseHelper);
 
         setUpRecyclerView();
 
@@ -59,7 +67,6 @@ public class AbilitiesFragment extends Fragment {
 
     private ArrayList<Ability> loadAbilitiesFromDatabase() {
         //get Abilities from Usage Database
-        DatabaseHelper databaseHelper = new DatabaseHelper(mainActivity);
         AbilityData abilityData = new AbilityData(databaseHelper);
 
         return abilityData.getAbilitiesList();
@@ -79,6 +86,15 @@ public class AbilitiesFragment extends Fragment {
         abilitiesRecyclerView.setAdapter(adapter);
     }
 
+    @Override
+    public void onResume() {
+        logData.insertNewLog(new Log("Ability","Switched To Ability Tab"));
+        super.onResume();
+    }
 
-
+    @Override
+    public void onPause() {
+        logData.insertNewLog(new Log("Ability","Left Ability Tab"));
+        super.onPause();
+    }
 }

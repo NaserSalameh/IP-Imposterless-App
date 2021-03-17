@@ -30,9 +30,11 @@ import com.nasersalameh.imposterphenomenoninterventionapp.R;
 import com.nasersalameh.imposterphenomenoninterventionapp.activities.main.MainActivity;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.CIPsQuestionData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.CIPsResponseData;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.LogData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.UserData;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.CIPsResponse;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelper;
+import com.nasersalameh.imposterphenomenoninterventionapp.models.Log;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -43,6 +45,7 @@ public class SetupActivity extends AppCompatActivity {
     public static final int IMAGE_REQUEST_CODE = 1000;
 
     private DatabaseHelper dbHelper;
+    private LogData logData;
 
     private CIPsQuestionData cipsQuestionData;
 
@@ -117,6 +120,8 @@ public class SetupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_setup_personal);
 
         dbHelper = new DatabaseHelper(SetupActivity.this);
+        logData = new LogData(dbHelper);
+
         response = new CIPsResponse("FULL");
         //Progress Bar progress
         progress = 0;
@@ -137,16 +142,17 @@ public class SetupActivity extends AppCompatActivity {
         //Prep CIPsQuestionsData to get Questions Mapping
         cipsQuestionData = new CIPsQuestionData(dbHelper);
 
-        profileImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //open gallery
-                Intent openGalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(openGalleryIntent, IMAGE_REQUEST_CODE);
-            }
+        profileImage.setOnClickListener(v -> {
+            logData.insertNewLog(new Log("Setup","Selected Image"));
+
+            //open gallery
+            Intent openGalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(openGalleryIntent, IMAGE_REQUEST_CODE);
         });
 
         personalButton.setOnClickListener(v -> {
+            logData.insertNewLog(new Log("Setup","Saved Personal Information"));
+
             //Save User Name
             userName = nameTextBox.getText().toString();
             progressBar.setProgress(progress+=10);
@@ -217,6 +223,8 @@ public class SetupActivity extends AppCompatActivity {
 
         informationButton = findViewById(R.id.setupInformationStartButton);
         informationButton.setOnClickListener(v -> {
+            logData.insertNewLog(new Log("Setup","Transitioned to Setup Information"));
+
             transitionToSetupCIPs();
             progressBar.setProgress(progress+=10);
         });
@@ -254,16 +262,17 @@ public class SetupActivity extends AppCompatActivity {
         populateQuestions();
 
         backButton = findViewById(R.id.backCipsButton);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                moveBackCIPsSetup();
-            }
+        backButton.setOnClickListener(v -> {
+            logData.insertNewLog(new Log("Setup","Moved CIPs Back."));
+
+            moveBackCIPsSetup();
         });
 
         cipsButton = findViewById(R.id.setupCipsButton);
 
         cipsButton.setOnClickListener(v -> {
+            logData.insertNewLog(new Log("Setup","Moved CIPs Forward."));
+
             //If all responses collected
             if(progress == COMPLETE_PROGRESS) {
                 collectResponses();
@@ -408,7 +417,9 @@ public class SetupActivity extends AppCompatActivity {
         resultsButtons = findViewById(R.id.setupResultsButton);
 
         resultsButtons.setOnClickListener(v -> {
-           //Display Tailored Plan
+            logData.insertNewLog(new Log("Setup","Saved Setup Results."));
+
+            //Display Tailored Plan
             transitionToSetupPlan();
         });
 
@@ -428,6 +439,8 @@ public class SetupActivity extends AppCompatActivity {
         planButton = findViewById(R.id.setupPlanButton);
 
         planButton.setOnClickListener(v -> {
+            logData.insertNewLog(new Log("Setup","Saved Setup Information."));
+
             //End Activity and Start Main Page Activity
             //Start the main activity
             // Intent to start application
@@ -437,5 +450,17 @@ public class SetupActivity extends AppCompatActivity {
             //End Setup Activity
             finish();
         });
+    }
+
+    @Override
+    protected void onPause() {
+        logData.insertNewLog(new Log("Setup","Application Paused"));
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        logData.insertNewLog(new Log("Setup","Resumed Activity"));
+        super.onResume();
     }
 }

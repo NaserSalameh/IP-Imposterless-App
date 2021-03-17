@@ -20,8 +20,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelper;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.LogData;
 import com.nasersalameh.imposterphenomenoninterventionapp.helpers.DateConverter;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.CIPsResponse;
+import com.nasersalameh.imposterphenomenoninterventionapp.models.Log;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Reflection;
 
 import java.util.ArrayList;
@@ -75,6 +78,10 @@ public class CIPsCardsAdapter extends RecyclerView.Adapter<CIPsCardsAdapter.View
 
         //Drop down button
         viewHolder.cipsButton.setOnClickListener(v -> {
+            DatabaseHelper databaseHelper = new DatabaseHelper(mainActivity);
+            LogData logData = new LogData(databaseHelper);
+            logData.insertNewLog(new Log("CIPs","Viewed CIPs " + responseDate));
+
             if(viewHolder.expandableView.getVisibility() == View.GONE){
                 TransitionManager.beginDelayedTransition(viewHolder.cardView, new AutoTransition());
                 viewHolder.expandableView.setVisibility(View.VISIBLE);

@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
 import com.nasersalameh.imposterphenomenoninterventionapp.activities.main.profile.ProfileViewModel;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelper;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.LogData;
 
 public class SettingsFragment extends Fragment {
 

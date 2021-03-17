@@ -20,12 +20,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
-import com.nasersalameh.imposterphenomenoninterventionapp.database.AbilityData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelper;
-import com.nasersalameh.imposterphenomenoninterventionapp.database.GoalData;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.LogData;
 import com.nasersalameh.imposterphenomenoninterventionapp.helpers.DateConverter;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Ability;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Goal;
+import com.nasersalameh.imposterphenomenoninterventionapp.models.Log;
 
 import java.util.ArrayList;
 
@@ -42,10 +42,16 @@ public class GoalCardPopup {
 
     private PopupWindow popupWindow;
 
+    private DatabaseHelper databaseHelper;
+    private LogData logData;
+
     public GoalCardPopup(Context context, Activity mainActivity, RecyclerView goalRecyclerView, int goalPosition, Goal goal, ArrayList<Goal> goalsList){
         this.context = context;
         this.mainActivity = mainActivity;
         this.goalRecyclerView = goalRecyclerView;
+
+        databaseHelper = new DatabaseHelper(mainActivity);
+        logData = new LogData(databaseHelper);
 
         this.goal = goal;
         this.goalPosition = goalPosition;
@@ -105,6 +111,7 @@ public class GoalCardPopup {
 
         Button deleteButton = container.findViewById(R.id.goalPopupDeleteButton);
         deleteButton.setOnClickListener(v -> {
+            logData.insertNewLog(new Log("Goal","Deleted Goal " + goal.getName()));
             deleteGoal();
         });
 
@@ -117,6 +124,8 @@ public class GoalCardPopup {
             reflectButton.setEnabled(true);
 
         reflectButton.setOnClickListener(v -> {
+            logData.insertNewLog(new Log("Goal","Reflected on Goal " + goal.getName()));
+
             reflectGoal();
             popupWindow.dismiss();
         });

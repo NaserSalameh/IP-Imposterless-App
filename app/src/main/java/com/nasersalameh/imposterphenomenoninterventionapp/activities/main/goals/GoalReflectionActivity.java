@@ -37,11 +37,13 @@ import com.nasersalameh.imposterphenomenoninterventionapp.database.AchievementDa
 import com.nasersalameh.imposterphenomenoninterventionapp.database.AchievementsTypeData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelper;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.GoalData;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.LogData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.ReflectionData;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Ability;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Achievement;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.AchievementType;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Goal;
+import com.nasersalameh.imposterphenomenoninterventionapp.models.Log;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Reflection;
 
 import java.util.ArrayList;
@@ -51,6 +53,9 @@ public class GoalReflectionActivity extends FragmentActivity {
     public static final int EXP_AMOUNT = 100;
     //Goal passed from intent
     Goal goal;
+
+    private DatabaseHelper databaseHelper;
+    private LogData logData;
 
     //UI:
     private EditText achievementEditText;
@@ -87,6 +92,9 @@ public class GoalReflectionActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_goals_reflection_activity_information);
 
+        databaseHelper = new DatabaseHelper(this);
+        logData = new LogData(databaseHelper);
+
         setUpReflectionInformationLayout();
 
         goal = (Goal) getIntent().getSerializableExtra("Goal");
@@ -98,10 +106,18 @@ public class GoalReflectionActivity extends FragmentActivity {
         TextView informationTextView = findViewById(R.id.reflectionInfoTextView);
 
         Button closeButton = findViewById(R.id.closeReflectionButton);
-        closeButton.setOnClickListener(v -> finish());
+        closeButton.setOnClickListener(v -> {
+            logData.insertNewLog(new Log("Goal","Closed Goal Reflection " + goal.getName()));
+
+            finish();
+        });
 
         Button startReflectionButton = findViewById(R.id.startReflectionButton);
-        startReflectionButton.setOnClickListener(v -> transitionToReflectionFormLayout());
+        startReflectionButton.setOnClickListener(v -> {
+            logData.insertNewLog(new Log("Goal","Proceeded To Reflection Form " + goal.getName()));
+
+            transitionToReflectionFormLayout();
+        });
 
     }
 
@@ -143,29 +159,31 @@ public class GoalReflectionActivity extends FragmentActivity {
             abilitiesConstraintLayout.setVisibility(View.GONE);
         }
 
-        blockerCheckBox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ConstraintLayout blockerConstraintLayout= findViewById(R.id.reflectionBlockerConstraintLayout);
-                //Hide Constraint Layout if no blockers
-                if(blockerConstraintLayout.getVisibility() == View.GONE){
-                    ViewGroup view = (ViewGroup) ((ViewGroup) findViewById(android.R.id.content)).getChildAt(0);
-                    TransitionManager.beginDelayedTransition(view, new AutoTransition());
+        blockerCheckBox.setOnClickListener(v -> {
+            ConstraintLayout blockerConstraintLayout= findViewById(R.id.reflectionBlockerConstraintLayout);
+            //Hide Constraint Layout if no blockers
+            if(blockerConstraintLayout.getVisibility() == View.GONE){
+                ViewGroup view = (ViewGroup) ((ViewGroup) findViewById(android.R.id.content)).getChildAt(0);
+                TransitionManager.beginDelayedTransition(view, new AutoTransition());
 
-                    blockerConstraintLayout.setVisibility(View.VISIBLE);
-                }
-                else{
-                    blockerConstraintLayout.setVisibility(View.GONE);
-                }
+                blockerConstraintLayout.setVisibility(View.VISIBLE);
+            }
+            else{
+                blockerConstraintLayout.setVisibility(View.GONE);
             }
         });
 
         setupDeadlineSection();
 
-        Button cancelAchievementButton = findViewById(R.id.closeReflectionAchievementsButton);
-        cancelAchievementButton.setOnClickListener(v -> finish());
+        Button cancelButton = findViewById(R.id.closeReflectionAchievementsButton);
+        cancelButton.setOnClickListener(v -> {
+            logData.insertNewLog(new Log("Goal","Cancelled Goal Reflection"));
+            finish();
+        });
 
         seeAchievementsButton.setOnClickListener(v -> {
+            logData.insertNewLog(new Log("Goal","Saved Goal Reflection"));
+
             Reflection reflection = collectReflection();
             ArrayList<Achievement> achievementList = getAchievements(reflection);
             transitionToGoalAchievementsLayout(achievementList);
@@ -173,8 +191,6 @@ public class GoalReflectionActivity extends FragmentActivity {
     }
 
     private Reflection collectReflection() {
-
-        DatabaseHelper databaseHelper = new DatabaseHelper(this);
 
         Reflection reflection = new Reflection(goal);
 
@@ -235,7 +251,6 @@ public class GoalReflectionActivity extends FragmentActivity {
         ArrayList<Achievement> achievements = new ArrayList<>();
 
         //Get Achievement Types
-        DatabaseHelper databaseHelper = new DatabaseHelper(this);
         AchievementsTypeData achievementsTypeData = new AchievementsTypeData(databaseHelper);
         ArrayList<AchievementType> achievementTypes = achievementsTypeData.getAchievementsTypeList();
 
@@ -503,6 +518,8 @@ public class GoalReflectionActivity extends FragmentActivity {
         Runnable r= () -> popupWindow.showAtLocation(constraintLayout, Gravity.CENTER, 100, 100);
         handler.postDelayed(r, 1000);
 
+        logData.insertNewLog(new Log("Goal","Clicked Help Button: " + popupTitle));
+
         TextView popupTitleTextView = container.findViewById(R.id.helpTitleTextView);
         popupTitleTextView.setText(popupTitle);
 
@@ -513,7 +530,6 @@ public class GoalReflectionActivity extends FragmentActivity {
     private void setUpSpinners() {
 
         //Get DB helpers
-        DatabaseHelper databaseHelper = new DatabaseHelper(this);
         AchievementsTypeData achievementsTypeData = new AchievementsTypeData(databaseHelper);
 
         //Add goal Abilities

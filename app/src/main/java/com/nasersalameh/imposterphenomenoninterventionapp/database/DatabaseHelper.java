@@ -35,6 +35,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private AbilityData abilityData;
     private GoalData goalData;
     private ReflectionData reflectionData;
+    private LogData logData;
 
 
     public DatabaseHelper(@Nullable Context context) {
@@ -47,6 +48,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cipsQuestionData = new CIPsQuestionData(this);
         achievementsTypeData = new AchievementsTypeData(this);
         abilityData = new AbilityData(this);
+        logData = new LogData(this);
     }
 
     //Will be called the first time the database is created. The method will Create all necessary tables.
@@ -61,6 +63,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cipsQuestionData.setDB(db);
         achievementsTypeData.setDB(db);
         abilityData.setDB(db);
+        logData.setDB(db);
 
         //Create Tables
         userData.createUserInformationTable();
@@ -69,6 +72,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cipsQuestionData.createCIPSQuestionsTable();
         achievementsTypeData.createAchievementsTypeTable();
         abilityData.createAbilityTable();
+        logData.createLogTable();
     }
 
     public void migrateDataFromInstallToUsage(){

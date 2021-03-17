@@ -22,8 +22,10 @@ import com.nasersalameh.imposterphenomenoninterventionapp.R;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.AchievementData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.AchievementsTypeData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelper;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.LogData;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Achievement;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.AchievementType;
+import com.nasersalameh.imposterphenomenoninterventionapp.models.Log;
 
 import java.util.ArrayList;
 
@@ -41,6 +43,9 @@ public class AchievementsFragment extends Fragment {
 
     private FloatingActionButton addAchievementButton;
 
+    private DatabaseHelper databaseHelper;
+    private LogData logData;
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -49,6 +54,9 @@ public class AchievementsFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_achievements, container, false);
 
         mainActivity = getActivity();
+
+        databaseHelper = new DatabaseHelper(mainActivity);
+        logData = new LogData(databaseHelper);
 
         this.root = root;
 
@@ -76,7 +84,6 @@ public class AchievementsFragment extends Fragment {
 
     private ArrayList<Achievement> loadAchievementFromDatabase() {
         //get Achievement from Usage Database
-        DatabaseHelper databaseHelper = new DatabaseHelper(mainActivity);
         AchievementsTypeData achievementsTypeData = new AchievementsTypeData(databaseHelper);
 
         ArrayList<AchievementType> achievementTypes = achievementsTypeData.getAchievementsTypeList();
@@ -106,6 +113,7 @@ public class AchievementsFragment extends Fragment {
         addAchievementButton = root.findViewById(R.id.addAchievementButton);
 
         addAchievementButton.setOnClickListener(v -> {
+            logData.insertNewLog(new Log("Achievement","Added Achievement."));
             Intent startAddAchievementActivity = new Intent(mainActivity, AchievementAddActivity.class);
 
             mainActivity.startActivity(startAddAchievementActivity);
@@ -116,6 +124,7 @@ public class AchievementsFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onResume() {
+        logData.insertNewLog(new Log("Achievement","Switched To Achievement Tab"));
 
         //Handler to thread sleep and slow down process
         Handler handler=new Handler();
@@ -128,5 +137,11 @@ public class AchievementsFragment extends Fragment {
 
 
         super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        logData.insertNewLog(new Log("Achievement","Left Achievement Tab"));
+        super.onPause();
     }
 }

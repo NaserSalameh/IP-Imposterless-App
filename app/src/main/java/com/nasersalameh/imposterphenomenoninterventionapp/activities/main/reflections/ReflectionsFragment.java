@@ -18,7 +18,9 @@ import com.nasersalameh.imposterphenomenoninterventionapp.R;
 import com.nasersalameh.imposterphenomenoninterventionapp.activities.main.abilities.AbilitiesCardsAdapter;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.AbilityData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelper;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.LogData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.ReflectionData;
+import com.nasersalameh.imposterphenomenoninterventionapp.models.Log;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Reflection;
 
 import java.util.ArrayList;
@@ -33,6 +35,9 @@ public class ReflectionsFragment extends Fragment {
 
     private ArrayList<Reflection> reflectionsList;
 
+    private DatabaseHelper databaseHelper;
+    private LogData logData;
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -40,9 +45,16 @@ public class ReflectionsFragment extends Fragment {
                 new ViewModelProvider(this).get(ReflectionsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_reflections, container, false);
 
+        mainActivity = getActivity();
+
+        databaseHelper = new DatabaseHelper(mainActivity);
+        logData = new LogData(databaseHelper);
+
+
+        databaseHelper = new DatabaseHelper(mainActivity);
+
         this.root = root;
 
-        mainActivity = getActivity();
 
         setUpRecyclerView();
 
@@ -52,7 +64,7 @@ public class ReflectionsFragment extends Fragment {
 
     private ArrayList<Reflection> loadReflectionsFromDatabase() {
         //get Abilities from Usage Database
-        DatabaseHelper databaseHelper = new DatabaseHelper(mainActivity);
+        databaseHelper = new DatabaseHelper(mainActivity);
         AbilityData abilityData = new AbilityData(databaseHelper);
         ReflectionData reflectionData = new ReflectionData(databaseHelper,abilityData.getAbilitiesList());
 
@@ -71,5 +83,17 @@ public class ReflectionsFragment extends Fragment {
         //Set up recycler adapter with abilities from usage database
         ReflectionsCardsAdapter adapter = new ReflectionsCardsAdapter(mainActivity, reflectionsList,mainActivity);
         reflectionsRecyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onResume() {
+        logData.insertNewLog(new Log("Reflections", "Switched To Reflections Tab."));
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        logData.insertNewLog(new Log("Reflections", "Left Reflections Tab."));
+        super.onPause();
     }
 }

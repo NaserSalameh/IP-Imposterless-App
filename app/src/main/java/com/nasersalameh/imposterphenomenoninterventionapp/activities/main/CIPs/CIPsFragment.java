@@ -21,7 +21,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.CIPsResponseData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelper;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.LogData;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.CIPsResponse;
+import com.nasersalameh.imposterphenomenoninterventionapp.models.Log;
 
 import java.util.ArrayList;
 
@@ -35,6 +37,9 @@ public class CIPsFragment extends Fragment {
 
     private ArrayList<CIPsResponse> responsesList;
 
+    private DatabaseHelper databaseHelper;
+    private LogData logData;
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -46,6 +51,9 @@ public class CIPsFragment extends Fragment {
 
         mainActivity = getActivity();
 
+        databaseHelper = new DatabaseHelper(mainActivity);
+        logData = new LogData(databaseHelper);
+
         setUpFloatingButton();
         setUpRecyclerView();
 
@@ -56,6 +64,7 @@ public class CIPsFragment extends Fragment {
 
         Button addResponseButton = root.findViewById(R.id.addCipsButton);
         addResponseButton.setOnClickListener(v -> {
+            logData.insertNewLog(new Log("CIPs", "Started New CIPs."));
             Intent startAddCIPsActionIntent = new Intent(mainActivity, CIPsAddActivity.class);
 
             mainActivity.startActivity(startAddCIPsActionIntent);
@@ -66,7 +75,7 @@ public class CIPsFragment extends Fragment {
 
     private ArrayList<CIPsResponse> loadResponsesFromDatabase() {
         //get responses from Usage Database
-        DatabaseHelper databaseHelper = new DatabaseHelper(mainActivity);
+        databaseHelper = new DatabaseHelper(mainActivity);
         CIPsResponseData cipsResponseData = new CIPsResponseData(databaseHelper);
 
         return cipsResponseData.getResponsesList();
@@ -90,13 +99,20 @@ public class CIPsFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onResume() {
+        logData.insertNewLog(new Log("CIPs", "Switched to CIPs Tab."));
+
         //Handler to thread sleep and slow down process
         Handler handler=new Handler();
         Runnable r= () -> setUpRecyclerView();
         handler.postDelayed(r, 1000);
 
-
         super.onResume();
     }
 
+    @Override
+    public void onPause() {
+        logData.insertNewLog(new Log("CIPs", "Left CIPs Tab."));
+
+        super.onPause();
+    }
 }

@@ -24,7 +24,9 @@ import com.nasersalameh.imposterphenomenoninterventionapp.activities.setup.Tailo
 import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelper;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.InformationData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.InstallDatabaseHelper;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.LogData;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Information;
+import com.nasersalameh.imposterphenomenoninterventionapp.models.Log;
 
 import java.util.ArrayList;
 
@@ -34,6 +36,8 @@ public class InformationFragment extends Fragment {
     private View root;
     private Activity mainActivity;
 
+    private DatabaseHelper databaseHelper;
+    private LogData logData;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -45,6 +49,9 @@ public class InformationFragment extends Fragment {
         //set Main activity
         mainActivity = getActivity();
 
+        databaseHelper = new DatabaseHelper(mainActivity);
+        logData = new LogData(databaseHelper);
+
         setUpRecyclerView(root);
 
         return root;
@@ -52,7 +59,6 @@ public class InformationFragment extends Fragment {
 
     private ArrayList<Information> loadInformationFromDatabase() {
         //get information from Usage Database
-        DatabaseHelper databaseHelper = new DatabaseHelper(mainActivity);
         InformationData informationData = new InformationData(databaseHelper);
 
         return informationData.getInformationList();
@@ -76,6 +82,7 @@ public class InformationFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onResume() {
+        logData.insertNewLog(new Log("Information","Switched To Information Tab."));
 
         //Handler to thread sleep and slow down process
         Handler handler=new Handler();
@@ -88,6 +95,9 @@ public class InformationFragment extends Fragment {
         super.onResume();
     }
 
-
-
+    @Override
+    public void onPause() {
+        logData.insertNewLog(new Log("Information","Left Information Tab."));
+        super.onPause();
+    }
 }

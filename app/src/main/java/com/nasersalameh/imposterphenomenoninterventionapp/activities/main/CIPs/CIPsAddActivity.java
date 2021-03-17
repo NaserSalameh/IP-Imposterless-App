@@ -20,12 +20,15 @@ import com.nasersalameh.imposterphenomenoninterventionapp.activities.setup.Setup
 import com.nasersalameh.imposterphenomenoninterventionapp.database.CIPsQuestionData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.CIPsResponseData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelper;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.LogData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.UserData;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.CIPsResponse;
+import com.nasersalameh.imposterphenomenoninterventionapp.models.Log;
 
 public class CIPsAddActivity extends FragmentActivity {
 
     private DatabaseHelper dbHelper;
+    private LogData logData;
 
     private CIPsQuestionData cipsQuestionData;
 
@@ -63,6 +66,8 @@ public class CIPsAddActivity extends FragmentActivity {
         setContentView(R.layout.activity_setup_cips);
 
         dbHelper = new DatabaseHelper(CIPsAddActivity.this);
+        logData = new LogData(dbHelper);
+
         response = new CIPsResponse("FULL");
         //Progress Bar progress
         progress = 0;
@@ -98,6 +103,7 @@ public class CIPsAddActivity extends FragmentActivity {
 
         Button backButton = findViewById(R.id.backCipsButton);
         backButton.setOnClickListener(v -> {
+            logData.insertNewLog(new Log("CIPs","Went Back in CIPs"));
             if(progress==0)
                 finish();
             else
@@ -107,6 +113,8 @@ public class CIPsAddActivity extends FragmentActivity {
         cipsButton = findViewById(R.id.setupCipsButton);
 
         cipsButton.setOnClickListener(v -> {
+            logData.insertNewLog(new Log("CIPs","Moved Forward in CIPs"));
+
             //If all responses collected
             if(progress == COMPLETE_PROGRESS) {
                 collectResponses();

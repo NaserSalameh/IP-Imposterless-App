@@ -17,8 +17,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelper;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.LogData;
 import com.nasersalameh.imposterphenomenoninterventionapp.helpers.DrawableGetter;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Achievement;
+import com.nasersalameh.imposterphenomenoninterventionapp.models.Log;
 
 import java.util.ArrayList;
 
@@ -61,6 +64,9 @@ public class AchievementCardsAdapter extends RecyclerView.Adapter<AchievementCar
 
 //        //Set on Click Listener to View Card
         viewHolder.cardView.setOnClickListener(v -> {
+            DatabaseHelper databaseHelper = new DatabaseHelper(mainActivity);
+            LogData logData = new LogData(databaseHelper);
+            logData.insertNewLog(new Log("Achievement", "Viewed Achievement " + achievementList.get(index).getAchievementName()));
             AchievementCardPopup achievementCardPopup = new AchievementCardPopup(context, mainActivity, recyclerView, achievementList.get(index));
             achievementCardPopup.createPopUpWindow(viewHolder);
         });

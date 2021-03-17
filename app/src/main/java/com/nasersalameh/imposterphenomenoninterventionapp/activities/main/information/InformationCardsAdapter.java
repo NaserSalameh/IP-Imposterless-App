@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Parcelable;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelper;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.LogData;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Information;
+import com.nasersalameh.imposterphenomenoninterventionapp.models.Log;
 
 import java.util.ArrayList;
 
@@ -30,11 +34,17 @@ public class InformationCardsAdapter extends RecyclerView.Adapter<InformationCar
 
     private Activity mainActivity;
 
+    private DatabaseHelper databaseHelper;
+    private LogData logData;
+
     public InformationCardsAdapter(Context context, ArrayList<Information> informationList, Activity mainActivity){
         this.layoutInflater = LayoutInflater.from(context);
         this.informationList = informationList;
 
         this.mainActivity = mainActivity;
+
+        databaseHelper = new DatabaseHelper(mainActivity);
+        logData = new LogData(databaseHelper);
     }
 
     @NonNull
@@ -58,6 +68,7 @@ public class InformationCardsAdapter extends RecyclerView.Adapter<InformationCar
 
         //Set on Click Listener to View Card
         viewHolder.cardView.setOnClickListener(v -> {
+                logData.insertNewLog(new Log("Information","Selected Information " + informationList.get(index).getInformationName()));
 
                 //Start Information Activity
                 Intent startInformationCardActivity = new Intent(mainActivity, InformationCardActivity.class);
