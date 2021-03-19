@@ -154,10 +154,12 @@ public class GoalReflectionActivity extends FragmentActivity {
         setUpFloatingButtons();
 
         //Hide Constraint Layout if no abilities Selected for improvement
-        if(goal.getAbilities().isEmpty()){
-            ConstraintLayout abilitiesConstraintLayout = findViewById(R.id.reflectionAbilityConstraintLayout);
+        ConstraintLayout abilitiesConstraintLayout = findViewById(R.id.reflectionAbilityConstraintLayout);
+        if(goal.getAbilities().isEmpty())
             abilitiesConstraintLayout.setVisibility(View.GONE);
-        }
+        else
+            abilitiesConstraintLayout.setVisibility(View.VISIBLE);
+
 
         blockerCheckBox.setOnClickListener(v -> {
             ConstraintLayout blockerConstraintLayout= findViewById(R.id.reflectionBlockerConstraintLayout);

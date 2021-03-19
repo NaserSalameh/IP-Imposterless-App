@@ -62,9 +62,16 @@ public class GoalData {
         setupTasks.add(new Task("Explore Information Tab!", newGoal));
         setupTasks.add(new Task("Explore Ability Tab!", newGoal));
         setupTasks.add(new Task("Explore Achievement Tab!", newGoal));
+        setupTasks.add(new Task("Explore CIPs Tab!", newGoal));
         setupTasks.add(new Task("Explore Settings Tab!", newGoal));
 
         newGoal.setTasks(setupTasks);
+
+        for(Ability ability: abilitiesList){
+            if(ability.getName().equals("TEST1") || ability.getName().equals("TEST2"))
+                newGoal.addAbility(ability);
+        }
+
         return newGoal;
     }
 
@@ -109,7 +116,7 @@ public class GoalData {
                 abilities+= ability.getName() + ",";
 
             abilities.replaceFirst(".$","");
-            cv.put("ABILITIES", completeTasks);
+            cv.put("ABILITIES", abilities);
 
             long insertResult = db.insert(GOAL_TABLE,null,cv);
 
