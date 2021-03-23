@@ -1,13 +1,17 @@
 package com.nasersalameh.imposterphenomenoninterventionapp.activities.main.achievements;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,10 +25,12 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.AchievementData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.AchievementsTypeData;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.ContentData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelper;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.LogData;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Achievement;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.AchievementType;
+import com.nasersalameh.imposterphenomenoninterventionapp.models.Content;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Log;
 
 import java.util.ArrayList;
@@ -63,6 +69,8 @@ public class AchievementsFragment extends Fragment {
         setAchievementsScore();
 
         setUpRecyclerView();
+
+        setUpFloatingButton();
 
         setUpAddAchievementButtonOnClickListener();
 
@@ -118,6 +126,41 @@ public class AchievementsFragment extends Fragment {
 
             mainActivity.startActivity(startAddAchievementActivity);
         });
+    }
+
+    private void setUpFloatingButton() {
+        ContentData contentData = new ContentData(databaseHelper);
+        Content content = contentData.getContentById("ACHIEVEMENT_TAB");
+
+        FloatingActionButton tabGuide = root.findViewById(R.id.achievementsTitleFloatingButton);
+
+        tabGuide.setOnClickListener(v -> {
+            createPopup(content.getName(),content.getContent());
+        });
+    }
+
+    private void createPopup(String popupTitle, String popupText){
+        //Create and inflate layout
+        ViewGroup container = (ViewGroup) LayoutInflater.from(getContext()).inflate(R.layout.help_popup,null);
+
+        // which view you pass in doesn't matter, it is only used for the window tolken
+        @SuppressLint("WrongViewCast")
+        View constraintLayout = getActivity().findViewById(R.id.achievementsConstraintLayout);
+        final PopupWindow popupWindow = new PopupWindow(container, 1000, 1000, true);
+
+        //Handler to thread sleep and slow down process
+        Handler handler=new Handler();
+        Runnable r= () -> popupWindow.showAtLocation(constraintLayout, Gravity.CENTER, 100, 100);
+        handler.postDelayed(r, 1000);
+
+        TextView popupTitleTextView = container.findViewById(R.id.helpTitleTextView);
+        popupTitleTextView.setText(popupTitle);
+
+        TextView popupTextView = container.findViewById(R.id.helpDetailsTextView);
+        popupTextView.setText(popupText);
+
+        Button helpPopupCloseButton = container.findViewById(R.id.helpPopupCloseButton);
+        helpPopupCloseButton.setOnClickListener(v -> popupWindow.dismiss());
     }
 
     //call when this view resumes (after adding new achievements)

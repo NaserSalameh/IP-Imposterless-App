@@ -30,10 +30,12 @@ import com.nasersalameh.imposterphenomenoninterventionapp.R;
 import com.nasersalameh.imposterphenomenoninterventionapp.activities.main.MainActivity;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.CIPsQuestionData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.CIPsResponseData;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.ContentData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.LogData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.UserData;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.CIPsResponse;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelper;
+import com.nasersalameh.imposterphenomenoninterventionapp.models.Content;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Log;
 
 import java.io.File;
@@ -216,6 +218,11 @@ public class SetupActivity extends AppCompatActivity {
     private void transitionToSetupInformation() {
         setContentView(R.layout.activity_setup_information);
 
+        ContentData contentData = new ContentData(dbHelper);
+        Content content = contentData.getContentById("SETUP_CIPS");
+        TextView cipsInfoTextView = findViewById(R.id.cipsIntroTextView);
+        cipsInfoTextView.setText(content.getContent());
+
         progressBar=findViewById(R.id.setupProgressBar);
 
         Button cancelButton = findViewById(R.id.setupInformationCloseButton);
@@ -223,7 +230,7 @@ public class SetupActivity extends AppCompatActivity {
 
         informationButton = findViewById(R.id.setupInformationStartButton);
         informationButton.setOnClickListener(v -> {
-            logData.insertNewLog(new Log("Setup","Transitioned to Setup Information"));
+            logData.insertNewLog(new Log("Setup","Transitioned to Setup CIPs"));
 
             transitionToSetupCIPs();
             progressBar.setProgress(progress+=10);
@@ -433,7 +440,9 @@ public class SetupActivity extends AppCompatActivity {
         //Recycler View:
         planRecyclerView = findViewById(R.id.setupPlanRecyclerView);
         planRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        TailoredPlanCardsAdapter adapter = new TailoredPlanCardsAdapter(this, response.getTailoredPlan());
+
+        View anchor = findViewById(R.id.setupPlanConstraintLayout);
+        TailoredPlanCardsAdapter adapter = new TailoredPlanCardsAdapter(this, response.getTailoredPlan(), anchor);
         planRecyclerView.setAdapter(adapter);
 
         planButton = findViewById(R.id.setupPlanButton);

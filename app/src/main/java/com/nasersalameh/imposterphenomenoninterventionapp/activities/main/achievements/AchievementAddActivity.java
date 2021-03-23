@@ -31,10 +31,12 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.AchievementData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.AchievementsTypeData;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.ContentData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelper;
 import com.nasersalameh.imposterphenomenoninterventionapp.helpers.DateConverter;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Achievement;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.AchievementType;
+import com.nasersalameh.imposterphenomenoninterventionapp.models.Content;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Information;
 
 import java.text.DateFormat;
@@ -63,7 +65,6 @@ public class AchievementAddActivity extends FragmentActivity implements DatePick
     FloatingActionButton achievementTypeFloatingButton;
     FloatingActionButton achievementNameFloatingButton;
     FloatingActionButton achievementDetailsFloatingButton;
-    FloatingActionButton achievementDateFloatingButton;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -108,32 +109,31 @@ public class AchievementAddActivity extends FragmentActivity implements DatePick
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void setUpFloatingButtons() {
+        DatabaseHelper databaseHelper = new DatabaseHelper(this);
+        ContentData contentData = new ContentData(databaseHelper);
+
         achievementTypeFloatingButton = findViewById(R.id.achievementTypeFloatingButton);
         achievementNameFloatingButton = findViewById(R.id.achievementNameFloatingButton);
         achievementDetailsFloatingButton = findViewById(R.id.achievementDetailsFloatingButton);
-        achievementDateFloatingButton = findViewById(R.id.achievementDateFloatingButton);
 
         achievementTypeFloatingButton.setOnClickListener(v -> {
-            String popupTitle = "TITLE";
-            String popupText = "TESTSTSTESTST";
+            Content achievementType = contentData.getContentById("ACHIEVEMENT_GUIDE_TYPE");
+            String popupTitle = achievementType.getName();
+            String popupText = achievementType.getContent();
             createPopup(popupTitle,popupText);
         });
 
         achievementNameFloatingButton.setOnClickListener(v -> {
-            String popupTitle = "TITLE";
-            String popupText = "TESTSTSTESTST";
+            Content achievementName = contentData.getContentById("ACHIEVEMENT_GUIDE_NAME");
+            String popupTitle = achievementName.getName();
+            String popupText = achievementName.getContent();
             createPopup(popupTitle,popupText);
         });
 
         achievementDetailsFloatingButton.setOnClickListener(v -> {
-            String popupTitle = "TITLE";
-            String popupText = "TESTSTSTESTST";
-            createPopup(popupTitle,popupText);
-        });
-
-        achievementDateFloatingButton.setOnClickListener(v -> {
-            String popupTitle = "TITLE";
-            String popupText = "TESTSTSTESTST";
+            Content achievementDetails = contentData.getContentById("ACHIEVEMENT_GUIDE_DETAIL");
+            String popupTitle = achievementDetails.getName();
+            String popupText = achievementDetails.getContent();
             createPopup(popupTitle,popupText);
         });
     }
@@ -155,8 +155,11 @@ public class AchievementAddActivity extends FragmentActivity implements DatePick
         TextView popupTitleTextView = container.findViewById(R.id.helpTitleTextView);
         popupTitleTextView.setText(popupTitle);
 
-        TextView popupTextView = container.findViewById(R.id.helpPopupConstraintLayout);
+        TextView popupTextView = container.findViewById(R.id.helpDetailsTextView);
         popupTextView.setText(popupText);
+
+        Button helpPopupCloseButton = container.findViewById(R.id.helpPopupCloseButton);
+        helpPopupCloseButton.setOnClickListener(v -> popupWindow.dismiss());
     }
 
     private void setUpSpinner() {

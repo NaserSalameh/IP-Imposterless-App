@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupWindow;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
@@ -22,9 +24,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.AbilityData;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.ContentData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelper;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.GoalData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.LogData;
+import com.nasersalameh.imposterphenomenoninterventionapp.models.Content;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Goal;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Log;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Task;
@@ -61,7 +65,7 @@ public class GoalsFragment extends Fragment {
         setUpRecyclerView();
 
         setUpFloatingButton();
-
+        setUpTitleFloatingButton();
         return root;
     }
 
@@ -187,6 +191,41 @@ public class GoalsFragment extends Fragment {
             writeToDb();
             popupWindow.dismiss();
         });
+    }
+
+    private void setUpTitleFloatingButton() {
+        ContentData contentData = new ContentData(databaseHelper);
+        Content content = contentData.getContentById("GOAL_TAB");
+
+        FloatingActionButton tabGuide = root.findViewById(R.id.goalsTitleFloatingButton);
+
+        tabGuide.setOnClickListener(v -> {
+            createPopup(content.getName(),content.getContent());
+        });
+    }
+
+    private void createPopup(String popupTitle, String popupText){
+        //Create and inflate layout
+        ViewGroup container = (ViewGroup) LayoutInflater.from(getContext()).inflate(R.layout.help_popup,null);
+
+        // which view you pass in doesn't matter, it is only used for the window tolken
+        @SuppressLint("WrongViewCast")
+        View constraintLayout = getActivity().findViewById(R.id.goalsConstraintLayout);
+        final PopupWindow popupWindow = new PopupWindow(container, 1000, 1000, true);
+
+        //Handler to thread sleep and slow down process
+        Handler handler=new Handler();
+        Runnable r= () -> popupWindow.showAtLocation(constraintLayout, Gravity.CENTER, 100, 100);
+        handler.postDelayed(r, 1000);
+
+        TextView popupTitleTextView = container.findViewById(R.id.helpTitleTextView);
+        popupTitleTextView.setText(popupTitle);
+
+        TextView popupTextView = container.findViewById(R.id.helpDetailsTextView);
+        popupTextView.setText(popupText);
+
+        Button helpPopupCloseButton = container.findViewById(R.id.helpPopupCloseButton);
+        helpPopupCloseButton.setOnClickListener(v -> popupWindow.dismiss());
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)

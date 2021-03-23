@@ -87,6 +87,7 @@ public class InformationCardActivity extends FragmentActivity {
         //Set On Click Listener to button
         informationActivityButton.setOnClickListener(v -> {
             //set The information's final progress
+            progress = 100;
             information.setProgress(progress);
 
             //Modify Information Entry

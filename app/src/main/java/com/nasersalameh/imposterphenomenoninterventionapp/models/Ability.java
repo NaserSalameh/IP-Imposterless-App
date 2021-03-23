@@ -47,7 +47,7 @@ public class Ability implements Serializable {
     }
 
     public int getLevel() {
-        return (int) Math.sqrt(experience/EXP_MODIFIER);
+        return ((int) Math.sqrt(experience/EXP_MODIFIER) + 1);
     }
 
     public int getLevelExp(int level){

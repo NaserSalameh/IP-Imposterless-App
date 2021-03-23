@@ -24,7 +24,6 @@ import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelpe
 import com.nasersalameh.imposterphenomenoninterventionapp.database.LogData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.UserData;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.CIPsResponse;
-import com.nasersalameh.imposterphenomenoninterventionapp.models.Information;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Log;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.User;
 
@@ -89,7 +88,8 @@ public class ProfileFragment extends Fragment {
         //Recycler View:
         RecyclerView planRecyclerView = root.findViewById(R.id.profileRecycleView);
         planRecyclerView.setLayoutManager(new LinearLayoutManager(currentActivity));
-        TailoredPlanCardsAdapter adapter = new TailoredPlanCardsAdapter(currentActivity, response.getTailoredPlan());
+        View anchor = root.findViewById(R.id.profileConstraintLayout);
+        TailoredPlanCardsAdapter adapter = new TailoredPlanCardsAdapter(currentActivity, response.getTailoredPlan(), anchor);
         planRecyclerView.setAdapter(adapter);
     }
 

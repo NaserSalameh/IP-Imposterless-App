@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Ability;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Achievement;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.AchievementType;
+import com.nasersalameh.imposterphenomenoninterventionapp.models.Content;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Information;
 
 import java.io.File;
@@ -36,7 +37,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private GoalData goalData;
     private ReflectionData reflectionData;
     private LogData logData;
-
+    private ContentData contentData;
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, DB_NAME, null, 1);
@@ -49,6 +50,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         achievementsTypeData = new AchievementsTypeData(this);
         abilityData = new AbilityData(this);
         logData = new LogData(this);
+        contentData = new ContentData(this);
     }
 
     //Will be called the first time the database is created. The method will Create all necessary tables.
@@ -64,6 +66,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         achievementsTypeData.setDB(db);
         abilityData.setDB(db);
         logData.setDB(db);
+        contentData.setDB(db);
 
         //Create Tables
         userData.createUserInformationTable();
@@ -73,6 +76,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         achievementsTypeData.createAchievementsTypeTable();
         abilityData.createAbilityTable();
         logData.createLogTable();
+        contentData.createContentTable();
     }
 
     public void migrateDataFromInstallToUsage(){
@@ -82,10 +86,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         copyCIPsQuestionsFromInstallDatabase(installDatabaseHelper);
         copyAchievementsTypeFromInstallDatabase(installDatabaseHelper);
         copyAbilitiesFromInstallDatabase(installDatabaseHelper);
+        copyContentFromInstallDatabase(installDatabaseHelper);
 
         //Close database after setup
         this.closeDB();
         this.close();
+    }
+
+    private void copyContentFromInstallDatabase(InstallDatabaseHelper installDatabaseHelper) {
+        ContentData installContentData = new ContentData(installDatabaseHelper);
+        ArrayList<Content> contents = installContentData.getContentList();
+        for(Content content : contents)
+            contentData.insertNewContent(content);
     }
 
     private void copyAbilitiesFromInstallDatabase(InstallDatabaseHelper installDatabaseHelper) {

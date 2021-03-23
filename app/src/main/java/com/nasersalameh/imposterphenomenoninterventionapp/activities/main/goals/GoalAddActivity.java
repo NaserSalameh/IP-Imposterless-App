@@ -28,11 +28,13 @@ import com.nasersalameh.imposterphenomenoninterventionapp.R;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.AbilityData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.AchievementData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.AchievementsTypeData;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.ContentData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelper;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.GoalData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.LogData;
 import com.nasersalameh.imposterphenomenoninterventionapp.helpers.DateConverter;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Ability;
+import com.nasersalameh.imposterphenomenoninterventionapp.models.Content;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Goal;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Log;
 
@@ -139,39 +141,46 @@ public class GoalAddActivity extends FragmentActivity implements DatePickerDialo
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void setUpFloatingButtons() {
-        goalTypeFloatingButton = findViewById(R.id.goalNameFloatingButton);
-        goalNameFloatingButton = findViewById(R.id.goalDetailsFloatingButton);
-        goalDetailsFloatingButton = findViewById(R.id.goalTypeFloatingButton);
+        ContentData contentData = new ContentData(databaseHelper);
+
+        goalTypeFloatingButton = findViewById(R.id.goalTypeFloatingButton);
+        goalNameFloatingButton = findViewById(R.id.goalNameFloatingButton);
+        goalDetailsFloatingButton = findViewById(R.id.goalDetailsFloatingButton);
         goalDateFloatingButton = findViewById(R.id.goalDateFloatingButton);
         goalAbilitiesChipFloatingButton = findViewById(R.id.goalAbilitiesFloatingButton);
 
         goalTypeFloatingButton.setOnClickListener(v -> {
-            String popupTitle = "TITLE";
-            String popupText = "TESTSTSTESTST";
+            Content goalType = contentData.getContentById("GOAL_GUIDE_TYPE");
+            String popupTitle = goalType.getName();
+            String popupText = goalType.getContent();
             createPopup(popupTitle,popupText);
         });
 
         goalNameFloatingButton.setOnClickListener(v -> {
-            String popupTitle = "TITLE";
-            String popupText = "TESTSTSTESTST";
+            Content goalName = contentData.getContentById("GOAL_GUIDE_NAME");
+            String popupTitle = goalName.getName();
+            String popupText = goalName.getContent();
             createPopup(popupTitle,popupText);
         });
 
         goalDetailsFloatingButton.setOnClickListener(v -> {
-            String popupTitle = "TITLE";
-            String popupText = "TESTSTSTESTST";
+            Content goalDetails = contentData.getContentById("GOAL_GUIDE_DETAILS");
+            String popupTitle = goalDetails.getName();
+            String popupText = goalDetails.getContent();
             createPopup(popupTitle,popupText);
         });
 
         goalDateFloatingButton.setOnClickListener(v -> {
-            String popupTitle = "TITLE";
-            String popupText = "TESTSTSTESTST";
+            Content goalDeadline = contentData.getContentById("GOAL_GUIDE_DEADLINE");
+            String popupTitle = goalDeadline.getName();
+            String popupText = goalDeadline.getContent();
             createPopup(popupTitle,popupText);
         });
 
         goalAbilitiesChipFloatingButton.setOnClickListener(v -> {
-            String popupTitle = "TITLE";
-            String popupText = "TESTSTSTESTST";
+            Content goalAbility = contentData.getContentById("GOAL_GUIDE_ABILITY");
+            String popupTitle = goalAbility.getName();
+            String popupText = goalAbility.getContent();
             createPopup(popupTitle,popupText);
         });
 
@@ -198,6 +207,9 @@ public class GoalAddActivity extends FragmentActivity implements DatePickerDialo
 
         TextView popupTextView = container.findViewById(R.id.helpDetailsTextView);
         popupTextView.setText(popupText);
+
+        Button helpPopupCloseButton = container.findViewById(R.id.helpPopupCloseButton);
+        helpPopupCloseButton.setOnClickListener(v -> popupWindow.dismiss());
     }
 
     private void setUpSpinner() {

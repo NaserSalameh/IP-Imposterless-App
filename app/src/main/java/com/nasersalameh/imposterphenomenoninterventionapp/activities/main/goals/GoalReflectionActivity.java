@@ -35,6 +35,7 @@ import com.nasersalameh.imposterphenomenoninterventionapp.activities.main.achiev
 import com.nasersalameh.imposterphenomenoninterventionapp.database.AbilityData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.AchievementData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.AchievementsTypeData;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.ContentData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelper;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.GoalData;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.LogData;
@@ -42,6 +43,7 @@ import com.nasersalameh.imposterphenomenoninterventionapp.database.ReflectionDat
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Ability;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Achievement;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.AchievementType;
+import com.nasersalameh.imposterphenomenoninterventionapp.models.Content;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Goal;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Log;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Reflection;
@@ -102,8 +104,10 @@ public class GoalReflectionActivity extends FragmentActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void setUpReflectionInformationLayout() {
+        ContentData contentData = new ContentData(databaseHelper);
 
         TextView informationTextView = findViewById(R.id.reflectionInfoTextView);
+        informationTextView.setText(contentData.getContentById("REFLECTION_ACTIVITY").getContent());
 
         Button closeButton = findViewById(R.id.closeReflectionButton);
         closeButton.setOnClickListener(v -> {
@@ -489,19 +493,14 @@ public class GoalReflectionActivity extends FragmentActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void setUpFloatingButtons() {
+        ContentData contentData = new ContentData(databaseHelper);
 
-        blockerHelper = findViewById(R.id.reflectionsBlockerHelpButton);
         expectationHelper = findViewById(R.id.reflectionsExpectationHelpButton);
 
-        blockerHelper.setOnClickListener(v -> {
-            String popupTitle = "TITLE";
-            String popupText = "TESTSTSTESTST";
-            createPopup(popupTitle,popupText);
-        });
-
         expectationHelper.setOnClickListener(v -> {
-            String popupTitle = "TITLE";
-            String popupText = "TESTSTSTESTST";
+            Content reflectionExpectation = contentData.getContentById("REFLECTION_GUIDE");
+            String popupTitle = reflectionExpectation.getName();
+            String popupText = reflectionExpectation.getContent();
             createPopup(popupTitle,popupText);
         });
     }

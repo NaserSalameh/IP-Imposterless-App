@@ -1,9 +1,16 @@
 package com.nasersalameh.imposterphenomenoninterventionapp.activities.setup;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.os.Handler;
+import android.text.Layout;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,6 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.ContentData;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelper;
+import com.nasersalameh.imposterphenomenoninterventionapp.models.Content;
 
 import java.util.ArrayList;
 
@@ -19,9 +29,17 @@ public class TailoredPlanCardsAdapter extends RecyclerView.Adapter<TailoredPlanC
     private LayoutInflater layoutInflater;
     private ArrayList<String> tailoredPlan;
 
-    public TailoredPlanCardsAdapter(Context context, ArrayList<String> tailoredPlan){
+    private Context context;
+    private Activity mainActivity;
+    private View anchor;
+
+    public TailoredPlanCardsAdapter(Context context, ArrayList<String> tailoredPlan, View anchor){
         this.layoutInflater = LayoutInflater.from(context);
         this.tailoredPlan = tailoredPlan;
+
+        this.context = context;
+        mainActivity = (Activity) context;
+        this.anchor = anchor;
     }
 
     @NonNull
@@ -49,8 +67,49 @@ public class TailoredPlanCardsAdapter extends RecyclerView.Adapter<TailoredPlanC
         viewHolder.behaviourText.setText(behaviour);
         viewHolder.severityText.setText("SEVERITY: " + severity);
 
-        //Add Links
-//        viewHolder.infoButton;
+        setUpFloatingButton(viewHolder.infoButton, behaviour);
+    }
+
+
+    private void setUpFloatingButton(FloatingActionButton infoButton, String behaviour) {
+        DatabaseHelper databaseHelper = new DatabaseHelper(context);
+        ContentData contentData = new ContentData(databaseHelper);
+        Content content = contentData.getContentById("BEHAVIOUR_" + behaviour);
+        System.out.println("BEHAVIOUR_" + behaviour);
+        infoButton.setOnClickListener(v -> {
+            createPopup(content.getName(),content.getContent());
+        });
+    }
+
+    private void createPopup(String popupTitle, String popupText){
+        //Create and inflate layout
+        LayoutInflater layoutInflater = ((Activity)context).getLayoutInflater();
+        ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.help_popup,null);
+
+        // which view you pass in doesn't matter, it is only used for the window tolken
+        @SuppressLint("WrongViewCast")
+        View constraintLayout = anchor.findViewById(R.id.setupPlanConstraintLayout);
+
+        //if view is in profile instead
+        if(constraintLayout == null)
+            constraintLayout = anchor.findViewById(R.id.profileConstraintLayout);
+
+        final PopupWindow popupWindow = new PopupWindow(container, 1000, 1000, true);
+
+        //Handler to thread sleep and slow down process
+        Handler handler=new Handler();
+        View finalConstraintLayout = constraintLayout;
+        Runnable r= () -> popupWindow.showAtLocation(finalConstraintLayout, Gravity.CENTER, 100, 100);
+        handler.postDelayed(r, 1000);
+
+        TextView popupTitleTextView = container.findViewById(R.id.helpTitleTextView);
+        popupTitleTextView.setText(popupTitle);
+
+        TextView popupTextView = container.findViewById(R.id.helpDetailsTextView);
+        popupTextView.setText(popupText);
+
+        Button helpPopupCloseButton = container.findViewById(R.id.helpPopupCloseButton);
+        helpPopupCloseButton.setOnClickListener(v -> popupWindow.dismiss());
     }
 
     @Override
