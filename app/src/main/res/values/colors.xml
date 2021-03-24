@@ -20,7 +20,8 @@
     <color name="std_progress"></color>
     <color name="ability_progress"></color>
 
-    <color name = "chip_color"></color>
+    <color name = "chip_text">#FFFFFF</color>
+    <color name = "chip_color">#FF000000</color>
 
 
 </resources>

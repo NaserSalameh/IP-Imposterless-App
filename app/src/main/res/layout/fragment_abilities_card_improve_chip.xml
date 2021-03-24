@@ -5,6 +5,7 @@
     style="@style/Widget.MaterialComponents.Chip.Choice"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:backgroundTint="@color/chip_color"
     android:checkable="false"
     android:checked="true"
-    android:textColor="@color/std_text" />
+    android:textColor="@color/chip_color" />
