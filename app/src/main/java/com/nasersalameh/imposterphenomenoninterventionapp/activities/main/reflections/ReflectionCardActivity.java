@@ -99,8 +99,8 @@ public class ReflectionCardActivity extends FragmentActivity {
         //Set Name
         titleTextView.setText(reflection.getGoal().getName()+" Reflection");
 
-        deadlineTextView.setText("Scheduled Date: " + DateConverter.getDateFromUnixTime(reflection.getGoal().getDeadlineUnixDate()/1000));
-        completionTextView.setText("Completion Date: " + DateConverter.getDateFromUnixTime(reflection.getGoal().getCompletionUnixDate()/1000));
+        deadlineTextView.setText("Scheduled Date: " + DateConverter.getDateFromUnixTime(reflection.getGoal().getDeadlineUnixDate()));
+        completionTextView.setText("Completion Date: " + DateConverter.getDateFromUnixTime(reflection.getGoal().getCompletionUnixDate()));
 
         String deadlineAdvice = "";
         if(reflection.isDeadlineMet()){
@@ -115,10 +115,19 @@ public class ReflectionCardActivity extends FragmentActivity {
 
 
         achievementTextView.setText("Greatest Achievement: " + reflection.getGreatAchievement());
-        abilityTextView.setText("Best Ability: " + reflection.getBestAbility());
 
-        if(reflection.getBlocker() != null)
+        if(reflection.getBestAbility() != null){
+            abilityTextView.setVisibility(View.VISIBLE);
+            abilityTextView.setText("Best Ability: " + reflection.getBestAbility());
+        }
+        else
+            abilityTextView.setVisibility(View.GONE);
+
+
+        if(reflection.getBlocker() != null){
+            blockerTextView.setVisibility(View.VISIBLE);
             blockerTextView.setText("Blocker Faced: " + reflection.getBestAbility());
+        }
         else
             blockerTextView.setVisibility(View.GONE);
 
@@ -206,7 +215,7 @@ public class ReflectionCardActivity extends FragmentActivity {
         nameTextView.setText(goal.getName());
         typeTextView.setText(goal.getType());
         detailsTextView.setText(goal.getDetails());
-        dateTextView.setText("Deadline: " + DateConverter.getDateFromUnixTime(goal.getDeadlineUnixDate()/1000));
+        dateTextView.setText("Deadline: " + DateConverter.getDateFromUnixTime(goal.getDeadlineUnixDate()));
 
         //Chip group
         ChipGroup abilitiesChipGroup = container.findViewById(R.id.goalsPopupChipGroup);

@@ -28,8 +28,8 @@
     <color name = "card_button">#009688</color>
     <color name = "card_border">#3C4F5D  </color>
 
-    <color name = "chip_text">#FFFFFF</color>
-    <color name = "chip_color">#FF000000</color>
+    <color name = "chip_text">#E8E3CF</color>
+    <color name = "chip_color">#212A2E</color>
 
 
 </resources>

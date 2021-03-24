@@ -53,7 +53,7 @@ public class GoalData {
         String goalDetails = "Explore the application!";
 
         //only get the date
-        Long goalDate = System.currentTimeMillis();
+        Long goalDate = System.currentTimeMillis()/1000;
 
         Goal newGoal = new Goal(goalName, goalDetails, goalType, goalDate);
 

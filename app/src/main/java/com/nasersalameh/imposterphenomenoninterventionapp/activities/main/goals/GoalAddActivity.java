@@ -92,7 +92,7 @@ public class GoalAddActivity extends FragmentActivity implements DatePickerDialo
 
         selectedDateTextView = findViewById(R.id.selectedGoalDateTextView);
         Long currentUnix = System.currentTimeMillis();
-        String currentDate = DateConverter.getDateFromUnixTime(currentUnix/1000);
+        String currentDate = DateConverter.getDateFromUnixTime(currentUnix);
         selectedDateTextView.setText("Selected Date: " + currentDate);
 
         //Set up Floating Buttons

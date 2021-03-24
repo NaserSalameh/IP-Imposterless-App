@@ -57,7 +57,7 @@ public class ReflectionsCardsAdapter extends RecyclerView.Adapter<ReflectionsCar
         this.informationIndex = index;
         viewHolder.reflectionNameTextView.setText(reflectionsList.get(index).getGoal().getName()+" Reflection");
 
-        String completionDate = DateConverter.getDateFromUnixTime(reflectionsList.get(index).getGoal().getCompletionUnixDate()/1000);
+        String completionDate = DateConverter.getDateFromUnixTime(reflectionsList.get(index).getGoal().getCompletionUnixDate());
         viewHolder.reflectionCardDateTextView.setText("Completed: " + completionDate);
 
         //Set on Click Listener to View Card

@@ -60,7 +60,7 @@ public class CIPsCardsAdapter extends RecyclerView.Adapter<CIPsCardsAdapter.View
         //calculate needed scores
         response.calculateScoreValues();
 
-        String responseDate = DateConverter.getDateFromUnixTime(response.getResponseDate()/1000);
+        String responseDate = DateConverter.getDateFromUnixTime(response.getResponseDate());
         viewHolder.completionDateTextView.setText("CIPs Completed On: " + responseDate);
         viewHolder.scoreTextView.setText("Clance IP Score: " + response.getCipsScore()+"/100.");
         viewHolder.resultTextView.setText("Clance IP Result: " + response.getCipsResult());
