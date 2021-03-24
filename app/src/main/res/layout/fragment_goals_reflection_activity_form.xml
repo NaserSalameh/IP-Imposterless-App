@@ -12,7 +12,7 @@
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/dark_blue_background"
+        android:background="@color/std_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +36,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:text="What was the greatest achievement in this goal?"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/std_text"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -49,7 +49,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:text="Type of this Achievement?"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/std_text"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/reflectionAchievementEditText" />
@@ -64,6 +64,7 @@
                     android:ems="10"
                     android:gravity="start|top"
                     android:inputType="textMultiLine"
+                    android:textColor="@color/std_text"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/reflectionAchievementTextView" />
@@ -101,7 +102,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:text="What was the ability exercised the most?"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/std_text"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -125,7 +126,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
                     android:text="Small Improvement"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/std_text"
                     app:layout_constraintEnd_toStartOf="@+id/reflectionAbilityRangeSlider"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/reflectionAbilityRangeSlider" />
@@ -137,7 +138,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="4dp"
                     android:text="Great Improvement"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/std_text"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/rangeSlider4"
                     app:layout_constraintTop_toTopOf="@+id/reflectionAbilityRangeSlider" />
@@ -161,7 +162,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:text="How great has the abilitiy improved?"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/std_text"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/reflectionAbilitySpinner" />
@@ -207,7 +208,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
                         android:text="How well you handled these hardships"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/std_text"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/reflectionBlockerEditText" />
 
@@ -218,7 +219,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="16dp"
                         android:text="Great Difficulty"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/std_text"
                         app:layout_constraintEnd_toStartOf="@+id/reflectionBlockerRangeSlider"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/reflectionBlockerRangeSlider" />
@@ -233,6 +234,7 @@
                         android:ems="10"
                         android:gravity="start|top"
                         android:inputType="textMultiLine"
+                        android:textColor="@color/std_text"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/questionText2" />
@@ -244,7 +246,7 @@
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="8dp"
                         android:text="Great Ease"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/std_text"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/reflectionBlockerRangeSlider"
                         app:layout_constraintTop_toTopOf="@+id/reflectionBlockerRangeSlider" />
@@ -255,7 +257,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:text="What was the greateast Blocker/Challenge"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/std_text"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -277,7 +279,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:text="Where there any blockers?"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/std_text"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -288,7 +290,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:text="Yes"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/std_text"
                     app:layout_constraintStart_toEndOf="@+id/textView27"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -313,7 +315,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:text="You Have Finished the task before the deadline!"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/std_text"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -326,7 +328,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:text="What Helped You Complete The Task Before The Deadline?"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/std_text"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/reflectionDeadlineResultTextView" />
@@ -341,6 +343,7 @@
                     android:ems="10"
                     android:gravity="start|top"
                     android:inputType="textMultiLine"
+                    android:textColor="@color/std_text"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/reflectionDeadlineQuestionTextView" />
@@ -365,7 +368,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:text="How Successful do you consider your accomplishment of this goal?"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/std_text"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -390,7 +393,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
                     android:text="Did Not Align"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/std_text"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/reflectionExpectationRangeSlider" />
 
@@ -401,7 +404,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:text="Exceeded Expectation"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/std_text"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/reflectionExpectationRangeSlider" />
 
@@ -421,7 +424,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="16dp"
                         android:text="Why was this?"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/std_text"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -436,6 +439,7 @@
                         android:ems="10"
                         android:gravity="start|top"
                         android:inputType="textMultiLine"
+                        android:textColor="@color/std_text"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView33" />
@@ -450,7 +454,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:text="Did your work Align with your expected output?"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/std_text"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/reflectionLowSuccessConstraintLayout" />
@@ -475,7 +479,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
                     android:text="Not A Success"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/std_text"
                     app:layout_constraintEnd_toEndOf="@+id/reflectionSuccessRangeSlider"
                     app:layout_constraintEnd_toStartOf="@+id/reflectionSuccessRangeSlider"
                     app:layout_constraintStart_toStartOf="parent"
@@ -488,7 +492,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:text="Great Success"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/std_text"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/reflectionSuccessRangeSlider"
                     app:layout_constraintTop_toTopOf="@+id/reflectionSuccessRangeSlider" />
@@ -521,7 +525,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="16dp"
                         android:text="Why so?"
-                        android:textColor="@android:color/white"
+                        android:textColor="@color/std_text"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -536,6 +540,7 @@
                         android:ems="10"
                         android:gravity="start|top"
                         android:inputType="textMultiLine"
+                        android:textColor="@color/std_text"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView35" />
@@ -563,7 +568,7 @@
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="8dp"
                     android:text="See Gained Achievements!"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/std_text"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/closeReflectionAchievementsButton"
@@ -576,6 +581,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:text="Close"
+                    android:textColor="@color/std_text"
                     app:layout_constraintEnd_toStartOf="@+id/createReflectionAchievementsButton"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/createReflectionAchievementsButton" />

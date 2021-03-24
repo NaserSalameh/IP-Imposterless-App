@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/dark_blue_background">
+    android:background="@color/std_background">
 
     <Button
         android:id="@+id/goalsPopupCloseButton"
@@ -13,6 +13,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/ic_baseline_close_16"
+        android:textColor="@color/std_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,7 +26,7 @@
         android:layout_marginEnd="125dp"
         android:text="TextView"
         android:textAlignment="center"
-        android:textColor="@android:color/white"
+        android:textColor="@color/std_text"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +40,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="64dp"
         android:text="TextView"
-        android:textColor="@android:color/white"
+        android:textColor="@color/std_text"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="TextView"
-        android:textColor="@android:color/white"
+        android:textColor="@color/std_text"
         app:layout_constraintEnd_toEndOf="@+id/goalsPopupNameTextView"
         app:layout_constraintStart_toStartOf="@+id/goalsPopupNameTextView"
         app:layout_constraintTop_toBottomOf="@+id/goalsPopupNameTextView" />
@@ -63,7 +64,7 @@
         android:layout_marginStart="64dp"
         android:layout_marginTop="16dp"
         android:text="Date"
-        android:textColor="@android:color/white"
+        android:textColor="@color/std_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/goalsPopupDetailsTextView" />
 
@@ -74,7 +75,7 @@
         android:layout_marginStart="64dp"
         android:layout_marginTop="16dp"
         android:text="Related Abilities:"
-        android:textColor="@android:color/white"
+        android:textColor="@color/std_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/goalsPopupDateTextView" />
 

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_weight="10">
+    android:layout_weight="10"
+    android:background="@color/std_background">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -13,7 +14,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout11"
@@ -24,9 +25,10 @@
                     android:id="@+id/cipsScoreTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="76dp"
-                    android:layout_marginTop="68dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="64dp"
                     android:text="TextView"
+                    android:textColor="@color/std_text"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,9 +36,10 @@
                     android:id="@+id/cipsResultTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="76dp"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="32dp"
                     android:text="TextView"
+                    android:textColor="@color/std_text"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cipsScoreTextView" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -48,65 +51,26 @@
                 android:background="?android:attr/listDivider" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout10"
+                android:id="@+id/cipsCardExpandableView"
                 android:layout_width="match_parent"
-                android:layout_height="280dp">
-
-                <ProgressBar
-                    android:id="@+id/perfectionismScaleBar"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="54dp"
-                    android:layout_height="146dp"
-                    android:layout_marginStart="72dp"
-                    android:layout_marginTop="32dp"
-                    android:rotation="-90"
-                    android:scaleX="2.5"
-                    android:scaleY="5"
-                    app:layout_constraintStart_toEndOf="@+id/achievementScaleBar"
-                    app:layout_constraintTop_toBottomOf="@+id/textView4" />
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/abilitiesCardLevelTextView">
 
                 <TextView
-                    android:id="@+id/textView12"
-                    android:layout_width="108dp"
-                    android:layout_height="42dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="20dp"
-                    android:text="Perfectionism"
-                    android:textAlignment="center"
-                    app:layout_constraintStart_toEndOf="@+id/textView11"
-                    app:layout_constraintTop_toBottomOf="@+id/perfectionismScaleBar" />
-
-                <ProgressBar
-                    android:id="@+id/achievementScaleBar"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="54dp"
-                    android:layout_height="146dp"
-                    android:layout_marginStart="72dp"
-                    android:layout_marginTop="32dp"
-                    android:rotation="-90"
-                    android:scaleX="2.5"
-                    android:scaleY="5"
-                    app:layout_constraintStart_toEndOf="@+id/abilityScaleBar"
-                    app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-                <TextView
-                    android:id="@+id/textView11"
-                    android:layout_width="108dp"
-                    android:layout_height="42dp"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="8dp"
-                    android:text="Discounting Achievements"
-                    android:textAlignment="center"
-                    app:layout_constraintStart_toEndOf="@+id/textView10"
-                    app:layout_constraintTop_toBottomOf="@+id/achievementScaleBar" />
-
-                <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/textView47"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="75dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
                     android:text="These behaviours have been detected:"
+                    android:textColor="@color/std_text"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -115,54 +79,107 @@
                     style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="54dp"
                     android:layout_height="146dp"
-                    android:layout_marginStart="50dp"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="20dp"
                     android:rotation="-90"
                     android:scaleX="2.5"
                     android:scaleY="5"
+                    app:layout_constraintEnd_toStartOf="@+id/achievementScaleBar"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView4" />
+                    app:layout_constraintTop_toBottomOf="@+id/abilityScoreTextView" />
 
                 <TextView
-                    android:id="@+id/textView10"
+                    android:id="@+id/textView48"
                     android:layout_width="108dp"
                     android:layout_height="42dp"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="16dp"
                     android:text="Underestimating Abilities"
                     android:textAlignment="center"
+                    android:textColor="@color/std_text"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/abilityScaleBar" />
 
+                <ProgressBar
+                    android:id="@+id/achievementScaleBar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="54dp"
+                    android:layout_height="146dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginEnd="20dp"
+                    android:rotation="-90"
+                    android:scaleX="2.5"
+                    android:scaleY="5"
+                    app:layout_constraintEnd_toStartOf="@+id/perfectionismScaleBar"
+                    app:layout_constraintStart_toEndOf="@+id/abilityScoreTextView"
+                    app:layout_constraintTop_toTopOf="@+id/abilityScaleBar" />
+
                 <TextView
-                    android:id="@+id/abilityScoreTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="50dp"
-                    android:layout_marginBottom="4dp"
-                    android:text="TextView"
-                    app:layout_constraintBottom_toTopOf="@+id/abilityScaleBar"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    android:id="@+id/textView45"
+                    android:layout_width="108dp"
+                    android:layout_height="42dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Perfectionism"
+                    android:textAlignment="center"
+                    android:textColor="@color/std_text"
+                    app:layout_constraintStart_toEndOf="@+id/textView46"
+                    app:layout_constraintTop_toTopOf="@+id/textView46" />
 
                 <TextView
                     android:id="@+id/achievementScoreTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="68dp"
-                    android:layout_marginBottom="4dp"
                     android:text="TextView"
-                    app:layout_constraintBottom_toTopOf="@+id/achievementScaleBar"
-                    app:layout_constraintStart_toEndOf="@+id/abilityScoreTextView" />
+                    android:textColor="@color/std_text"
+                    app:layout_constraintStart_toStartOf="@+id/achievementScaleBar"
+                    app:layout_constraintTop_toTopOf="@+id/abilityScoreTextView" />
+
+                <TextView
+                    android:id="@+id/textView46"
+                    android:layout_width="108dp"
+                    android:layout_height="42dp"
+                    android:layout_marginStart="16dp"
+                    android:text="Discounting Achievements"
+                    android:textAlignment="center"
+                    android:textColor="@color/std_text"
+                    app:layout_constraintStart_toEndOf="@+id/textView48"
+                    app:layout_constraintTop_toTopOf="@+id/textView48" />
+
+                <ProgressBar
+                    android:id="@+id/perfectionismScaleBar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="54dp"
+                    android:layout_height="146dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="40dp"
+                    android:rotation="-90"
+                    android:scaleX="2.5"
+                    android:scaleY="5"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/achievementScaleBar"
+                    app:layout_constraintTop_toTopOf="@+id/achievementScaleBar" />
 
                 <TextView
                     android:id="@+id/perfectionismScoreTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="68dp"
-                    android:layout_marginBottom="4dp"
                     android:text="TextView"
-                    app:layout_constraintBottom_toTopOf="@+id/perfectionismScaleBar"
-                    app:layout_constraintStart_toEndOf="@+id/achievementScoreTextView" />
+                    android:textColor="@color/std_text"
+                    app:layout_constraintStart_toStartOf="@+id/perfectionismScaleBar"
+                    app:layout_constraintTop_toTopOf="@+id/achievementScoreTextView" />
+
+                <TextView
+                    android:id="@+id/abilityScoreTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="TextView"
+                    android:textColor="@color/std_text"
+                    app:layout_constraintStart_toStartOf="@+id/abilityScaleBar"
+                    app:layout_constraintTop_toBottomOf="@+id/textView47" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <View
@@ -180,9 +197,14 @@
                     android:id="@+id/setupResultsButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="96dp"
-                    android:layout_marginTop="44dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginBottom="32dp"
                     android:text="@string/setup_results_button"
+                    android:textColor="@color/std_text"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 

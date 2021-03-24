@@ -20,6 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="24dp"
+        android:background="@color/std_background"
         app:layout_constraintStart_toStartOf="@id/informationProgressBar"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -34,6 +35,7 @@
                 android:layout_height="wrap_content"
                 android:text="TextView"
                 android:textAlignment="center"
+                android:textColor="@color/std_text"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -41,7 +43,8 @@
                 android:id="@+id/informationCorpusTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="TextView"
+                android:textColor="@color/std_text" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -56,7 +59,7 @@
                     android:layout_marginEnd="140dp"
                     android:layout_marginBottom="10dp"
                     android:text="Finish"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/std_text"
                     app:iconTint="#4A148C"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

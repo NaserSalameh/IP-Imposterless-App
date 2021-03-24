@@ -19,12 +19,11 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/dark_blue_background"
+        android:background="@color/std_background"
         android:fitsSystemWindows="true"
         android:theme="@style/Theme.ImposterPhenomenonInterventionApp"
         app:headerLayout="@layout/nav_header_main"
-        app:menu="@menu/activity_main_drawer"
         app:itemTextColor="@android:color/white"
-        />
+        app:menu="@menu/activity_main_drawer" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

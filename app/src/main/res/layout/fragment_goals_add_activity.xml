@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/std_background">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -17,7 +17,6 @@
             android:layout_height="match_parent">
 
 
-
             <TextView
                 android:id="@+id/textView5"
                 android:layout_width="313dp"
@@ -27,6 +26,7 @@
                 android:layout_marginEnd="50dp"
                 android:text="Add a new Goal!"
                 android:textAlignment="center"
+                android:textColor="@color/std_text"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -39,6 +39,7 @@
                 android:layout_marginStart="34dp"
                 android:layout_marginTop="16dp"
                 android:text="Goal Name:"
+                android:textColor="@color/std_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
@@ -51,6 +52,7 @@
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:text="Goal Name"
+                android:textColor="@color/std_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
@@ -61,6 +63,7 @@
                 android:layout_marginStart="34dp"
                 android:layout_marginTop="16dp"
                 android:text="Add some details about this Goal:"
+                android:textColor="@color/std_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/goalTypeSpinner" />
 
@@ -73,6 +76,7 @@
                 android:ems="10"
                 android:gravity="start|top"
                 android:inputType="textMultiLine"
+                android:textColor="@color/std_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
@@ -83,6 +87,7 @@
                 android:layout_marginStart="34dp"
                 android:layout_marginTop="16dp"
                 android:text="Goal Type:"
+                android:textColor="@color/std_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/goalNameEditText" />
 
@@ -102,6 +107,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
                 android:text="When is the deadline for this Goal?"
+                android:textColor="@color/std_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/goalsAbilitiesChipGroup" />
 
@@ -125,6 +131,7 @@
                 android:layout_marginStart="34dp"
                 android:layout_marginTop="16dp"
                 android:text="Select Date"
+                android:textColor="@color/std_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView21" />
 
@@ -135,6 +142,7 @@
                 android:layout_marginStart="34dp"
                 android:layout_marginTop="16dp"
                 android:text="Selected Date:"
+                android:textColor="@color/std_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/selectGoalDateButton" />
 
@@ -150,7 +158,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/cancelGoalButton"
-                app:layout_constraintTop_toBottomOf="@+id/selectedGoalDateTextView" />
+                app:layout_constraintTop_toBottomOf="@+id/selectedGoalDateTextView"
+                android:textColor="@color/std_text" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/goalDetailsFloatingButton"
@@ -201,6 +210,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
                 android:text="Related Abilities:"
+                android:textColor="@color/std_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/goalDetailsMultilineText" />
 
@@ -225,6 +235,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
                 android:text="Cancel"
+                android:textColor="@color/std_text"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/saveGoalButton"
                 app:layout_constraintStart_toStartOf="parent"

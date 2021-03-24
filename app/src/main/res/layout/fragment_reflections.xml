@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/reflectionsConstraintLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/std_background">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/reflectionsTitleFloatingButton"
@@ -24,6 +25,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="178dp"
         android:text="Reflections"
+        android:textColor="@color/std_text"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

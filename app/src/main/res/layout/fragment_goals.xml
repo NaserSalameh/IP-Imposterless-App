@@ -5,6 +5,7 @@
     android:id="@+id/goalsConstraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/std_background"
     tools:context=".activities.main.goals.GoalsFragment">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -36,6 +37,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="175dp"
         android:text="Goals"
+        android:textColor="@color/std_text"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -76,6 +78,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="Tasks:"
+        android:textColor="@color/std_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider14" />
 

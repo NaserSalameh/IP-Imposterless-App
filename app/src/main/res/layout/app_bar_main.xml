@@ -15,13 +15,13 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/dark_blue_background"
+            android:background="@color/std_background"
             app:popupTheme="@style/Theme.ImposterPhenomenonInterventionApp.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <include
         layout="@layout/content_main"
-        android:background="@color/dark_blue_background" />
+        android:background="@color/std_background" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -5,7 +5,7 @@
     android:id="@+id/reflectionActivityConstraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_blue_background">
+    android:background="@color/std_background">
 
     <TextView
         android:id="@+id/reflectionActivityReflectionName"
@@ -15,7 +15,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:text="Reflection"
-        android:textColor="@android:color/white"
+        android:textColor="@color/std_text"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +51,7 @@
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="64dp"
                 android:text="Tasks"
-                android:textColor="@android:color/white"
+                android:textColor="@color/std_text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/reflectionActivityGoalButton"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -63,7 +63,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
                 android:text="Scheduled Deadline:"
-                android:textColor="@android:color/white"
+                android:textColor="@color/std_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider17" />
 
@@ -74,7 +74,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
                 android:text="Goal Completion:"
-                android:textColor="@android:color/white"
+                android:textColor="@color/std_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/reflectionActivityDeadlineTextView" />
 
@@ -86,7 +86,7 @@
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="32dp"
                 android:text="Goal Details"
-                android:textColor="@android:color/white"
+                android:textColor="@color/std_text"
                 app:layout_constraintEnd_toStartOf="@+id/reflectionActivityTaskButton"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -98,7 +98,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
                 android:text="Meeting Deadline Advice:"
-                android:textColor="@android:color/white"
+                android:textColor="@color/std_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/reflectionActivityGoalCompletionTextView" />
 
@@ -109,7 +109,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
                 android:text="Greatest Achievement:"
-                android:textColor="@android:color/white"
+                android:textColor="@color/std_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider18" />
 
@@ -120,7 +120,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
                 android:text="Best Ability:"
-                android:textColor="@android:color/white"
+                android:textColor="@color/std_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/reflectionActivityGreatestAchievementTextView" />
 
@@ -138,7 +138,7 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="16dp"
                     android:text="Blocker Faced:"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/std_text"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -177,7 +177,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
                 android:text="Success:"
-                android:textColor="@android:color/white"
+                android:textColor="@color/std_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/divider20" />
 
@@ -197,7 +197,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
                 android:text="Reason for Low Success:"
-                android:textColor="@android:color/white"
+                android:textColor="@color/std_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/reflectionActivitySuccessTextView" />
 
@@ -217,7 +217,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
                 android:text="Expectation:"
-                android:textColor="@android:color/white"
+                android:textColor="@color/std_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider21" />
 
@@ -228,7 +228,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
                 android:text="Reason for Low Expectation:"
-                android:textColor="@android:color/white"
+                android:textColor="@color/std_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/reflectionActivityExpectationTextView" />
 
@@ -241,7 +241,7 @@
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="32dp"
                 android:text="Back"
-                android:textColor="@android:color/white"
+                android:textColor="@color/std_text"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
