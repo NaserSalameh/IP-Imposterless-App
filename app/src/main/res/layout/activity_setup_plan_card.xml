@@ -3,34 +3,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/dark_blue_background">
+    android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/dark_blue_background"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/dark_blue_background">
+            android:background="@color/std_background">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/infoFloatingButton"
-                android:layout_width="48dp"
+                android:layout_width="24dp"
                 android:layout_height="48dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="28dp"
                 android:clickable="true"
                 android:src="@drawable/ic_baseline_info_48"
                 app:backgroundTint="@color/help_icons_bg"
-                app:tint="@color/help_icons_fg"
-                app:fabCustomSize="48dp"
+                app:fabCustomSize="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/help_icons_fg" />
 
             <TextView
                 android:id="@+id/behaviourTextView"

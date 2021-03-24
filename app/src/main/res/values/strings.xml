@@ -34,7 +34,7 @@
     <string name="action_deleteDB">Delete DB</string>
     <string name="menu_settings">Settings</string>
     <string name="menu_reflections">Reflections</string>
-    <string name="menu_CIPs">CIPs</string>
+    <string name="menu_CIPs">CIPs Responses</string>
 
 
 </resources>

@@ -21,8 +21,8 @@
             >
 <!--            <solid android:color="@color/dark_blue_background"></solid>-->
             <gradient
-                android:startColor="@color/dark_blue_background"
-                android:endColor="@android:color/darker_gray"
+                android:startColor="@color/help_icons_fg"
+                android:endColor="@color/primary_color"
                 ></gradient>
         </shape>
         </rotate>
