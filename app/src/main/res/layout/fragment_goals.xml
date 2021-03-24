@@ -10,13 +10,17 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/goalsTitleFloatingButton"
-        android:layout_width="28dp"
-        android:layout_height="30dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:clickable="true"
-        android:src="@android:drawable/ic_input_add"
+        app:backgroundTint="@color/help_icons_bg"
+        app:tint="@color/help_icons_fg"
+        android:src="@drawable/ic_baseline_info_24"
+        app:fabCustomSize="24dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView25" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/goalsFloatingActionButton"
@@ -27,6 +31,8 @@
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:backgroundTint="@color/help_icons_bg"
+        app:tint="@color/help_icons_fg"
         app:srcCompat="@android:drawable/ic_input_add" />
 
     <TextView

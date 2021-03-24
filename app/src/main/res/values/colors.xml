@@ -8,6 +8,12 @@
     <color name="black">#FF000000</color>
     <color name="dark_blue_background">#093287</color>
 
+    <color name = "primary_color">#FFFFFF</color>
+    <color name = "secondary_color">#FF03DAC5</color>
+
+    <color name = "help_icons_bg">#FF000000</color>
+    <color name = "help_icons_fg">#FF03DAC5</color>
+
     <color name = "std_text">#FFFFFF</color>
     <color name="std_background">#093287</color>
     <color name = "std_button">#FFBB86FC</color>

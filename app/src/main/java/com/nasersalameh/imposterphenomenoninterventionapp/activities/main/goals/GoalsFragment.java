@@ -167,7 +167,6 @@ public class GoalsFragment extends Fragment {
         View constraintLayout = root.findViewById(R.id.goalsConstraintLayout);
         final PopupWindow popupWindow = new PopupWindow(container, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
         popupWindow.setElevation(30);
-        popupWindow.setElevation(30);
 
         //Handler to thread sleep and slow down process
         Handler handler=new Handler();
@@ -215,6 +214,7 @@ public class GoalsFragment extends Fragment {
         @SuppressLint("WrongViewCast")
         View constraintLayout = getActivity().findViewById(R.id.goalsConstraintLayout);
         final PopupWindow popupWindow = new PopupWindow(container, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        popupWindow.setElevation(30);
 
         //Handler to thread sleep and slow down process
         Handler handler=new Handler();

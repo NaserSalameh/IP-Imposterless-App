@@ -20,14 +20,17 @@
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/infoFloatingButton"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="32dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="28dp"
                 android:clickable="true"
+                android:src="@drawable/ic_baseline_info_48"
+                app:backgroundTint="@color/help_icons_bg"
+                app:tint="@color/help_icons_fg"
+                app:fabCustomSize="48dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@android:drawable/ic_menu_manage" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/behaviourTextView"

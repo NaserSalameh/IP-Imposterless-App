@@ -11,13 +11,14 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:longClickable="true"
+        app:cardBackgroundColor="@color/std_background"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/std_background">
+            android:background="@drawable/border_material_card">
 
             <TextView
                 android:id="@+id/goalCardTasksTextView"
@@ -26,7 +27,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:text="tasks: 0/NA"
-                android:textColor="@color/std_text"
+                android:textColor="@color/card_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/goalCardNameTextView" />
 
@@ -37,7 +38,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:text="Goal:"
-                android:textColor="@color/std_text"
+                android:textColor="@color/card_text"
                 android:textSize="30sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -60,7 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:textColor="@color/std_text"
+                android:textColor="@color/card_text"
                 app:layout_constraintStart_toEndOf="@+id/goalCardTasksTextView"
                 app:layout_constraintTop_toTopOf="@+id/goalCardTasksTextView" />
         </androidx.constraintlayout.widget.ConstraintLayout>
