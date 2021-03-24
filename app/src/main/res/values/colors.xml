@@ -10,9 +10,10 @@
 
     <color name = "std_text">#FFFFFF</color>
     <color name="std_background">#093287</color>
+    <color name = "std_button">#FFBB86FC</color>
 
-    <color name = "popup_text"></color>
-    <color name="popup_background"></color>
+    <color name = "popup_text">#FFFFFF</color>
+    <color name="popup_background">#FFBB86FC</color>
     <color name = "popup_border"></color>
 
     <color name="std_progress"></color>

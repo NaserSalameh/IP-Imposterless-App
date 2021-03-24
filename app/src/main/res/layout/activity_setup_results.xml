@@ -23,7 +23,7 @@
 
                 <TextView
                     android:id="@+id/cipsScoreTextView"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="64dp"
@@ -34,7 +34,7 @@
 
                 <TextView
                     android:id="@+id/cipsResultTextView"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="32dp"
@@ -201,6 +201,7 @@
                     android:layout_marginTop="32dp"
                     android:layout_marginEnd="32dp"
                     android:layout_marginBottom="32dp"
+                    android:backgroundTint="@color/std_button"
                     android:text="@string/setup_results_button"
                     android:textColor="@color/std_text"
                     app:layout_constraintBottom_toBottomOf="parent"

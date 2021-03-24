@@ -146,6 +146,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
                     android:layout_marginBottom="16dp"
+                    android:backgroundTint="@color/std_button"
                     android:text="@string/setup_personal_button"
                     android:textColor="@android:color/white"
                     app:layout_constraintBottom_toTopOf="@+id/setupProgressBar"

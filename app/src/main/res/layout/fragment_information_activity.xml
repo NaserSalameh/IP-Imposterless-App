@@ -35,7 +35,6 @@
                 android:layout_height="wrap_content"
                 android:text="TextView"
                 android:textAlignment="center"
-                android:textColor="@color/std_text"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -43,8 +42,9 @@
                 android:id="@+id/informationCorpusTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView"
-                android:textColor="@color/std_text" />
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
+                android:text="TextView" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -58,9 +58,9 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="140dp"
                     android:layout_marginBottom="10dp"
+                    android:backgroundTint="@color/std_button"
                     android:text="Finish"
-                    android:textColor="@color/std_text"
-                    app:iconTint="#4A148C"
+                    android:textColor="@android:color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

@@ -31,6 +31,8 @@
                 android:id="@+id/textView36"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingLeft="32dp"
+                android:paddingRight="32dp"
                 android:text="Achievements Gained:"
                 android:textColor="@color/std_text" />
 
@@ -49,6 +51,8 @@
                 android:id="@+id/reflectionsAchievementScoreTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingLeft="32dp"
+                android:paddingRight="32dp"
                 android:text="Total Achievement Score:"
                 android:textColor="@color/std_text" />
 
@@ -68,6 +72,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_marginTop="56dp"
+                    android:backgroundTint="@color/std_button"
                     android:text="Save Reflection!"
                     android:textColor="@color/std_text"
                     app:layout_constraintEnd_toEndOf="parent"

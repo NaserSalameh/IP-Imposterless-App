@@ -79,6 +79,7 @@
         android:layout_marginStart="70dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="70dp"
+        android:backgroundTint="@color/std_button"
         android:text="Close"
         android:textColor="@color/std_text"
         app:layout_constraintEnd_toEndOf="parent"

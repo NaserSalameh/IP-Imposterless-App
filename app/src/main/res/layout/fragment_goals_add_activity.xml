@@ -130,6 +130,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="34dp"
                 android:layout_marginTop="16dp"
+                android:backgroundTint="@color/std_button"
                 android:text="Select Date"
                 android:textColor="@color/std_text"
                 app:layout_constraintStart_toStartOf="parent"
@@ -154,12 +155,13 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="16dp"
+                android:backgroundTint="@color/std_button"
                 android:text="Save Goal"
+                android:textColor="@color/std_text"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/cancelGoalButton"
-                app:layout_constraintTop_toBottomOf="@+id/selectedGoalDateTextView"
-                android:textColor="@color/std_text" />
+                app:layout_constraintTop_toBottomOf="@+id/selectedGoalDateTextView" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/goalDetailsFloatingButton"
@@ -234,6 +236,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
+                android:backgroundTint="@color/std_button"
                 android:text="Cancel"
                 android:textColor="@color/std_text"
                 app:layout_constraintBottom_toBottomOf="parent"

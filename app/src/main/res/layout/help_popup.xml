@@ -5,7 +5,7 @@
     android:id="@+id/helpPopupConstraintLayout"
     android:layout_width="300dp"
     android:layout_height="350dp"
-    android:background="@color/dark_blue_background">
+    android:background="@color/popup_background">
 
     <Button
         android:id="@+id/helpPopupCloseButton"
@@ -21,11 +21,12 @@
         android:id="@+id/helpTitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="125dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="125dp"
+        android:layout_marginEnd="32dp"
         android:text="TextView"
         android:textAlignment="center"
+        android:textColor="@color/popup_text"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,11 +43,15 @@
 
     <TextView
         android:id="@+id/helpDetailsTextView"
-        android:layout_width="match_parent"
-        android:layout_height="284dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:text="TextView"
         android:textAlignment="center"
+        android:textColor="@color/popup_text"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/divider11" />
 </androidx.constraintlayout.widget.ConstraintLayout>

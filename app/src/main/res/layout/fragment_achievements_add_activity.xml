@@ -122,9 +122,10 @@
         android:layout_marginStart="34dp"
         android:layout_marginTop="16dp"
         android:text="Select Date"
+        android:textColor="@color/std_text"
+        app:iconTint="@color/std_button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView21"
-        android:textColor="@color/std_text" />
+        app:layout_constraintTop_toBottomOf="@+id/textView21" />
 
     <TextView
         android:id="@+id/selectedDateTextView"
@@ -177,6 +178,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
+        android:backgroundTint="@color/std_button"
         android:text="Cancel"
         android:textColor="@color/std_text"
         app:layout_constraintBottom_toBottomOf="parent"
