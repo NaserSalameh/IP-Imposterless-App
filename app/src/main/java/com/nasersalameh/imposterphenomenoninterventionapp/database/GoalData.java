@@ -52,8 +52,8 @@ public class GoalData {
         String goalType = "Medium Goal";
         String goalDetails = "Explore the application!";
 
-        //only get the date
-        Long goalDate = System.currentTimeMillis()/1000;
+        //only get the date/ add due day after installation
+        Long goalDate = (System.currentTimeMillis()+86400000)/1000;
 
         Goal newGoal = new Goal(goalName, goalDetails, goalType, goalDate);
 
@@ -68,7 +68,7 @@ public class GoalData {
         newGoal.setTasks(setupTasks);
 
         for(Ability ability: abilitiesList){
-            if(ability.getName().equals("TEST1") || ability.getName().equals("TEST2"))
+            if(ability.getName().equals("Time Management"))
                 newGoal.addAbility(ability);
         }
 

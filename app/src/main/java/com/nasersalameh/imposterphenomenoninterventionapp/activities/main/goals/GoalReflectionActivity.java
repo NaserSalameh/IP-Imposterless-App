@@ -52,7 +52,7 @@ import java.util.ArrayList;
 
 public class GoalReflectionActivity extends FragmentActivity {
 
-    public static final int EXP_AMOUNT = 100;
+    public static final int EXP_AMOUNT = 50;
     //Goal passed from intent
     Goal goal;
 
@@ -303,7 +303,7 @@ public class GoalReflectionActivity extends FragmentActivity {
         achievements.add(greatestAchievement);
 
         //Ability Boost Achievement
-        if(abilityRangeSlider.getValues().get(0)==5){
+        if(abilityRangeSlider.getValues().get(0)==3){
             Achievement abilityAchievement = new Achievement(
                     goal.getName()+" Goal - Ability Boost Achievement",
                     "Awarded for a large ability improvement during the " + goal.getName() + " Goal!",
