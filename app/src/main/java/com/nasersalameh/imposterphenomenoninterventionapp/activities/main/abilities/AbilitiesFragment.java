@@ -115,11 +115,12 @@ public class AbilitiesFragment extends Fragment {
         // which view you pass in doesn't matter, it is only used for the window tolken
         @SuppressLint("WrongViewCast")
         View constraintLayout = getActivity().findViewById(R.id.abilitiesConstraintLayout);
-        final PopupWindow popupWindow = new PopupWindow(container, 1000, 1000, true);
+        final PopupWindow popupWindow = new PopupWindow(container, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        popupWindow.setElevation(30);
 
         //Handler to thread sleep and slow down process
         Handler handler=new Handler();
-        Runnable r= () -> popupWindow.showAtLocation(constraintLayout, Gravity.CENTER, 100, 100);
+        Runnable r= () -> popupWindow.showAtLocation(constraintLayout, Gravity.CENTER, 0, 0);
         handler.postDelayed(r, 1000);
 
         TextView popupTitleTextView = container.findViewById(R.id.helpTitleTextView);

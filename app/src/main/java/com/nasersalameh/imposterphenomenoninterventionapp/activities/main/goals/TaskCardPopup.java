@@ -72,8 +72,8 @@ public class TaskCardPopup {
         @SuppressLint("WrongViewCast")
         View view = taskRecyclerView.getLayoutManager().findViewByPosition(0);
 
-        final PopupWindow popupWindow = new PopupWindow(container, 1000, 1000, true);
-        //what ever you do here will be done after 3 seconds delay.
+        final PopupWindow popupWindow = new PopupWindow(container, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        popupWindow.setElevation(30);
 
         //Handler to thread sleep and slow down process
         Handler handler=new Handler();

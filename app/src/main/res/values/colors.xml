@@ -15,7 +15,12 @@
     <color name = "popup_text">#FFFFFF</color>
     <color name="popup_background">#FFBB86FC</color>
     <color name = "popup_button">#FF03DAC5</color>
-    <color name = "popup_border"></color>
+    <color name = "popup_border">#FF0000</color>
+
+    <color name = "card_text">#FFFFFF</color>
+    <color name="card_background">#FFBB86FC</color>
+    <color name = "card_button">#FF03DAC5</color>
+    <color name = "card_border">#FF0000</color>
 
     <color name="std_progress"></color>
     <color name="ability_progress"></color>

@@ -180,11 +180,11 @@ public class ReflectionCardActivity extends FragmentActivity {
         // which view you pass in doesn't matter, it is only used for the window tolken
         @SuppressLint("WrongViewCast")
         View constraintLayout = findViewById(R.id.reflectionActivityConstraintLayout);
-        final PopupWindow popupWindow = new PopupWindow(container, 1000, 1000, true);
+        final PopupWindow popupWindow = new PopupWindow(container, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
 
         //Handler to thread sleep and slow down process
         Handler handler=new Handler();
-        Runnable r= () -> popupWindow.showAtLocation(constraintLayout, Gravity.CENTER, 100, 100);
+        Runnable r= () -> popupWindow.showAtLocation(constraintLayout, Gravity.CENTER, 0, 0);
         handler.postDelayed(r, 500);
 
         Button closeButton = container.findViewById(R.id.goalsPopupCloseButton);
@@ -232,12 +232,13 @@ public class ReflectionCardActivity extends FragmentActivity {
         // which view you pass in doesn't matter, it is only used for the window tolken
         @SuppressLint("WrongViewCast")
         View constraintLayout = findViewById(R.id.reflectionActivityConstraintLayout);
-        final PopupWindow popupWindow = new PopupWindow(container, 1000, 1000, true);
+        final PopupWindow popupWindow = new PopupWindow(container, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        popupWindow.setElevation(30);
 
         //Handler to thread sleep and slow down process
         Handler handler=new Handler();
 
-        Runnable r = () -> popupWindow.showAtLocation(constraintLayout, Gravity.CENTER, 100, 100);
+        Runnable r = () -> popupWindow.showAtLocation(constraintLayout, Gravity.CENTER, 0, 0);
 
         handler.postDelayed(r, 500);
 

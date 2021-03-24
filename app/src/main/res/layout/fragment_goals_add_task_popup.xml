@@ -5,7 +5,7 @@
     android:id="@+id/addTaskPopupConstraintLayout"
     android:layout_width="300dp"
     android:layout_height="wrap_content"
-    android:background="@color/popup_background">
+    android:background="@drawable/border_popup">
 
     <TextView
         android:id="@+id/textView28"

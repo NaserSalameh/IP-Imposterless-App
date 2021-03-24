@@ -3,6 +3,8 @@ package com.nasersalameh.imposterphenomenoninterventionapp.activities.main.achie
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
@@ -53,8 +55,8 @@ public class AchievementCardPopup {
         @SuppressLint("WrongViewCast")
         View view = recyclerView.getLayoutManager().findViewByPosition(0);
 
-        final PopupWindow popupWindow = new PopupWindow(container, 1000, 1000, true);
-        //what ever you do here will be done after 3 seconds delay.
+        final PopupWindow popupWindow = new PopupWindow(container, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        popupWindow.setElevation(30);
 
         //Handler to thread sleep and slow down process
         Handler handler=new Handler();
@@ -85,7 +87,7 @@ public class AchievementCardPopup {
 
         TextView achievementDetailsTextView = container.findViewById(R.id.achievementPopupDetailsTextView);
 
-        TextView achievementActivityButton = container.findViewById(R.id.achievementPopupButton);
+        Button achievementActivityButton = container.findViewById(R.id.achievementsPopupCloseButton);
 
         //Set Image
         achievementImageView.setImageDrawable(getAchievementDrawable(achievement.getAchievementType().getAchievementType()));

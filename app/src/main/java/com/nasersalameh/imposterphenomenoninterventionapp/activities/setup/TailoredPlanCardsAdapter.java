@@ -94,12 +94,13 @@ public class TailoredPlanCardsAdapter extends RecyclerView.Adapter<TailoredPlanC
         if(constraintLayout == null)
             constraintLayout = anchor.findViewById(R.id.profileConstraintLayout);
 
-        final PopupWindow popupWindow = new PopupWindow(container, 1000, 1000, true);
+        final PopupWindow popupWindow = new PopupWindow(container, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        popupWindow.setElevation(30);
 
         //Handler to thread sleep and slow down process
         Handler handler=new Handler();
         View finalConstraintLayout = constraintLayout;
-        Runnable r= () -> popupWindow.showAtLocation(finalConstraintLayout, Gravity.CENTER, 100, 100);
+        Runnable r= () -> popupWindow.showAtLocation(finalConstraintLayout, Gravity.CENTER, 0, 0);
         handler.postDelayed(r, 1000);
 
         TextView popupTitleTextView = container.findViewById(R.id.helpTitleTextView);

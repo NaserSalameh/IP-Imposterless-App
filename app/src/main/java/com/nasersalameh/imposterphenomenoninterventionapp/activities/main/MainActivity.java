@@ -80,8 +80,6 @@ public class MainActivity extends AppCompatActivity {
         //Populate Nav Header:
         User user = loadUserData(dbHelper);
         populateNavHeader(user);
-
-        //TODO: Content
     }
 
 
