@@ -145,9 +145,10 @@ public class GoalsFragment extends Fragment {
         //If there are no active goals
         if(goalsAdapter == null || goalsAdapter.getActiveGoal() == null){
             taskChoiceButton.setEnabled(false);
-            taskChoiceButton.setBackgroundTintList(null);
+            taskChoiceButton.setBackgroundTintList(getResources().getColorStateList(R.color.std_text));
+            taskChoiceButton.setTextColor(getResources().getColorStateList(R.color.std_background));
         }
-                    else
+        else
             taskChoiceButton.setEnabled(true);
 
         taskChoiceButton.setOnClickListener(v -> {

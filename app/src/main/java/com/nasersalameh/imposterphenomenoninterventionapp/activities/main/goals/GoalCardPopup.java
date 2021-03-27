@@ -122,7 +122,11 @@ public class GoalCardPopup {
         //enable reflect button if needed
         if(goal.getTasksProgress() == 100 && goal.getReflection() == null){
             reflectButton.setEnabled(true);
-            reflectButton.setBackgroundTintList(null);
+        }
+        else{
+            reflectButton.setEnabled(false);
+            reflectButton.setBackgroundTintList(context.getResources().getColorStateList(R.color.std_text));
+            reflectButton.setTextColor(context.getResources().getColorStateList(R.color.std_background));
         }
 
         reflectButton.setOnClickListener(v -> {
