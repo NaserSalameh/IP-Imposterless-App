@@ -21,7 +21,13 @@ public class DateConverter {
         return 0l;
     }
 
-    public static String getDateFromUnixTime(Long unix){
+    public static String getDateFromUnixTime(Long unix) {
+        Date date = new Date((long) unix * 1000);
+        return dateFormat.format(date);
+    }
+
+    public static String getDateAndTimeFromUnixTime(Long unix){
+        DateFormat dateFormat = new SimpleDateFormat("dd/M/yyyy HH:mm:ss");;
         Date date = new Date((long)unix*1000);
         return dateFormat.format(date);
     }

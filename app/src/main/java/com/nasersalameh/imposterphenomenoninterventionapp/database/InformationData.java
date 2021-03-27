@@ -29,7 +29,8 @@ public class InformationData {
                 " INFORMATION_NAME TEXT," +
                 " INFORMATION_DETAIL TEXT," +
                 " INFORMATION_CORPUS TEXT," +
-                " INFORMATION_PROGRESS INTEGER)";
+                " INFORMATION_PROGRESS INTEGER," +
+                " INFORMATION_UNLOCKED INTEGER)";
 
         db.execSQL(createTableStatement);
     }
@@ -46,7 +47,13 @@ public class InformationData {
                 cv.put("INFORMATION_CORPUS", information.getInformationCorpus());
                 cv.put("INFORMATION_PROGRESS", information.getProgress());
 
-                long insertResult = db.insert(INFORMATION_TABLE,null,cv);
+                if(information.isUnlocked())
+                    cv.put("INFORMATION_UNLOCKED", 1);
+                else
+                    cv.put("INFORMATION_UNLOCKED",-1);
+
+
+            long insertResult = db.insert(INFORMATION_TABLE,null,cv);
 
                 if(insertResult == -1)
                     return false;
@@ -73,6 +80,10 @@ public class InformationData {
                 //Add Information Name and progress
                 cv.put("INFORMATION_NAME", informationName);
                 cv.put("INFORMATION_PROGRESS", progress);
+
+                //If progress changed then must be unlocked
+                cv.put("INFORMATION_UNLOCKED",1);
+
 
                 long insertResult = db.update(INFORMATION_TABLE,cv, "INFORMATION_NAME = ?", new String[]{informationName});
 
@@ -103,7 +114,8 @@ public class InformationData {
         try {
             if(cursor.moveToFirst())
                 do{
-                    Information information = new Information(cursor.getString(1),cursor.getString(2),cursor.getString(3), cursor.getInt(4));
+                    Information information = new Information(cursor.getString(1),cursor.getString(2),
+                            cursor.getString(3), cursor.getInt(4),(cursor.getInt(5) == 1));
                     informationList.add(information);
 
                 }while (cursor.moveToNext());

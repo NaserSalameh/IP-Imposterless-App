@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.nasersalameh.imposterphenomenoninterventionapp.helpers.DateConverter;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Achievement;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.AchievementType;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Log;
@@ -26,7 +27,8 @@ public class LogData {
         String createTableStatement = "CREATE TABLE " + LOG_TABLE +
                 " (ID INTEGER PRIMARY KEY AUTOINCREMENT," +
                 " TAB TEXT, " +
-                " TAB_ACTION TEXT)";
+                " TAB_ACTION TEXT," +
+                " ACTION_TIME TEXT)";
 
         db.execSQL(createTableStatement);
     }
@@ -40,7 +42,7 @@ public class LogData {
             //Add Information Name and progress
             cv.put("TAB", log.getTab());
             cv.put("TAB_ACTION", log.getAction());
-
+            cv.put("ACTION_TIME", DateConverter.getDateAndTimeFromUnixTime(System.currentTimeMillis()/1000));
             long insertResult = db.insert(LOG_TABLE,null,cv);
 
             if(insertResult == -1)

@@ -101,7 +101,6 @@ public class InformationCardActivity extends FragmentActivity {
         DatabaseHelper databaseHelper = new DatabaseHelper(getApplicationContext());
         InformationData informationData = new InformationData(databaseHelper);
         informationData.updateInformationProgress(information.getInformationName(), information.getProgress());
-
     }
 
     //In case of destruction, send back progress

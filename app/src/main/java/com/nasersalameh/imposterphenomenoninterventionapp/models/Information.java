@@ -12,20 +12,26 @@ public class Information implements Serializable {
     private String informationCorpus;
 
     private Integer progress;
+    private boolean unlocked;
 
-    public Information(String informationName, String informationDetails, String informationCorpus, int progress){
+    public Information(String informationName, String informationDetails, String informationCorpus, int progress, boolean unlocked){
         this.informationName = informationName;
         this.informationDetails = informationDetails;
         this.informationCorpus = informationCorpus;
         this.progress = progress;
+
+        //set to locked
+        this.unlocked = unlocked;
     }
 
     //Constructor for install database overlooking progress
-    public Information(String informationName, String informationDetails, String informationCorpus){
+    public Information(String informationName, String informationDetails, String informationCorpus, boolean unlocked){
         this.informationName = informationName;
         this.informationDetails = informationDetails;
         this.informationCorpus = informationCorpus;
         this.progress = 0;
+
+        this.unlocked = unlocked;
     }
 
 
@@ -47,5 +53,13 @@ public class Information implements Serializable {
 
     public void setProgress(Integer progress) {
         this.progress = progress;
+    }
+
+    public boolean isUnlocked() {
+        return unlocked;
+    }
+
+    public void setUnlocked(boolean locked) {
+        this.unlocked = locked;
     }
 }
