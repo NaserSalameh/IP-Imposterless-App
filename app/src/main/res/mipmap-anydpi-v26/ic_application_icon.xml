@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
-    <background android:drawable="@color/ic_application_icon_background"/>
-    <foreground android:drawable="@drawable/ic_achievement_small_goal"/>
+    <background android:drawable="@color/purple_700"/>
+    <foreground android:drawable="@drawable/ic_application_icon"/>
 </adaptive-icon>
