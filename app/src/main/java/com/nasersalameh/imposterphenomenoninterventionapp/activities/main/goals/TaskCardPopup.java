@@ -70,7 +70,7 @@ public class TaskCardPopup {
 
         // which view you pass in doesn't matter, it is only used for the window tolken
         @SuppressLint("WrongViewCast")
-        View view = taskRecyclerView.getLayoutManager().findViewByPosition(0);
+        View view = (View) taskRecyclerView.getParent();
 
         final PopupWindow popupWindow = new PopupWindow(container, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
         popupWindow.setElevation(30);
