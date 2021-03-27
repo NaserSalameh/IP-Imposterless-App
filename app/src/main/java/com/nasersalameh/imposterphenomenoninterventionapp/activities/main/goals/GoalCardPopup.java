@@ -120,8 +120,10 @@ public class GoalCardPopup {
 
         Button reflectButton = container.findViewById(R.id.goalPopupReflectButton);
         //enable reflect button if needed
-        if(goal.getTasksProgress() == 100 && goal.getReflection() == null)
+        if(goal.getTasksProgress() == 100 && goal.getReflection() == null){
             reflectButton.setEnabled(true);
+            reflectButton.setBackgroundTintList(null);
+        }
 
         reflectButton.setOnClickListener(v -> {
             logData.insertNewLog(new Log("Goal","Reflected on Goal " + goal.getName()));
@@ -145,9 +147,12 @@ public class GoalCardPopup {
         goalsList.remove(goal);
         //Remove goal
         goal = null;
+
         goalRecyclerView.removeViewAt(goalPosition);
 
         popupWindow.dismiss();
+
+        mainActivity.recreate();
     }
 
 }
