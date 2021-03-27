@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -108,11 +109,16 @@ public class GoalAddActivity extends FragmentActivity implements DatePickerDialo
         saveGoalButton = findViewById(R.id.saveGoalButton);
 
         saveGoalButton.setOnClickListener(v -> {
-            logData.insertNewLog(new Log("Goal","Added New Goal."));
-            addGoal();
+            if(goalNameEditText.getText().toString().equals("")){
+                Toast.makeText(this, "Goal Name Can't Be Empty!", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                logData.insertNewLog(new Log("Goal","Added New Goal."));
+                addGoal();
 
-            //End Activity
-            finish();
+                //End Activity
+                finish();
+            }
         });
 
         setUpChipGroup();

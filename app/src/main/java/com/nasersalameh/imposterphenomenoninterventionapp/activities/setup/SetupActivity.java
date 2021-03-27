@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
@@ -23,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.slider.LabelFormatter;
 import com.google.android.material.slider.RangeSlider;
@@ -132,7 +134,7 @@ public class SetupActivity extends AppCompatActivity {
         personalButton = findViewById(R.id.setupPersonalButton);
 
         nameTextBox = findViewById(R.id.nameTextBox);
-        nameTextBox.setText("Name");
+        nameTextBox.setText("");
 
         //Set up image view
         profileImage = findViewById(R.id.profileImage);
@@ -153,12 +155,18 @@ public class SetupActivity extends AppCompatActivity {
         });
 
         personalButton.setOnClickListener(v -> {
-            logData.insertNewLog(new Log("Setup","Saved Personal Information"));
+            if(nameTextBox.getText().toString().equals("")){
+                Toast.makeText(this, "You Forget to Add Your Name!", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                logData.insertNewLog(new Log("Setup","Saved Personal Information"));
 
-            //Save User Name
-            userName = nameTextBox.getText().toString();
-            progressBar.setProgress(progress+=10);
-            transitionToSetupInformation();
+                //Save User Name
+                userName = nameTextBox.getText().toString();
+                progress+=10;
+                progressBar.setProgress(progress);
+                transitionToSetupInformation();
+            }
         });
 
     }
@@ -269,9 +277,19 @@ public class SetupActivity extends AppCompatActivity {
         populateQuestions();
 
         backButton = findViewById(R.id.backCipsButton);
+        backButton.setEnabled(false);
+        backButton.setBackgroundTintList(getResources().getColorStateList(R.color.std_text));
+        backButton.setTextColor(getResources().getColorStateList(R.color.std_background));
+
         backButton.setOnClickListener(v -> {
             logData.insertNewLog(new Log("Setup","Moved CIPs Back."));
-
+            //if first page, disable button
+            if(progress == 36) {
+                backButton.setEnabled(false);
+                backButton.setBackgroundTintList(getResources().getColorStateList(R.color.std_text));
+                backButton.setTextColor(getResources().getColorStateList(R.color.std_background));
+            }
+            collectResponses();
             moveBackCIPsSetup();
         });
 
@@ -280,8 +298,15 @@ public class SetupActivity extends AppCompatActivity {
         cipsButton.setOnClickListener(v -> {
             logData.insertNewLog(new Log("Setup","Moved CIPs Forward."));
 
+            //when moving forward enable back button
+            backButton.setEnabled(true);
+            backButton.setBackgroundTintList(getColorStateList(R.color.std_button));
+            backButton.setTextColor(getColor(R.color.std_text));
+
             //If all responses collected
             if(progress == COMPLETE_PROGRESS) {
+
+
                 collectResponses();
                 saveSetupResults();
                 //Handler to thread sleep and slow down process
@@ -296,9 +321,11 @@ public class SetupActivity extends AppCompatActivity {
             }
             else{
                 //If last page
-                if(progress == COMPLETE_PROGRESS - 16){
+                if(progress == COMPLETE_PROGRESS - 16)
                     cipsButton.setText("Show Results");
-                }
+                else
+                    cipsButton.setText("Proceed");
+
                 collectResponses();
                 moveAheadCIPsSetup();
             }
@@ -349,13 +376,29 @@ public class SetupActivity extends AppCompatActivity {
         //reset to top of scrollView
         scrollView.scrollTo(0,0);
 
-        //reset rangeSliders
-        rangeSlider1.setValues(3f);
-        rangeSlider2.setValues(3f);
-        rangeSlider3.setValues(3f);
-        rangeSlider4.setValues(3f);
-
         progressBar.setProgress(progress+=16);
+        int questionIDStart = ((progress-20)/16)*4;
+
+        //reset rangeSliders
+        if(response.getCIPsResponse(questionIDStart) != null)
+            rangeSlider1.setValues((float) response.getCIPsResponse(questionIDStart));
+        else
+            rangeSlider1.setValues(3f);
+
+        if(response.getCIPsResponse(questionIDStart+1) != null)
+            rangeSlider2.setValues((float) response.getCIPsResponse(questionIDStart+1));
+        else
+            rangeSlider2.setValues(3f);
+
+        if(response.getCIPsResponse(questionIDStart+2) != null)
+            rangeSlider3.setValues((float) response.getCIPsResponse(questionIDStart+2));
+        else
+            rangeSlider3.setValues(3f);
+
+        if(response.getCIPsResponse(questionIDStart+3) != null)
+            rangeSlider4.setValues((float) response.getCIPsResponse(questionIDStart+3));
+        else
+            rangeSlider4.setValues(3f);
 
         populateQuestions();
     }
@@ -363,14 +406,30 @@ public class SetupActivity extends AppCompatActivity {
     private void moveBackCIPsSetup(){
         //reset to top of scrollView
         scrollView.scrollTo(0,0);
+        progressBar.setProgress(progress-=16);
+
+        int questionIDStart = ((progress-20)/16)*4;
 
         //reset rangeSliders
-        rangeSlider1.setValues(3f);
-        rangeSlider2.setValues(3f);
-        rangeSlider3.setValues(3f);
-        rangeSlider4.setValues(3f);
+        if(response.getCIPsResponse(questionIDStart) != null)
+            rangeSlider1.setValues((float) response.getCIPsResponse(questionIDStart));
+        else
+            rangeSlider1.setValues(3f);
 
-        progressBar.setProgress(progress-=16);
+        if(response.getCIPsResponse(questionIDStart+1) != null)
+            rangeSlider2.setValues((float) response.getCIPsResponse(questionIDStart+1));
+        else
+            rangeSlider2.setValues(3f);
+
+        if(response.getCIPsResponse(questionIDStart+2) != null)
+            rangeSlider3.setValues((float) response.getCIPsResponse(questionIDStart+2));
+        else
+            rangeSlider3.setValues(3f);
+
+        if(response.getCIPsResponse(questionIDStart+3) != null)
+            rangeSlider4.setValues((float) response.getCIPsResponse(questionIDStart+3));
+        else
+            rangeSlider4.setValues(3f);
 
         populateQuestions();
     }

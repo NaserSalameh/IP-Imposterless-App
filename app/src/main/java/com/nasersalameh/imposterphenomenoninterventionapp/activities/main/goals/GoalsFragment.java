@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -177,24 +178,30 @@ public class GoalsFragment extends Fragment {
         handler.postDelayed(r, 250);
 
         EditText taskNameText = container.findViewById(R.id.goalsAddTaskPopupNameEditText);
+        taskNameText.setText("");
 
         Button closeButton = container.findViewById(R.id.goalsAddTaskPopupCloseButton);
         closeButton.setOnClickListener(v -> popupWindow.dismiss());
 
         Button addTaskButton = container.findViewById(R.id.goalsAddTaskPopupAddButton);
         addTaskButton.setOnClickListener(v -> {
-            logData.insertNewLog(new Log("Goal","Added New Task"));
+            if(taskNameText.getText().toString().equals("")){
+                Toast.makeText(getContext(), "Task Name Can't Be Empty!", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                logData.insertNewLog(new Log("Goal","Added New Task"));
 
-            Goal activeGoal = goalsAdapter.getActiveGoal();
+                Goal activeGoal = goalsAdapter.getActiveGoal();
 
-            Task newTask = new Task(taskNameText.getText().toString());
+                Task newTask = new Task(taskNameText.getText().toString());
 
-            newTask.setParentGoal(activeGoal);
-            activeGoal.addTask(newTask);
+                newTask.setParentGoal(activeGoal);
+                activeGoal.addTask(newTask);
 
-            goalsAdapter.notifyItemChanged(goalsList.indexOf(activeGoal));
-            writeToDb();
-            popupWindow.dismiss();
+                goalsAdapter.notifyItemChanged(goalsList.indexOf(activeGoal));
+                writeToDb();
+                popupWindow.dismiss();
+            }
         });
     }
 

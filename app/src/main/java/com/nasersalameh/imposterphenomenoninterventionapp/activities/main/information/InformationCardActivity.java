@@ -68,6 +68,7 @@ public class InformationCardActivity extends FragmentActivity {
 
         //Set corpus
         informationCorpusTextView.setText(information.getInformationCorpus());
+        informationCorpusTextView.isTextSelectable();
 
         //Get screen height
         DisplayMetrics displayMetrics = new DisplayMetrics();

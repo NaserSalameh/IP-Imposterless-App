@@ -68,7 +68,7 @@ public class GoalData {
         newGoal.setTasks(setupTasks);
 
         for(Ability ability: abilitiesList){
-            if(ability.getName().equals("Time Management"))
+            if(ability.getName().equals("Time Management") || ability.getName().equals("Concentration"))
                 newGoal.addAbility(ability);
         }
 

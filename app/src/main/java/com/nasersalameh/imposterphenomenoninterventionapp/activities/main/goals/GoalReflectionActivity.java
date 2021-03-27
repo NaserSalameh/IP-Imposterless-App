@@ -524,6 +524,9 @@ public class GoalReflectionActivity extends FragmentActivity {
 
         logData.insertNewLog(new Log("Goal","Clicked Help Button: " + popupTitle));
 
+        Button closeButton = container.findViewById(R.id.helpPopupCloseButton);
+        closeButton.setOnClickListener(v -> popupWindow.dismiss());
+
         TextView popupTitleTextView = container.findViewById(R.id.helpTitleTextView);
         popupTitleTextView.setText(popupTitle);
 

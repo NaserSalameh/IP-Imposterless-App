@@ -101,10 +101,15 @@ public class AchievementAddActivity extends FragmentActivity implements DatePick
         saveAchievementButton = findViewById(R.id.saveAchievementButton);
 
         saveAchievementButton.setOnClickListener(v -> {
-            saveAchievement();
+            if(achievementNameEditText.getText().toString().equals("")){
+                Toast.makeText(this, "Achievement Name Can't Be Empty!", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                saveAchievement();
 
-           //End Activity
-            finish();
+                //End Activity
+                finish();
+            }
         });
     }
 

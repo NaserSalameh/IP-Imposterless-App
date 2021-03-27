@@ -8,4 +8,5 @@
     android:backgroundTint="@color/chip_color"
     android:checkable="false"
     android:checked="true"
+    android:clickable="false"
     android:textColor="@color/chip_text" />

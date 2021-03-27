@@ -162,7 +162,7 @@ public class ReflectionCardActivity extends FragmentActivity {
                 break;
         }
         expectationTextView.setText("Result Matching Personal Expectation: " + expectationText);
-        if(expectationScore==1)
+        if(expectationScore==1 && !reflection.getLowExpectationReason().equals(""))
             lowExpectationReasonTextView.setText("Reason for Expectation Mismatch: " + reflection.getLowExpectationReason());
         else
             lowExpectationReasonTextView.setVisibility(View.GONE);
@@ -255,7 +255,6 @@ public class ReflectionCardActivity extends FragmentActivity {
             //Set up Tasks Recycler View
             RecyclerView tasksRecyclerView = container.findViewById(R.id.reflectionsActivityTaskRecyclerView);
             tasksRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-            System.out.println("REF:" + reflection.getGoal().getTasks().size());
             ReflectionsTasksCardsAdapter adapter = new ReflectionsTasksCardsAdapter(this,reflection.getGoal().getTasks(),this);
             tasksRecyclerView.setAdapter(adapter);
 
