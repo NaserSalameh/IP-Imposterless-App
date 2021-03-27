@@ -123,8 +123,6 @@ public class CIPsResponse {
         return responseDate;
     }
 
-
-
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void calculateScoreValues(){
         calculateCIPsScore();
@@ -170,9 +168,14 @@ public class CIPsResponse {
             cipsResult = possibleCipsResults.get(1);
         else if((cipsScore > 60 && cipsScore <= 80))
             cipsResult = possibleCipsResults.get(2);
-        else if (cipsScore > 80)
+        else if (cipsScore > 80 && cipsScore <= 100)
             cipsResult = possibleCipsResults.get(3);
-
+        else
+            try {
+                throw new Exception("Invalid CIPs Score");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         this.cipsResult = cipsResult;
     }
 

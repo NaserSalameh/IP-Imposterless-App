@@ -65,11 +65,11 @@ public class AchievementCardPopup {
                 popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
             }
         };
-        handler.postDelayed(r, 500);
+        handler.postDelayed(r, 250);
 
         //Handler to thread sleep and slow down process
         r = () -> setUpAchievementActivity(container);
-        handler.postDelayed(r, 500);
+        handler.postDelayed(r, 250);
 
         this.popupWindow = popupWindow;
     }

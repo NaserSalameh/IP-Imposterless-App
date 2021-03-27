@@ -9,7 +9,9 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="55dp"
+        tools:layout_editor_absoluteY="16dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/addGoalConstraintLayout"
@@ -24,7 +26,7 @@
                 android:layout_marginStart="50dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="50dp"
-                android:text="Add a new Goal!"
+                android:text="Add A New Goal!"
                 android:textAlignment="center"
                 android:textColor="@color/std_text"
                 android:textSize="24sp"
@@ -37,7 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="34dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="64dp"
                 android:text="Goal Name:"
                 android:textColor="@color/std_text"
                 app:layout_constraintStart_toStartOf="parent"
@@ -45,14 +47,16 @@
 
             <EditText
                 android:id="@+id/goalNameEditText"
-                android:layout_width="335dp"
-                android:layout_height="55dp"
-                android:layout_marginStart="34dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:text="Goal Name"
                 android:textColor="@color/std_text"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
@@ -61,7 +65,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="34dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
                 android:text="Add some details about this Goal:"
                 android:textColor="@color/std_text"
                 app:layout_constraintStart_toStartOf="parent"
@@ -69,14 +73,16 @@
 
             <EditText
                 android:id="@+id/goalDetailsMultilineText"
-                android:layout_width="326dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="34dp"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
                 android:ems="10"
                 android:gravity="start|top"
                 android:inputType="textMultiLine"
                 android:textColor="@color/std_text"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
@@ -85,7 +91,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="34dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
                 android:text="Goal Type:"
                 android:textColor="@color/std_text"
                 app:layout_constraintStart_toStartOf="parent"
@@ -93,10 +99,12 @@
 
             <Spinner
                 android:id="@+id/goalTypeSpinner"
-                android:layout_width="338dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="34dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView20" />
 
@@ -105,7 +113,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
                 android:text="When is the deadline for this Goal?"
                 android:textColor="@color/std_text"
                 app:layout_constraintStart_toStartOf="parent"
@@ -115,18 +123,20 @@
                 android:id="@+id/goalNameFloatingButton"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                app:backgroundTint="@color/help_icons_bg"
-                app:tint="@color/help_icons_fg"
-                android:src="@drawable/ic_baseline_info_24"
-                app:fabCustomSize="24dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="56dp"
                 android:layout_marginEnd="34dp"
                 android:clickable="true"
                 android:scaleType="centerCrop"
+                android:scaleX="1.5"
+                android:scaleY="1.5"
+                android:src="@drawable/ic_baseline_info_24"
+                app:backgroundTint="@color/help_icons_bg"
+                app:fabCustomSize="24dp"
                 app:fabSize="normal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView5"
-                app:srcCompat="@android:drawable/ic_dialog_info" />
+                app:srcCompat="@android:drawable/ic_dialog_info"
+                app:tint="@color/help_icons_fg" />
 
             <Button
                 android:id="@+id/selectGoalDateButton"
@@ -156,7 +166,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="16dp"
                 android:backgroundTint="@color/std_button"
@@ -171,66 +181,76 @@
                 android:id="@+id/goalDetailsFloatingButton"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                app:backgroundTint="@color/help_icons_bg"
-                app:tint="@color/help_icons_fg"
-                android:src="@drawable/ic_baseline_info_24"
-                app:fabCustomSize="24dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="34dp"
                 android:clickable="true"
+                android:scaleX="1.5"
+                android:scaleY="1.5"
+                android:src="@drawable/ic_baseline_info_24"
+                app:backgroundTint="@color/help_icons_bg"
+                app:fabCustomSize="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/goalTypeSpinner"
-                app:srcCompat="@android:drawable/ic_dialog_info" />
+                app:srcCompat="@android:drawable/ic_dialog_info"
+                app:tint="@color/help_icons_fg" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/goalDateFloatingButton"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                app:backgroundTint="@color/help_icons_bg"
-                app:tint="@color/help_icons_fg"
-                android:src="@drawable/ic_baseline_info_24"
-                app:fabCustomSize="24dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="32dp"
                 android:clickable="true"
+                android:scaleX="1.5"
+                android:scaleY="1.5"
+                android:src="@drawable/ic_baseline_info_24"
+                app:backgroundTint="@color/help_icons_bg"
+                app:fabCustomSize="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView21"
-                app:srcCompat="@android:drawable/ic_dialog_info" />
+                app:layout_constraintTop_toBottomOf="@+id/goalsAbilitiesChipGroup"
+                app:srcCompat="@android:drawable/ic_dialog_info"
+                app:tint="@color/help_icons_fg" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/goalAbilitiesFloatingButton"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                app:backgroundTint="@color/help_icons_bg"
-                app:tint="@color/help_icons_fg"
-                android:src="@drawable/ic_baseline_info_24"
-                app:fabCustomSize="24dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="32dp"
                 android:clickable="true"
+                android:scaleX="1.5"
+                android:scaleY="1.5"
+                android:src="@drawable/ic_baseline_info_24"
+                app:backgroundTint="@color/help_icons_bg"
+                app:fabCustomSize="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView30"
-                app:srcCompat="@android:drawable/ic_dialog_info" />
+                app:layout_constraintTop_toBottomOf="@+id/goalDetailsMultilineText"
+                app:srcCompat="@android:drawable/ic_dialog_info"
+                app:tint="@color/help_icons_fg" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/goalTypeFloatingButton"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                app:backgroundTint="@color/help_icons_bg"
-                app:tint="@color/help_icons_fg"
-                android:src="@drawable/ic_baseline_info_24"
-                app:fabCustomSize="24dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="34dp"
                 android:clickable="true"
+                android:scaleX="1.5"
+                android:scaleY="1.5"
+                android:src="@drawable/ic_baseline_info_24"
+                app:backgroundTint="@color/help_icons_bg"
+                app:fabCustomSize="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/goalNameEditText"
-                app:srcCompat="@android:drawable/ic_dialog_info" />
+                app:srcCompat="@android:drawable/ic_dialog_info"
+                app:tint="@color/help_icons_fg" />
 
             <TextView
                 android:id="@+id/textView30"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
                 android:text="Related Abilities:"
                 android:textColor="@color/std_text"
                 app:layout_constraintStart_toStartOf="parent"

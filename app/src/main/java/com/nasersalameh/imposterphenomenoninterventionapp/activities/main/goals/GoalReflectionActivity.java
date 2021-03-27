@@ -231,13 +231,15 @@ public class GoalReflectionActivity extends FragmentActivity {
         int successScore = (int) Math.floor(successRangeSlider.getValues().get(0));
         reflection.setSuccessScore(successScore);
         if(successScore <= 2){
-            reflection.setLowSuccessReason(lowSuccessEditText.getText().toString());
+            String reason = lowSuccessEditText.getText().toString() + "";
+            reflection.setLowSuccessReason(reason);
         }
 
         int expectationScore = (int) Math.floor(expectationRangeSlider.getValues().get(0));
         reflection.setExpectationScore(expectationScore);
         if(expectationScore == 1){
-            reflection.setLowExpectationReason(lowExpectationEditText.getText().toString());
+            String reason = lowExpectationEditText.getText().toString() + "";
+            reflection.setLowExpectationReason(reason);
         }
 
         AbilityData abilityData = new AbilityData(databaseHelper);
@@ -518,7 +520,7 @@ public class GoalReflectionActivity extends FragmentActivity {
         //Handler to thread sleep and slow down process
         Handler handler=new Handler();
         Runnable r= () -> popupWindow.showAtLocation(constraintLayout, Gravity.CENTER, 0, 0);
-        handler.postDelayed(r, 1000);
+        handler.postDelayed(r, 250);
 
         logData.insertNewLog(new Log("Goal","Clicked Help Button: " + popupTitle));
 

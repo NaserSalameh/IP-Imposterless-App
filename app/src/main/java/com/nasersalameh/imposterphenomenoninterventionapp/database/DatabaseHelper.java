@@ -53,6 +53,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentData = new ContentData(this);
     }
 
+    //Use for test DB
+    public DatabaseHelper(@Nullable Context context, String dbName) {
+        super(context, dbName, null, 1);
+        this.context = context;
+
+        userData = new UserData(this);
+        cipsResponseData = new CIPsResponseData(this);
+        informationData = new InformationData(this);
+        cipsQuestionData = new CIPsQuestionData(this);
+        achievementsTypeData = new AchievementsTypeData(this);
+        abilityData = new AbilityData(this);
+        logData = new LogData(this);
+        contentData = new ContentData(this);
+    }
+
+
     //Will be called the first time the database is created. The method will Create all necessary tables.
     @Override
     public void onCreate(SQLiteDatabase db) {

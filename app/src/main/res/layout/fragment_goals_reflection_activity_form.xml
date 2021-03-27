@@ -35,7 +35,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
-                    android:text="What was the greatest achievement in this goal?"
+                    android:text="What was the greatest achievement gained during this goal?"
                     android:textColor="@color/std_text"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -43,12 +43,12 @@
 
                 <TextView
                     android:id="@+id/reflectionAchievementTypeTextView"
-                    android:layout_width="379dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
-                    android:text="Type of this Achievement?"
+                    android:text="What type of achievement was it?"
                     android:textColor="@color/std_text"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -56,10 +56,10 @@
 
                 <EditText
                     android:id="@+id/reflectionAchievementEditText"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:ems="10"
                     android:gravity="start|top"
@@ -74,8 +74,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/reflectionAchievementTypeTextView" />
@@ -177,12 +179,13 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:paddingBottom="16dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/reflectionBlockerConstraintLayout"
-                    android:layout_width="413dp"
-                    android:layout_height="164dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
@@ -193,10 +196,12 @@
                         android:layout_width="220dp"
                         android:layout_height="42dp"
 
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
                         android:stepSize="1"
                         android:valueFrom="1"
                         android:valueTo="5"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/reflectionRangeEndTextView2"
                         app:layout_constraintStart_toEndOf="@+id/reflectionRangeStartTextView2"
                         app:layout_constraintTop_toBottomOf="@+id/questionText" />
@@ -206,9 +211,11 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
-                        android:text="How well you handled these hardships"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:text="How well you handle this blocker?"
                         android:textColor="@color/std_text"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/reflectionBlockerEditText" />
 
@@ -226,10 +233,10 @@
 
                     <EditText
                         android:id="@+id/reflectionBlockerEditText"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
                         android:ems="10"
                         android:gravity="start|top"
@@ -256,20 +263,14 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        android:text="What was the greateast Blocker/Challenge"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:text="What was the greateast blocker?"
                         android:textColor="@color/std_text"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/reflectionsBlockerHelpButton"
-                        android:layout_width="24dp"
-                        android:layout_height="40dp"
-                        android:layout_marginEnd="24dp"
-                        android:clickable="true"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/questionText2"
-                        app:srcCompat="@android:drawable/ic_dialog_info" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
@@ -289,8 +290,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
                     android:text="Yes"
                     android:textColor="@color/std_text"
+                    app:layout_constraintBottom_toTopOf="@+id/reflectionBlockerConstraintLayout"
                     app:layout_constraintStart_toEndOf="@+id/textView27"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -312,7 +315,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:text="You Have Finished the task before the deadline!"
                     android:textColor="@color/std_text"
@@ -325,9 +328,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
-                    android:text="What Helped You Complete The Task Before The Deadline?"
+                    android:text="What helped you complete the task before the deadline?"
                     android:textColor="@color/std_text"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -335,15 +338,17 @@
 
                 <EditText
                     android:id="@+id/reflectionDeadlineEditText"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
                     android:ems="10"
                     android:gravity="start|top"
                     android:inputType="textMultiLine"
                     android:textColor="@color/std_text"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/reflectionDeadlineQuestionTextView" />
@@ -369,6 +374,7 @@
                     android:layout_marginEnd="16dp"
                     android:text="How Successful do you consider your accomplishment of this goal?"
                     android:textColor="@color/std_text"
+                    app:thumbStrokeColor="@color/popup_button"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -377,11 +383,11 @@
                     android:id="@+id/reflectionSuccessRangeSlider"
                     android:layout_width="220dp"
                     android:layout_height="42dp"
-
+                    app:labelStyle="@style/Widget.App.Tooltip"
                     android:layout_marginTop="16dp"
                     android:stepSize="1"
                     android:valueFrom="1"
-                    android:valueTo="5"
+                    android:valueTo="4"
                     app:layout_constraintEnd_toStartOf="@+id/reflectionRangeEndTextView3"
                     app:layout_constraintStart_toEndOf="@+id/reflectionRangeStartTextView3"
                     app:layout_constraintTop_toBottomOf="@+id/questionText1" />
@@ -451,7 +457,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:text="Did your work Align with your expected output?"
                     android:textColor="@color/std_text"
@@ -463,11 +469,13 @@
                     android:id="@+id/reflectionExpectationRangeSlider"
                     android:layout_width="220dp"
                     android:layout_height="42dp"
-
-                    android:layout_marginTop="8dp"
+                    app:labelStyle="@style/Widget.App.Tooltip"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
                     android:stepSize="1"
                     android:valueFrom="1"
-                    android:valueTo="5"
+                    android:valueTo="4"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/reflectionRangeEndTextView4"
                     app:layout_constraintStart_toEndOf="@+id/reflectionRangeStartTextView3"
                     app:layout_constraintTop_toBottomOf="@+id/textView34" />
@@ -502,16 +510,19 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_marginStart="16dp"
+                    android:layout_marginTop="6dp"
                     android:layout_marginEnd="16dp"
                     android:clickable="true"
-                    app:backgroundTint="@color/help_icons_bg"
-                    app:tint="@color/help_icons_fg"
+                    android:scaleX="1.5"
+                    android:scaleY="1.5"
                     android:src="@drawable/ic_baseline_info_24"
+                    app:backgroundTint="@color/help_icons_bg"
                     app:fabCustomSize="24dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/textView34"
-                    app:layout_constraintTop_toTopOf="@+id/textView34"
-                    app:srcCompat="@android:drawable/ic_dialog_info" />
+                    app:layout_constraintTop_toBottomOf="@+id/reflectionSuccessRangeSlider"
+                    app:srcCompat="@android:drawable/ic_dialog_info"
+                    app:tint="@color/help_icons_fg" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/reflectionLowExpectationConstraintLayout"
@@ -568,9 +579,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="16dp"
                     android:backgroundTint="@color/std_button"
                     android:text="See Gained Achievements!"
                     android:textColor="@color/std_text"

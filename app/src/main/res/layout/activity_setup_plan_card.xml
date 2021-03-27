@@ -23,6 +23,8 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="28dp"
                 android:clickable="true"
+                android:scaleX="1.5"
+                android:scaleY="1.5"
                 android:src="@drawable/ic_baseline_info_48"
                 app:backgroundTint="@color/help_icons_bg"
                 app:fabCustomSize="24dp"

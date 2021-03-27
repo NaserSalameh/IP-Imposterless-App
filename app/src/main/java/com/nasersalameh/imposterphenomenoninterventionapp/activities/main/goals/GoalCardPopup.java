@@ -75,11 +75,11 @@ public class GoalCardPopup {
         //Handler to thread sleep and slow down process
         Handler handler=new Handler();
         Runnable r= () -> popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
-        handler.postDelayed(r, 500);
+        handler.postDelayed(r, 250);
 
         //Handler to thread sleep and slow down process
         r = () -> setUpGoalPopup(container);
-        handler.postDelayed(r, 500);
+        handler.postDelayed(r, 250);
 
         this.popupWindow = popupWindow;
     }

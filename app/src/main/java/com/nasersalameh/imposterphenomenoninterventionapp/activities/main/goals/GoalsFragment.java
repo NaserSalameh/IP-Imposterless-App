@@ -123,7 +123,7 @@ public class GoalsFragment extends Fragment {
         //Handler to thread sleep and slow down process
         Handler handler=new Handler();
         Runnable r= () -> popupWindow.showAtLocation(constraintLayout, Gravity.CENTER, 0, 0);
-        handler.postDelayed(r, 1000);
+        handler.postDelayed(r, 250);
 
         Button closeButton = container.findViewById(R.id.goalsChoicePopupTaskCloseButton);
         closeButton.setOnClickListener(v -> popupWindow.dismiss());
@@ -171,7 +171,7 @@ public class GoalsFragment extends Fragment {
         //Handler to thread sleep and slow down process
         Handler handler=new Handler();
         Runnable r= () -> popupWindow.showAtLocation(constraintLayout, Gravity.CENTER, 0, 0);
-        handler.postDelayed(r, 1000);
+        handler.postDelayed(r, 250);
 
         EditText taskNameText = container.findViewById(R.id.goalsAddTaskPopupNameEditText);
 
@@ -219,7 +219,7 @@ public class GoalsFragment extends Fragment {
         //Handler to thread sleep and slow down process
         Handler handler=new Handler();
         Runnable r= () -> popupWindow.showAtLocation(constraintLayout, Gravity.CENTER, 0, 0);
-        handler.postDelayed(r, 1000);
+        handler.postDelayed(r, 250);
 
         TextView popupTitleTextView = container.findViewById(R.id.helpTitleTextView);
         popupTitleTextView.setText(popupTitle);

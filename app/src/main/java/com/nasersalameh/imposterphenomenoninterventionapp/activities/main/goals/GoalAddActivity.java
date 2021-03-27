@@ -199,7 +199,7 @@ public class GoalAddActivity extends FragmentActivity implements DatePickerDialo
         //Handler to thread sleep and slow down process
         Handler handler=new Handler();
         Runnable r= () -> popupWindow.showAtLocation(constraintLayout, Gravity.CENTER, 0, 0);
-        handler.postDelayed(r, 1000);
+        handler.postDelayed(r, 250);
 
         logData.insertNewLog(new Log("Goal","Clicked Help Button: " + popupTitle));
 

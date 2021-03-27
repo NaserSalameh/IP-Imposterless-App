@@ -26,7 +26,7 @@ public class LogData {
         String createTableStatement = "CREATE TABLE " + LOG_TABLE +
                 " (ID INTEGER PRIMARY KEY AUTOINCREMENT," +
                 " TAB TEXT, " +
-                " ACTION TEXT)";
+                " TAB_ACTION TEXT)";
 
         db.execSQL(createTableStatement);
     }
@@ -39,7 +39,7 @@ public class LogData {
 
             //Add Information Name and progress
             cv.put("TAB", log.getTab());
-            cv.put("ACTION", log.getAction());
+            cv.put("TAB_ACTION", log.getAction());
 
             long insertResult = db.insert(LOG_TABLE,null,cv);
 

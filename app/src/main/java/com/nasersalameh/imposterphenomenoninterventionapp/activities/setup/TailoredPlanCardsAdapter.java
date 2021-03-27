@@ -75,7 +75,6 @@ public class TailoredPlanCardsAdapter extends RecyclerView.Adapter<TailoredPlanC
         DatabaseHelper databaseHelper = new DatabaseHelper(context);
         ContentData contentData = new ContentData(databaseHelper);
         Content content = contentData.getContentById("BEHAVIOUR_" + behaviour);
-        System.out.println("BEHAVIOUR_" + behaviour);
         infoButton.setOnClickListener(v -> {
             createPopup(content.getName(),content.getContent());
         });
@@ -101,7 +100,7 @@ public class TailoredPlanCardsAdapter extends RecyclerView.Adapter<TailoredPlanC
         Handler handler=new Handler();
         View finalConstraintLayout = constraintLayout;
         Runnable r= () -> popupWindow.showAtLocation(finalConstraintLayout, Gravity.CENTER, 0, 0);
-        handler.postDelayed(r, 1000);
+        handler.postDelayed(r, 250);
 
         TextView popupTitleTextView = container.findViewById(R.id.helpTitleTextView);
         popupTitleTextView.setText(popupTitle);

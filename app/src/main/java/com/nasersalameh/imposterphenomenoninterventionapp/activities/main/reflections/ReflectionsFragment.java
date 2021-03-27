@@ -116,7 +116,7 @@ public class ReflectionsFragment extends Fragment {
         //Handler to thread sleep and slow down process
         Handler handler=new Handler();
         Runnable r= () -> popupWindow.showAtLocation(constraintLayout, Gravity.CENTER, 0, 0);
-        handler.postDelayed(r, 1000);
+        handler.postDelayed(r, 250);
 
         TextView popupTitleTextView = container.findViewById(R.id.helpTitleTextView);
         popupTitleTextView.setText(popupTitle);

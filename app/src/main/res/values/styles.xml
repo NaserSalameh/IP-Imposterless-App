@@ -5,4 +5,12 @@
         <item name="android:progressDrawable">@drawable/abilities_progress_circle</item>
     </style>
 
+    <style name="Widget.App.Tooltip" parent="Widget.MaterialComponents.Tooltip">
+        <item name="android:textAppearance">@style/TextAppearance.App.Tooltip</item>
+        <item name="backgroundTint">@color/std_text</item>
+    </style>
+
+    <style name="TextAppearance.App.Tooltip" parent="TextAppearance.MaterialComponents.Tooltip">
+        <item name="android:textColor">@color/std_button</item>
+    </style>
 </resources>

@@ -48,6 +48,7 @@ import java.util.Date;
 
 public class AchievementAddActivity extends FragmentActivity implements DatePickerDialog.OnDateSetListener {
 
+    public static final int DELAY_MILLIS = 250;
     //UI
     Spinner achievementTypeSpinner;
 
@@ -151,7 +152,7 @@ public class AchievementAddActivity extends FragmentActivity implements DatePick
         //Handler to thread sleep and slow down process
         Handler handler=new Handler();
         Runnable r= () -> popupWindow.showAtLocation(constraintLayout, Gravity.CENTER, 0, 0);
-        handler.postDelayed(r, 1000);
+        handler.postDelayed(r, DELAY_MILLIS);
 
         TextView popupTitleTextView = container.findViewById(R.id.helpTitleTextView);
         popupTitleTextView.setText(popupTitle);

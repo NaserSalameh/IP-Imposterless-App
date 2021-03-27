@@ -194,7 +194,7 @@ public class ReflectionCardActivity extends FragmentActivity {
         //Handler to thread sleep and slow down process
         Handler handler=new Handler();
         Runnable r= () -> popupWindow.showAtLocation(constraintLayout, Gravity.CENTER, 0, 0);
-        handler.postDelayed(r, 500);
+        handler.postDelayed(r, 250);
 
         Button closeButton = container.findViewById(R.id.goalsPopupCloseButton);
         closeButton.setOnClickListener(v -> popupWindow.dismiss());
@@ -249,7 +249,7 @@ public class ReflectionCardActivity extends FragmentActivity {
 
         Runnable r = () -> popupWindow.showAtLocation(constraintLayout, Gravity.CENTER, 0, 0);
 
-        handler.postDelayed(r, 500);
+        handler.postDelayed(r, 250);
 
         r = () -> {
             //Set up Tasks Recycler View
@@ -263,7 +263,7 @@ public class ReflectionCardActivity extends FragmentActivity {
             Button closeButton = container.findViewById(R.id.reflectionsActivityTaskPopupCloseButton);
             closeButton.setOnClickListener(v -> popupWindow.dismiss());
         };
-        handler.postDelayed(r, 500);
+        handler.postDelayed(r, 250);
 
     }
 
