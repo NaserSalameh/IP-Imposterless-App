@@ -40,11 +40,6 @@ public class StartupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_startup);
 
-        String pathToDatabases = "/data/data/" + getPackageName() + "/databases/";  // Your application path
-
-        //Copy Database From Assets
-        copyAsset(getAssets(),INSTALL_DB_NAME,pathToDatabases + INSTALL_DB_NAME);
-
         //Create Usage table
         dbHelper = new DatabaseHelper(StartupActivity.this);
 
@@ -73,7 +68,7 @@ public class StartupActivity extends AppCompatActivity {
         if (requestCode == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
             startSetup();
         } else {
-            Toast.makeText(this, "Permission denied to read your External storage", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Permission denied to read your External storage", Toast.LENGTH_SHORT).show();
             requestPermission();
         }
     }
@@ -158,10 +153,15 @@ public class StartupActivity extends AppCompatActivity {
     }
 
     private void startSetup() {
-
         TextView loadingText = findViewById(R.id.setupTextView);
         loadingText.setText("Welcome!\nCreating Database!");
-//Migrate Data from install to usage
+
+        //Migrate Data from install to usage
+        String pathToDatabases = "/data/data/" + getPackageName() + "/databases/";  // Your application path
+
+        //Copy Database From Assets
+        copyAsset(getAssets(),INSTALL_DB_NAME,pathToDatabases + INSTALL_DB_NAME);
+
         dbHelper.migrateDataFromInstallToUsage();
 
         //intent to start setup activity
@@ -171,14 +171,10 @@ public class StartupActivity extends AppCompatActivity {
 
         //Handler to thread sleep and slow down process
         Handler handler=new Handler();
-        Runnable r=new Runnable() {
-            public void run() {
-                //what ever you do here will be done after 3 seconds delay.
-                startActivity(switchToSetup);
+        Runnable r= () -> {
+            //what ever you do here will be done after 3 seconds delay.
+            startActivity(switchToSetup);
 
-                //End startup Activity
-                finish();
-            }
         };
         handler.postDelayed(r, 2000);
     }

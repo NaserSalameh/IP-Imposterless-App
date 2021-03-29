@@ -51,6 +51,7 @@
                 android:paddingBottom="16dp"
                 android:text="TextView"
                 android:textColor="@color/std_text"
+                android:textIsSelectable="true"
                 android:textSize="@dimen/corpus_font_size" />
 
             <androidx.constraintlayout.widget.ConstraintLayout

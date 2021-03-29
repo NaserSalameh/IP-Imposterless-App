@@ -11,6 +11,7 @@ import com.nasersalameh.imposterphenomenoninterventionapp.models.Achievement;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.AchievementType;
 import com.nasersalameh.imposterphenomenoninterventionapp.models.Information;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -62,4 +63,12 @@ public class InstallDatabaseHelper extends SQLiteOpenHelper {
     public void closeDB(){
         db.close();
     }
+
+    public boolean deleteInstallDB(Context context) {
+        String pathToDatabases = "/data/data/" + context.getPackageName() + "/databases/";
+        File file = new File(pathToDatabases+DB_NAME);
+        boolean deleted = file.delete();
+        return deleted;
+    }
+
 }

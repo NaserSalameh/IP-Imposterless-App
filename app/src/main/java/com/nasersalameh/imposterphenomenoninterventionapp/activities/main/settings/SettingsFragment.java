@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.nasersalameh.imposterphenomenoninterventionapp.R;
 import com.nasersalameh.imposterphenomenoninterventionapp.activities.main.profile.ProfileViewModel;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.DatabaseHelper;
+import com.nasersalameh.imposterphenomenoninterventionapp.database.InstallDatabaseHelper;
 import com.nasersalameh.imposterphenomenoninterventionapp.database.LogData;
 
 public class SettingsFragment extends Fragment {
@@ -38,10 +39,14 @@ public class SettingsFragment extends Fragment {
     private void setUpDeleteDB(View root) {
         deleteDB = root.findViewById(R.id.settingsDeleteDBButton);
 
+        InstallDatabaseHelper installDatabaseHelper = new InstallDatabaseHelper(getContext());
         DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
 
+
         deleteDB.setOnClickListener(v -> {
+            installDatabaseHelper.deleteInstallDB(getContext());
             databaseHelper.deleteUsageDB(getContext());
+
             //Close App
             getActivity().finish();
         });
