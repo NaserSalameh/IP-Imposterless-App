@@ -49,6 +49,7 @@ public class SettingsFragment extends Fragment {
 
             //Close App
             getActivity().finish();
+
         });
     }
 

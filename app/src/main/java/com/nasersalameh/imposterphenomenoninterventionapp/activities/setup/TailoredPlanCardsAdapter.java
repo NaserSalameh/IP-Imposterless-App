@@ -65,7 +65,7 @@ public class TailoredPlanCardsAdapter extends RecyclerView.Adapter<TailoredPlanC
         }
 
         viewHolder.behaviourText.setText(behaviour);
-        viewHolder.severityText.setText("SEVERITY: " + severity);
+        viewHolder.severityText.setText("Importance: " + severity);
 
         setUpFloatingButton(viewHolder.infoButton, behaviour);
     }

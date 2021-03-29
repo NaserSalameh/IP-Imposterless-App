@@ -166,6 +166,7 @@ public class StartupActivity extends AppCompatActivity {
 
         //intent to start setup activity
         Intent switchToSetup = new Intent(this, SetupActivity.class);
+        switchToSetup.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         loadingText.setText("Prepping Setup!");
 
@@ -184,6 +185,7 @@ public class StartupActivity extends AppCompatActivity {
 
         //Intent to start application
         Intent startMainActivity = new Intent(this, MainActivity.class);
+        startMainActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(startMainActivity);
 
         //End Startup Activity

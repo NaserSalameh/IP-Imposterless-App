@@ -131,7 +131,6 @@ public class CIPsResponse {
                 calculateAbilityScore();
                 calculateAchievementScore();
                 calculatePerfectionismScore();
-                calculateTailoredPlan();
                 break;
             case "ABILITY":
                 calculateAbilityScore();
@@ -224,6 +223,8 @@ public class CIPsResponse {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void calculateTailoredPlan(){
+        if((abilityScore == 0) || (achievementScore == 0) || (perfectionismScore == 0))
+            calculateScoreValues();
 
         tailoredPlan = new ArrayList<>();
 
@@ -239,7 +240,10 @@ public class CIPsResponse {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public ArrayList<String> getTailoredPlan() {
+        if(tailoredPlan == null)
+            calculateTailoredPlan();
         return tailoredPlan;
     }
 

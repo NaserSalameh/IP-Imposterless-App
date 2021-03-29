@@ -121,9 +121,11 @@
                     android:layout_height="42dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="32dp"
                     android:text="Perfectionism"
                     android:textAlignment="center"
                     android:textColor="@color/std_text"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/textView46"
                     app:layout_constraintTop_toTopOf="@+id/textView46" />
 
@@ -202,7 +204,7 @@
                     android:layout_marginEnd="32dp"
                     android:layout_marginBottom="32dp"
                     android:backgroundTint="@color/std_button"
-                    android:text="show intevention plan"
+                    android:text="show intervention plan"
                     android:textColor="@color/std_text"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
