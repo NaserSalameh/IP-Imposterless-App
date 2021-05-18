@@ -271,11 +271,9 @@ public class GoalReflectionActivity extends FragmentActivity {
         for(AchievementType type: achievementTypes){
             if(type.getAchievementType().equals(goal.getType()))
                 goalAchievement.setAchievementType(type);
-
         }
 
         achievements.add(goalAchievement);
-
 
         //Large Task Achievement
         if(goal.getTasks().size()>6){
@@ -360,7 +358,6 @@ public class GoalReflectionActivity extends FragmentActivity {
             achievements.add(alignedExpectation);
         }
 
-
         //Write Achievements to DB
         AchievementData achievementData = new AchievementData(databaseHelper,achievementTypes);
         for(Achievement achievement:achievements){
@@ -375,12 +372,12 @@ public class GoalReflectionActivity extends FragmentActivity {
 
         //Set Score
         int score = 0;
-        for(Achievement achievement: achievementList){
-            score+=achievement.getAchievementType().getAchievementScore();
-        }
+//        for(Achievement achievement: achievementList){
+//            score+=achievement.getAchievementType().getAchievementScore();
+//        }
 
-        TextView achievementScoreView = findViewById(R.id.reflectionsAchievementScoreTextView);
-        achievementScoreView.setText("Achievement Score Earned: " + score + "!");
+//        TextView achievementScoreView = findViewById(R.id.reflectionsAchievementScoreTextView);
+//        achievementScoreView.setText("Achievement Score Earned: " + score + "!");
 
         RecyclerView reflectionAchievementsRecyclerView = findViewById(R.id.reflectionAchievementsRecyclerView);
         reflectionAchievementsRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));

@@ -47,15 +47,6 @@
 
             </androidx.recyclerview.widget.RecyclerView>
 
-            <TextView
-                android:id="@+id/reflectionsAchievementScoreTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="32dp"
-                android:paddingRight="32dp"
-                android:text="Total Achievement Score:"
-                android:textColor="@color/std_text" />
-
             <View
                 android:id="@+id/divider4"
                 android:layout_width="match_parent"

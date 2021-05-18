@@ -42,7 +42,7 @@
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="32dp"
-                    android:text="Welcome to the Imposter Phenomenon Intervnetion App!"
+                    android:text="Welcome to the Imposter Phenomenon Intervention App!"
                     android:textAlignment="center"
                     android:textColor="@color/std_text"
                     android:textSize="24sp"

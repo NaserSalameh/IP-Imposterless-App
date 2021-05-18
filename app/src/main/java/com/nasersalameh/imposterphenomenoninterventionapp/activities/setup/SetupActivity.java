@@ -112,6 +112,8 @@ public class SetupActivity extends AppCompatActivity {
     //Recycler View
     private RecyclerView planRecyclerView;
 
+    boolean allowBack;
+
     private int progress;
     public static final int COMPLETE_PROGRESS = 84;
     private Button backButton;
@@ -125,6 +127,8 @@ public class SetupActivity extends AppCompatActivity {
 
         dbHelper = new DatabaseHelper(SetupActivity.this);
         logData = new LogData(dbHelper);
+
+        allowBack = false;
 
         response = new CIPsResponse("FULL");
         //Progress Bar progress
@@ -285,6 +289,7 @@ public class SetupActivity extends AppCompatActivity {
             logData.insertNewLog(new Log("Setup","Moved CIPs Back."));
             //if first page, disable button
             if(progress == 36) {
+                allowBack = false;
                 backButton.setEnabled(false);
                 backButton.setBackgroundTintList(getResources().getColorStateList(R.color.std_text));
                 backButton.setTextColor(getResources().getColorStateList(R.color.std_background));
@@ -299,6 +304,7 @@ public class SetupActivity extends AppCompatActivity {
             logData.insertNewLog(new Log("Setup","Moved CIPs Forward."));
 
             //when moving forward enable back button
+            allowBack = true;
             backButton.setEnabled(true);
             backButton.setBackgroundTintList(getColorStateList(R.color.std_button));
             backButton.setTextColor(getColor(R.color.std_text));
@@ -447,6 +453,7 @@ public class SetupActivity extends AppCompatActivity {
         dbHelper.closeDB();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void transitionToSetupResults() {
         setContentView(R.layout.activity_setup_results);
 
@@ -492,6 +499,7 @@ public class SetupActivity extends AppCompatActivity {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void transitionToSetupPlan() {
         setContentView(R.layout.activity_setup_plan);
 
@@ -531,4 +539,16 @@ public class SetupActivity extends AppCompatActivity {
         logData.insertNewLog(new Log("Setup","Resumed Activity"));
         super.onResume();
     }
+
+    @Override
+    public void onBackPressed() {
+        if (allowBack) {
+            collectResponses();
+            moveBackCIPsSetup();
+        }
+        else {
+            Toast.makeText(this, "You can't go back, close the app completely to exit...", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }

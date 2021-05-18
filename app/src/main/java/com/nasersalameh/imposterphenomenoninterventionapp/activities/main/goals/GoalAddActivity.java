@@ -263,13 +263,16 @@ public class GoalAddActivity extends FragmentActivity implements DatePickerDialo
 
         //Get Selected Chips
         ChipGroup chipGroup = findViewById(R.id.goalsAbilitiesChipGroup);
-        List<Integer> checkedChipIds = chipGroup.getCheckedChipIds();
-        for (Integer chipId : checkedChipIds) {
-            Chip chip = chipGroup.findViewById(chipId);
 
-            //will only write the names to table, when it reads the dbHelper will get the persistent ability object
-            Ability newTempAbility = new Ability(chip.getText().toString());
-            newGoal.addAbility(newTempAbility);
+        int chipsCount = chipGroup.getChildCount();
+        for(int i=0;i<chipsCount;i++) {
+            Chip chip = (Chip) chipGroup.getChildAt(i);
+            if (chip.isChecked()){
+                //will only write the names to table, when it reads the dbHelper will get the persistent ability object
+                Ability newTempAbility = new Ability(chip.getText().toString());
+                System.out.println(chip.getText());
+                newGoal.addAbility(newTempAbility);
+            }
         }
 
         //Prep database writers
