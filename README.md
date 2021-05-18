@@ -7,10 +7,9 @@ The application offers a Designed Digital Behavioural Intervention plan to allev
 Full Report attached in the Documentation.
 
 # Imposterless App Demo:
-
-![Alt text](Documentation/Screens/Imposterless.svg?raw=true "Imposterless Icon")
-
-Demo Video: 
+<p align="center">
+<img src="https://imgur.com/8ls9wZt.png" width=25% height=25% align="center">
+</p>
 
 [![Imposterless Demo](https://img.youtube.com/vi/0O-MbNZMmCA/maxresdefault.jpg)](https://youtu.be/0O-MbNZMmCA)
 
