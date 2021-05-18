@@ -12,5 +12,3 @@ Full Report attached in the Documentation.
 </p>
 
 [![Imposterless Demo](https://img.youtube.com/vi/Ai53wiOwRWY/maxresdefault.jpg)](https://youtu.be/0O-MbNZMmCA)
-
-
